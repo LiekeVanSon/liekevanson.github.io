@@ -26,6 +26,19 @@
   		<script id="MathJax-script" async
           	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
  		 </script>
+
+		<!-- unordered list with dash instead of bullet -->
+		<style>
+		ul {
+		list-style-type: none;
+		}
+		ul li:before {
+		content: '\2014';
+		position: absolute;
+		margin-left: -20px;
+		}
+		</style>
+		
 	</head>
 	<body class="is-preload">
 
@@ -70,12 +83,12 @@
 						<h3>First-authored publications</h3>
 						
 						<ol reversed>
+						<li> <b>van Son, L. A. C.</b>; de Mink, S. E.; Chruslinska, M. ; Conroy, C. ; Pakmor, R. ; Hernquist, L., <br>
+							<a href="https://iopscience.iop.org/article/10.3847/1538-4357/acbf51" style="color:MediumSeaGreen;"> “The locations of features in the mass distribution of merging binary black holes are robust against uncertainties in the metallicity-dependent cosmic star formation history.” </a>, ApJ, 948, 105 (2023) </li>
+								
 						<li> <b>van Son, L. A. C.</b>; de Mink, S. E; Renzo, M.; Justham, S.; Zapartas, E.; Breivik, K. ; Callister, T. ; Farr, W. M. ; Conroy, C. <br>
 							<a href="https://iopscience.iop.org/article/10.3847/1538-4357/ac9b0a"style="color:MediumSeaGreen;"> “No peaks without valleys: The stable mass transfer channel for gravitational-wave sources in light of the neutron star-black hole mass gap.” </a>, ApJ, 940, 184, (2022) </li>
-							
-						<li> <b>van Son, L. A. C.</b>; de Mink, S. E.; Chruslinska, M. ; Conroy, C. ; Pakmor, R. ; Hernquist, L., <br>
-							<a href="https://arxiv.org/abs/2209.03385" style="color:MediumSeaGreen;"> “The locations of features in the mass distribution of merging binary black holes are robust against uncertainties in the metallicity-dependent cosmic star formation history.” </a>, arXiv:2209.03385 (submitted to ApJ) </li>
-							
+			
 						<li> <b>van Son, L. A. C.</b>; de Mink, S. E; Callister, T.; Justham, S.; Renzo, M.; Wagg, T.; Broekgaarden, F.; Kummer,F.; Pakmor, R.; Mandel, I.<br>
 							<a href="https://iopscience.iop.org/article/10.3847/1538-4357/ac64a3"style="color:MediumSeaGreen;"> “The redshift evolution of the binary black hole merger rate: a weighty matter ” </a>, ApJ, 931 17,(2022) </li>
 							
@@ -98,13 +111,16 @@
 							  <a href="https://ui.adsabs.harvard.edu/abs/2022MNRAS.tmp.1776B/abstract"style="color:MediumSeaGreen;">“Impact of Massive Binary Star and Cosmic Evolution on Gravitational Wave Observations II: Double Compact Object Mergers” </a>, MNRAS stac1677 (2022) </li>
 							 
 						  <li>- Wagg, Tom ; Broekgaarden, Floor S. ; de Mink, Selma E. ; <b>van Son, Lieke A. C.</b> ; Frankel, Neige ; Justham, Stephen,<br>
-							  <a href="https://arxiv.org/abs/2111.13704" style="color:MediumSeaGreen;">“Gravitational wave sources in our Galactic backyard: Predictions for BHBH, BHNS and NSNS binaries detectable with LISA” </a>, arXiv:2111.13704 (Subm. to ApJ)</li>
+							  <a href="https://iopscience.iop.org/article/10.3847/1538-4357/ac8675" style="color:MediumSeaGreen;">“Gravitational wave sources in our Galactic backyard: Predictions for BHBH, BHNS and NSNS binaries detectable with LISA” </a>, ApJ, 937, 118 (2022) </li>
 							 
 						  <li>- Naidu, Rohan P. (w/ 12 further co-authors including <b>van Son, L. A. C.</b>)<br>
 							  <a href="{https://iopscience.iop.org/article/10.3847/2041-8213/ac5589"style="color:MediumSeaGreen;">“Evidence from Disrupted Halo Dwarfs that r-process Enrichment via Neutron Star Mergers is Delayed by ≥ 500Myrs” </a>, ApJL 926 L36 (2022)</li>
 							 
 						  <li>- COMPAS team et al. (w/ 21 further co-authors including <b>van Son, L. A. C.</b>)<br>
 							  <a href="https://iopscience.iop.org/article/10.3847/1538-4365/ac416c"style="color:MediumSeaGreen;">“Rapid stellar and binary population synthesis with COMPAS” </a> , ApJS 258 34 (2022)</li>
+
+		  			          <li>- COMPAS team et al. (w/ 21 further co-authors including <b>van Son, L. A. C.</b>)<br>
+							  <a href="https://joss.theoj.org/papers/10.21105/joss.03838"style="color:MediumSeaGreen;">“ COMPAS: A rapid binary population synthesis suite ” </a> , Journal of Open Source Software, vol. 7, issue 69, id. 3838 (2022) </li>
 							 
 						  <li>- Law-Smith, J., A., P.; (w/ 12 further co-authors including <b>van Son, L. A. C.</b>)<br>
 							  <a href="https://arxiv.org/abs/2011.06630" style="color:MediumSeaGreen;" >“Successful Common Envelope Ejection and Binary Neutron Star Formation in 3D Hydrodynamics.” </a>, arXiv:2011.06630 (Subm. to ApJ)</li>
@@ -112,16 +128,29 @@
 						  <li>- Renzo, M.; Callister, T.; Chatziioannou, K.; <b>van Son, L. A. C.</b>; Mingarelli, C., M., F.; Cantiello, M.; Ford, K., E., S.; McKernan, B.; and Ashton, G.,<br>
 							  <a href="https://iopscience.iop.org/article/10.3847/1538-4357/ac1110" style="color:MediumSeaGreen;">“Prospects of gravitational-waves detections from common-envelope evolution with LISA” </a> , ApJ, 919 128 (2021)</li>
 							 
-						  <li>– Renzo, M.; Hendriks, D. D.; <b>van Son, L. A. C.</b>; Farmer, R. <br>
-							  <a href="https://iopscience.iop.org/article/10.3847/2515-5172/ac503e" style="color:MediumSeaGreen;">“Pair-instability Mass Loss for Top-down Compact Object Mass Calculations” </a>, Res. Notes AAS, 6 25 (2022)</li>
-							 
+
 						</ol> 
-						
 
 						
+						<!-- miscellaneous -->
+						<h3>Miscellaneous publications</h3>
+						 <ul>
+						  <li>– <b>van Son, L. A. C.</b>; F. S. Broekgaarden; S. Vitale; T. Callister <br>
+							  <a href="https://dcc.cosmicexplorer.org/CE-P2300016" style="color:MediumSeaGreen;">“What we need from XG observatories to unveil the birth, life and death of massive stars -- Part 1: birth” </a>, Cosmic Explorer Science Letter, May 2023</li>
+							 
+						  <li>– <b> F. S. Broekgaarden;van Son, L. A. C.</b>; S. Vitale; T. Callister <br>
+							  <a href="https://dcc.cosmicexplorer.org/CE-P2300015-v1" style="color:MediumSeaGreen;">“What we need from XG observatories to unveil the birth, life and death of massive stars – Part 2: life” </a>, Cosmic Explorer Science Letter, May 2023</li>
+
+						  <li>– <b>van Son, L. A. C.</b>; F. S. Broekgaarden; S. Vitale; T. Callister <br>
+							  <a href="https://dcc.cosmicexplorer.org/CE-P2300016" style="color:MediumSeaGreen;">“What we need from XG observatories to unveil the birth, life and death of massive stars – Part 3: stellar death” </a>, Cosmic Explorer Science Letter, May 2023</li>
+							 
+						  <li>– Renzo, M.; Hendriks, D. D.; <b>van Son, L. A. C.</b>; Farmer, R. <br>
+							  <a href="https://iopscience.iop.org/article/10.3847/2515-5172/ac503e" style="color:MediumSeaGreen;">“Pair-instability Mass Loss for Top-down Compact Object Mass Calculations” </a>, Res. Notes AAS, 6 25 (2022)</li>
+						</ul>  
 						
-						
-						 <!-- <script src="https://bibbase.org/service/mendeley/7b3f4dc1-fa9b-3ee3-9b44-e1033c3fb950?jsonp=1"></script> -->
+
+
+
 						
 
 
