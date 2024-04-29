@@ -125,35 +125,61 @@ In this hackathon: <a href = "https://idia.ac.za/bdh2024-hackathons/">"A first t
 
     <p>
     In this tutorial, we have pre-installed MESA for you on the _flatiron_ cluster. 
-    You will be able to access the cluster through the Binder environment. For this, you need to log in using a <strong>Google account</strong>. 
+	If you would like to install MESA on your own computer or cluster, you can find the installation instructions <a href="https://docs.mesastar.org/en/latest/installation.html">here</a>.
+	</p>
+
+	<p>
+    You will be able to access the cluster through the <em>Binder</em> environment. For this, you need to log in using a <strong>Google account</strong>. 
     This can be any Google account, including a personal one. 
     <br>
     To gain access to the Binder environment, <strong>please send the Gmail address you will use to log in to <ahref="mailto:lvanson@flatironinstitute.org">lvanson_at_flatironinstitute.org </a> </strong> so we can add you to the list of approved users!
     </p>
 
-    <p>
-    Once we've added you to the list of approved users, you can access the Binder environment through the following link:
-        <a href="https://sdsc-binder.flatironinstitute.org/~lvanson/MESAhackathon" style="font-weight: bold; color: rgb(0, 140, 222);">https://sdsc-binder.flatironinstitute.org/~lvanson/MESAhackathon</a>
-    </p>
 
 
     <h3> How to use the Binder environment </h3>
+
+
+    <p>
+		Once we've added you to the list of approved users, you can access the Binder environment through the following link:
+			<a href="https://sdsc-binder.flatironinstitute.org/~lvanson/MESAhackathon" style="font-weight: bold; color: rgb(0, 140, 222);">https://sdsc-binder.flatironinstitute.org/~lvanson/MESAhackathon</a>
+	
+	<br>
+	General instructions on how to use this Binder environment can be found <a href=https://wiki.flatironinstitute.org/Public/UsingFiBinder">on the Flatiron institute wiki</a>. 
+	<!-- General instructions on Binder  can be found <a href="https://mybinder.readthedocs.io/en/latest/howto/index.html">here</a>. -->
+	</p>
 
     <div style="align: left; text-align:center;">
         <img src="images/Binder_screenshot.png" width="80%" /> 
         <div class="caption" style="width: 800"> <strong>placeholder</strong> This is what your binder environment will look like. </div>
     </div>
 
+	
+<br>
+
+
+<h3> Setting up your environment for MESA </h3>
+
+Open a terminal and type the following command to set up the environment for MESA usage:
 
     <pre>
         <code>
-            This is a code block
+# set OMP_NUM_THREADS to be the number of cores available on your machine
+export OMP_NUM_THREADS=16
+
+# Mesa root
+export MESA_DIR='/mnt/home/lvanson/Programs/MESA/mesa-r24.03.1'
+
+# Mesa sdk
+export MESASDK_ROOT='/mnt/home/lvanson/Programs/MESA/mesasdk_23051/mesasdk'
+source $MESASDK_ROOT/bin/mesasdk_init.sh
         </code>
     </pre>
     
-    <p>Here is some <code>inline code</code> in a sentence.</p>
+	Note, normally, you would add these lines to your <code>.bashrc</code> file so that they are automatically executed every time you log in.
+	See also the MESA installation instructions <a href="https://docs.mesastar.org/en/latest/installation.html">here</a>.
 
-
+    
 </section>
 
 
