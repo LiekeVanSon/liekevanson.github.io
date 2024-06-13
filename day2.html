@@ -102,39 +102,137 @@
 <h1> Day 2 of Hackathon: The effects of Rotation on stars  </h1> 
 
 <p>
-This is for the IAU
+Today we are going to have a look at the effects of rotation on stars. 
+We will explore three different cases that will have an effect on the the rotation of the star, and 
 </p>
 	
 
 
 </section>
 
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
 <section>
 
-    this is a new section  $10^{3} \nabla$
+	<h2> Rotating Zero Age Main Sequence</h2>
+
+	<ol>
+		<li> Create a 15M, Z=0.02, ZAMS star and save a model. Again, if you have trouble
+		doing this, you can find some usefule examples in mesa/star/test_suite/. A
+		good starting point is having a look at the test suite massive_prems_to_late.
+		One vital skill is knowing how to tell MESA when to stop via inlist parameters
+		(hint: grep “when to stop”). This has the advantage of letting you save a model
+		of particular physical interest without knowing a priori what model number it will
+		be. </li>
 
 
-    <div style="align: left; text-align:center;">
+		<li>Make the star rotating with a (typical) initial rotation of 200 km/s. 
+			To do this set the following in the &star_job section of your inlist:
+		</li>
+
+<pre>
+<code>
+	&star_job 
+
+	(...)
+
+	change_rotation_flag = .true.
+	new_rotation_flag = .true.
+	set_surf_rotation_v_step_limit = 10
+	new_surface_rotation_v = 200.0 ! km/sec
+
+</code>
+</pre>
+
+Q: What is MESA doing when we set a value for new_surface_rotation_v?
+(hint grep “new_surface_rotation_v” in the MESA source code)
+
+
+     $10^{3} \nabla$
+
+
+    <!-- <div style="align: left; text-align:center;">
         <img src="images/binariesToBBH.png" width="50%" /> 
         <div class="caption" style="width: 800"> Example image Credit: <a href="https://ui.adsabs.harvard.edu/abs/2023Galax..11...56A/abstract" target="_blank" >Anders & Pedersen (2023)</a>. </div>
-    </div>
-    <br>
+    </div> -->
+    
 
-
-    <pre>
-        <code>
-            This is a code block
-        </code>
-    </pre>
     
     <p>Here is some <code>inline code</code> in a sentence.</p>
-
 
 </section>
 
 
-												
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+<section>
+	<h2> Stellar winds </h2>
+
+
+
+
+</section>
+			
+
+
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+<section>
+
+	<h2> Angular momentum transport </h2>
+
+	It is now interesting to look at the evolution of total angular momentum as function of
+	time. Then, you might want to plot together the j-profiles calculated for the different
+	phases, to look at how the internal angular momentum content has evolved with time.
+	You want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>
+	<br><br>
+
+	<h3> Evolution without the Tayler-Spruit dynamo </h3>
+
+	The jury is still out regarding the Tayler-Spruit dynamo mechanism, so you might want 
+	to check what differences it makes including it or not in your calculations. 
+
+	The control parameters you want to add/modify in your inlist are:
+
+<pre>
+	<code>
+	! set to 0 for non-magnetic
+	D_ST_factor = 1.0
+	nu_ST_factor = 1.0
+	</code>
+</pre>
+
+	where the first parameter multiplies the diffusion coefficient for angular momentum transport
+	resulting from Tayler-Spruit dynamo (internal magnetic torque), while the second multiplies the diffusion coefficient for chemicals (magnetic mixing). 
+	<br><br>	
+
+	<h4>Q: Is there any difference between the MS timescale for the models with and without Tayler-
+	Spruit B? Why? </h4>
+	
+	
+	Plot your angular momentum profiles at different evolutionary stages. 
+	Again, you want to compare your results with Fig. 2 in Heger et al. (2005).
+
+
+	
+</section>
+
+
+
            
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+
 				<!-- Copyright -->
 					<div id="copyright">
 						<ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
