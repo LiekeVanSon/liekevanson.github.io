@@ -103,8 +103,34 @@
 
 <p>
 Today we are going to have a look at the effects of rotation on stars. 
-We will explore three different cases that will have an effect on the the rotation of the star, and 
+We will explore three different cases that will have an effect on the the rotation of the star.
 </p>
+
+<p>
+We will start from the test suite <code>15M_Dynamo</code> in the <code>/mesa/star/test_suite/</code>  dir. 
+Note how MESA has a lot of test suites available that can be very useful to start from when setting up a new model.
+
+For each test_suite, you can find documentation at <a href="https://docs.mesastar.org/en/latest/test_suite/">https://docs.mesastar.org/en/latest/test_suite/</a>.
+
+Similar to day one, we will start by copying the test suite to our home directory.
+
+<pre>
+	<code>
+	cp -r $MESA_DIR/star/test_suite/15M_dynamo/ ~/home/ 
+	</code>
+</pre>
+
+and now <code>./mk</code> and <code>./rn</code> MESA from the new folder in your home directory.
+
+
+<ol>
+	<li> copy the  </li>
+	<li> Stellar winds </li>
+	<li> Angular momentum transport </li>
+</ol>
+
+
+</p>	
 	
 
 
@@ -147,11 +173,11 @@ We will explore three different cases that will have an effect on the the rotati
 </code>
 </pre>
 
-Q: What is MESA doing when we set a value for new_surface_rotation_v?
+<h4>Q: What is MESA doing when we set a value for new_surface_rotation_v?</h4>
 (hint grep “new_surface_rotation_v” in the MESA source code)
 
 
-     $10^{3} \nabla$
+<p>Here is some <code>inline code</code> in a sentence.</p>
 
 
     <!-- <div style="align: left; text-align:center;">
@@ -161,7 +187,6 @@ Q: What is MESA doing when we set a value for new_surface_rotation_v?
     
 
     
-    <p>Here is some <code>inline code</code> in a sentence.</p>
 
 </section>
 
@@ -219,7 +244,7 @@ Q: What is MESA doing when we set a value for new_surface_rotation_v?
 	
 	
 	Plot your angular momentum profiles at different evolutionary stages. 
-	Again, you want to compare your results with Fig. 2 in Heger et al. (2005).
+	Again, you want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>.
 
 
 	
@@ -227,7 +252,29 @@ Q: What is MESA doing when we set a value for new_surface_rotation_v?
 
 
 
-           
+
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+<section>
+
+	<h2> Exercises </h2>
+
+	<ol>
+		<li> Is the N-enrichment compatible with
+		results from other codes? And with massive stars observations? 
+		Take a look at <a href="https://ui.adsabs.harvard.edu/abs/2000ApJ...528..368H/abstract">Heger et al. 2000</a> (e.g. Fig. 5) 
+		and Fig. 6 from <a href="https://ui.adsabs.harvard.edu/abs/2012MNRAS.419..748P/abstract">Potter et al. 2012</a>   to draw your conclusions.
+		</li>
+
+
+		<li> What is the effect of the Tayler-Spruit dynamo on the angular momentum profile of the star?
+		</li>
+				   
+
+	</ol>
+
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 
