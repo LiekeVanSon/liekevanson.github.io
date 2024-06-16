@@ -21,15 +21,15 @@
 		<title> Lieke van Son </title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
 		  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   		<script id="MathJax-script" async
           	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
  		 </script>
 
         <!-- Link to your left-menu.css file -->
-        <link rel="stylesheet" href="assets/css/left-menu.css" />
+        <link rel="stylesheet" href="../assets/css/left-menu.css" />
 
         <!-- Adding latex support -->
           <script>
@@ -57,9 +57,9 @@
         <!-- Hidden left menu -->
         <div id="left-menu">
             <ul>
-                <li><a href="IAU_hackathon2024.html">Getting started</a></li>
-                <li><a href="day1.html">Day 1</a></li>
-                <li><a href="day2.html">Day 2</a></li>
+                <li><a href="../home.html">Getting started</a></li>
+                <li><a href="../day1.html">Day 1</a></li>
+                <li><a href="../day2.html">Day 2</a></li>
             </ul>
         </div>
 
@@ -69,7 +69,7 @@
 
 				<!-- Header -->
 					<header id="header">
-						<a href="IAU_hackathon2024.html" class="logo"> A first taste of MESA </a>
+						<a href="home.html" class="logo"> A first taste of MESA </a>
 					</header>
 
                 <!-- Top navigation -->
@@ -80,7 +80,7 @@
 							<li><a href="research.html">my research</a></li>
 							<li><a href="talks.html">Talks</a></li>
 							<li><a href="outreach.html">Outreach</a></li>
-							<li class="active"><a href="IAU_hackathon2024.html">Teaching</a></li>
+							<li class="active"><a href="../home.html">Teaching</a></li>
 							<li><a href="CV.html">CV</a></li>
 							<li><a href="contact.html">Contact</a></li>
 						</ul>
@@ -115,12 +115,6 @@
 	
 
 	
-	</section>
-
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-
-
-<section>
 
 <h2>'Using MESA' tutorial on the MESA website</h2>
 
@@ -130,6 +124,15 @@
   Note that the following text is copied from the MESA website!
 </p>
 	
+</section>
+  
+
+
+<section>
+
+<h2>Running MESA</h2>
+
+
   <p>This page has information about how to use MESA to evolve a single star.  
 	It assumes you have already installed MESA (see <a href="#installation">Installing MESA</a>).</p>
 
@@ -204,11 +207,9 @@
 
   <p>All of the controls are given reasonable default values at initialization, so you only need to set the ones that you actually want to change.</p>
   
-	</section>
 
   <!-- -------------------------------------------------------------------------------------------------------------- -->
 
-  <section>
 
   <h2>Run MESA</h2>
   <p>Running the code is now as simple as typing:</p>
@@ -239,12 +240,269 @@
   <pre><code>stop because Lnuc_div_L >= Lnuc_div_L_zams_limit
   </code></pre>
   
-</section>
+
+
+  <!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
+
+<h2>Resuming MESA</h2>
+
+<p>
+You are not limited to using the same parameter settings for an entire run. You can stop the run, 
+edit the inlist file, and restart with new settings. This stop-restart mechanism has been carefully
+ constructed so that if you restart from an intermediate state without changing any controls, you'll 
+ get exactly the same results. For that to work, the saved information must be complete, and that means 
+ there’s a lot of it. To make this run fast, the restart information is dumped in binary format. 
+ These binary dumps are referred to as “photos” and are saved in a subdirectory with the same name.
+</p>
+
+<p>
+It should be emphasized that the photos are not intended for long-term storage of models. 
+In particular, when you update to a new version of MESA star, you should expect your existing photo files to become obsolete.
+</p>
+
+<p>
+If you scroll back in the terminal output from the run, you should find a line that looks 
+like (though the number may differ slightly between MESA versions):
+</p>
+
+<pre>
+<code>
+  save photos/x849 for model 849
+</code>  
+</pre>
+
+<p>
+indicating that one of these snapshots was automatically saved when the run terminated.
+</p>  
+
+<p>
+Open up inlist_project in your editor. You can see there were two stopping conditions,
+</p>
+
+<pre>
+  <code>
+! stop when the star nears ZAMS (Lnuc/L > 0.99)
+Lnuc_div_L_zams_limit = 0.99d0
+stop_near_zams = .true.
+
+! stop when the center abundance by mass of h1 drops below this limit
+xa_central_lower_limit_species(1) = 'h1'
+xa_central_lower_limit(1) = 1d-3
+  </code>
+</pre>
+
+<p>
+As MESA indicated in the termination message, we stopped because of the first condition 
+(naturally, ZAMS is before H-exhaustion). Turn off this stopping condition by editing your inlist so that
+</p>
+
+<pre>
+  <code>
+stop_near_zams = .false.
+
+and save the inlist file.
+</code>
+</pre>
+
+
+<p>
+Now we can restart using the photo and our new settings. Try it.
+</p>  
+
+<pre>
+  <code>
+./re x208
+</code>
+</pre>
+
+<p>
+This resumes the run from model 208, but this time the run will stop when our other condition is satisfied, 
+when the central hydrogen drops below 0.001. This will happen at model number 305.
+
+
+<h2>Saving a model</h2>
+
+</p>
+
+<p>
+Remember that the photo file is a machine readable binary that is not designed for portability to different machines or even to different versions of MESA. So we need another way to save a model so we can use it later, perhaps as a starting model for later runs, or to send to someone for them to use with their own copy of MESA. For example, if you find some bug in MESA, and the developers will want to see if they can reproduce it on their machines. You’ll be asked to save a model from just before the bug happens and send it in an email along with your inlist.
+</p>
+
+<p>
+Let's save a model file at the end of our run. Go to the following lines to the &star_job section of your inlist:
+</p>
+
+<pre>
+  <code>
+! save a model at the end of the run
+save_model_when_terminate = .false.
+save_model_filename = '15M_at_TAMS.mod'
+</code>
+</pre>
+
+<inlist_load>
+Tell MESA that you want to save a model file at the end by editing your inlist and <code> save_model_when_terminate to .true..</code>
+
+<p>
+Save the file and then restart MESA from the same point as before.
+</p>
+
+<pre>
+  <code>
+./re x208
+</code>
+</pre>
+
+
+This time when the run terminates MESA will save a model named 15M_at_TAMS.mod. Take a look and see.
+<br><br>
+
+<h2>Loading a model</h2>
+
+Now you could begin studying the post-main sequence evolution of stars, starting a new MESA run using the model you’ve just saved. In order to do this your inlist might look like:
+
+
+<pre>
+  <code>
+&star_job
+  ! see star/defaults/star_job.defaults
+
+  ! start a run from a saved model
+  load_saved_model = .true.
+  load_model_filename = '15M_at_TAMS.mod'
+
+  ! display on-screen plots
+  pgstar_flag = .true.
+
+/ !end of star_job namelist
+
+&eos
+  ! eos options
+  ! see eos/defaults/eos.defaults
+
+/ ! end of eos namelist
+
+
+&kap
+  ! kap options
+  ! see kap/defaults/kap.defaults
+  use_Type2_opacities = .true.
+  Zbase = 0.02
+
+/ ! end of kap namelist
+
+
+&controls
+  ! see star/defaults/controls.defaults
+
+  ! options for energy conservation (see MESA V, Section 3)
+  energy_eqn_option = 'dedt'
+  use_gold_tolerances = .true.
+
+  ! configure mass loss on RGB & AGB
+  cool_wind_RGB_scheme = 'Dutch'
+  cool_wind_AGB_scheme = 'Dutch'
+  RGB_to_AGB_wind_switch = 1d-4
+  Dutch_scaling_factor = 0.8
+
+/ ! end of controls namelist
+
+</code>
+</pre>
+
+If you want to try this out, save the preceding text as a file named <code>inlist_load</code>
+ in your work directory. Make sure your file ends with a blank new line. 
+ Then edit your main inlist file so that it will use <code>inlist_load</code> instead of <code>inlist_project</code> 
+ everywhere within inlist (i.e., <code>extra_star_job_inlist_name(1)</code> and <code>extra_controls_inlist_name(1))</code>.
+
+Then as usual, do
+
+
+<pre>
+  <code>
+  ./rn
+</code>
+</pre>
+
+
+
+and MESA will start up using your newly saved file. 
+Unlike the photos, saved models don't have a complete snapshot of the internal state of the system. 
+Photos are guaranteed to give the same results; saved models are not.
+ There may be small differences when you run a saved model compared to what you saw in the run before you saved it. 
+ The differences should be minor, so you shouldn’t have to worry, but don’t be surprised by them.
+
+ <br><br>
+
+<h2>Learning about the many MESA options</h2>
+
+After looking at the previous inlist, your more pressing question may be “where did those options come from?” and “how do I find the options appropriate for my problem?”. Your first stop should be the instrument papers, which discuss the most important flags.
+
+The files that contain a description of all of the MESA options and their default values live in the directory
+
+MESA_DIR/star/defaults
+
+The options are organized by the namelist that they are a part of. So the file controls.defaults contains a discussion of options in the controls namelist.
+
+Suppose we want to learn more about what this “Dutch_wind” is. Searching in controls.defaults for the word “Dutch” quickly leads to the following summary of these options.
+
+<pre>
+  <code>
+      ! Dutch_scaling_factor
+      ! ~~~~~~~~~~~~~~~~~~~~
+
+      ! The "Dutch" wind scheme for massive stars combines results from several papers,
+      ! all with authors mostly from the Netherlands.
+
+      ! The particular combination we use is based on
+      ! Glebbeek, E., et al, A&A 497, 255-264 (2009) [more Dutch authors!]
+
+      ! For Teff > 1e4 and surface H > 0.4 by mass, use Vink et al 2001
+      ! Vink, J.S., de Koter, A., & Lamers, H.J.G.L.M., 2001, A&A, 369, 574.
+
+      ! For Teff > 1e4 and surface H < 0.4 by mass, use Nugis & Lamers 2000
+      ! Nugis, T.,& Lamers, H.J.G.L.M., 2000, A&A, 360, 227
+      ! Some folks use 0.8 for non-rotating mdoels (Maeder & Meynet, 2001).
+
+      ! ::
+
+    Dutch_scaling_factor = 0d0
+
+
+      ! Dutch_wind_lowT_scheme
+      ! ~~~~~~~~~~~~~~~~~~~~~~
+
+      ! For Teff < 1e4
+
+      ! Use de Jager if ``Dutch_wind_lowT_scheme = 'de Jager'``
+      ! de Jager, C., Nieuwenhuijzen, H., & van der Hucht, K. A. 1988, A&AS, 72, 259.
+
+      ! Use van Loon if ``Dutch_wind_lowT_scheme = 'van Loon'``
+      ! van Loon et al. 2005, A&A, 438, 273.
+
+      ! Use Nieuwenhuijzen if ``Dutch_wind_lowT_scheme = 'Nieuwenhuijzen'``
+      ! Nieuwenhuijzen, H.; de Jager, C. 1990, A&A, 231, 134
+
+      ! ::
+
+    Dutch_wind_lowT_scheme = 'de Jager'
+  </code>
+</pre>
+
+
+    
+You can browse through the .defaults files to familiarize yourself with what’s available. It can be easy to be overwhelmed by the shear number of options. That’s where the test_suite comes in handy.
+
+
+
+
+
+
 
 
 </section>
-
-
 
 
 
