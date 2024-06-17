@@ -335,7 +335,8 @@ Save the file and then restart MESA from the same point as before.
 </pre>
 
 
-This time when the run terminates MESA will save a model named 15M_at_TAMS.mod. Take a look and see.
+This time when the run terminates MESA will save a model named <code>15M_at_TAMS.mod</code>. Take a look and see.
+
 <br><br>
 
 <h2>Loading a model</h2>
@@ -391,41 +392,59 @@ Now you could begin studying the post-main sequence evolution of stars, starting
 </code>
 </pre>
 
+<p>
 If you want to try this out, save the preceding text as a file named <code>inlist_load</code>
  in your work directory. Make sure your file ends with a blank new line. 
  Then edit your main inlist file so that it will use <code>inlist_load</code> instead of <code>inlist_project</code> 
  everywhere within inlist (i.e., <code>extra_star_job_inlist_name(1)</code> and <code>extra_controls_inlist_name(1))</code>.
+</p>
 
+<p>
 Then as usual, do
-
+</p>
 
 <pre>
-  <code>
+<code>
   ./rn
 </code>
 </pre>
 
 
-
+<p>
 and MESA will start up using your newly saved file. 
 Unlike the photos, saved models don't have a complete snapshot of the internal state of the system. 
 Photos are guaranteed to give the same results; saved models are not.
  There may be small differences when you run a saved model compared to what you saw in the run before you saved it. 
  The differences should be minor, so you shouldn’t have to worry, but don’t be surprised by them.
+</p>
 
- <br><br>
+ 
 
 <h2>Learning about the many MESA options</h2>
 
-After looking at the previous inlist, your more pressing question may be “where did those options come from?” and “how do I find the options appropriate for my problem?”. Your first stop should be the instrument papers, which discuss the most important flags.
+<p>
+After looking at the previous inlist, your more pressing question may 
+be “where did those options come from?” and “how do I find the options 
+appropriate for my problem?”. Your first stop should be the instrument papers, 
+which discuss the most important flags.
+</p>
 
-The files that contain a description of all of the MESA options and their default values live in the directory
+<p>
+The files that contain a description of all of the MESA options and their 
+default values live in the directory <code>MESA_DIR/star/defaults</code>
+</p>
 
-MESA_DIR/star/defaults
 
-The options are organized by the namelist that they are a part of. So the file controls.defaults contains a discussion of options in the controls namelist.
+<p>
+The options are organized by the namelist that they are a part of. 
+So the file controls.defaults contains a discussion of options in the controls namelist.
+</p>
 
-Suppose we want to learn more about what this “Dutch_wind” is. Searching in controls.defaults for the word “Dutch” quickly leads to the following summary of these options.
+<p>
+Suppose we want to learn more about what this “Dutch_wind” is. 
+Searching in controls.defaults for the word “Dutch” quickly leads to 
+the following summary of these options.
+</p>
 
 <pre>
   <code>
@@ -471,14 +490,12 @@ Suppose we want to learn more about what this “Dutch_wind” is. Searching in 
 </pre>
 
 
-    
-You can browse through the .defaults files to familiarize yourself with what’s available. It can be easy to be overwhelmed by the shear number of options. That’s where the test_suite comes in handy.
-
-
-
-
-
-
+<p>    
+You can browse through the .defaults files to familiarize yourself 
+with what's available. It can be easy to be overwhelmed by the shear 
+number of options. That's where the test_suite comes in handy.
+<span style="color:red;"> (See day 2 where we will start from a test_suite example.)</span>
+</p>
 
 
 </section>
