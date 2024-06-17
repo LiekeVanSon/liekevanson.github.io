@@ -64,7 +64,7 @@
 					<li><a href="../IAUhackathon/MESAoutput.html">MESA Output </a></li>
 				  </ul>
                 <li><a href="../IAUhackathon/day2.html">Day 2</a></li>
-				<ul style="padding-left: 20px;">
+                <ul style="padding-left: 20px;">
 					<li><a href="../IAUhackathon/Rotation.html">Rotation </a></li>
 					<li><a href="../IAUhackathon/Winds.html">Winds </a></li>
 					<li><a href="../IAUhackathon/AMtransport.html">AM Transport </a></li>
@@ -104,77 +104,6 @@
 					<div id="main">
 						<p> 
        
-
-<section>
-
-
-<h1> Day 2 of Hackathon: The effects of Rotation on stars  </h1> 
-
-<p>
-Today we are going to have a look at the effects of rotation on stars. 
-We will explore three different cases that will have an effect on the the rotation of the star.
-</p>
-
-<p>
-We will start from the test suite <code>15M_Dynamo</code> in the <code>/mesa/star/test_suite/</code>  dir. 
-Note how MESA has a lot of test suites available that can be very useful to start from when setting up a new model.
-</p>
-
-<p>
-Similar to day one, we will start by copying the test suite to our home directory.
-</p>
-
-<pre>
-	<code>
-	cp -r $MESA_DIR/star/test_suite/15M_dynamo/ ~/
-	</code>
-</pre>
-
-<p>
-note you might have to reload your JupyterLab environment to see the new folder in JupyterLab
-</p>
-
-<p>
-<code>./mk</code> and <code>./rn</code> MESA from the new folder in your home directory.
-You will see a lot of number running on your screen. 
-</p>
-
-<p>
-You can end the run by typing <code>Ctrl + C</code> in the terminal.
-</p>
-
-<p>
-If you open the folder in the Jupyter lab, you will see many different 'inlist' files (see day 1 for the introduction on these files). 
-Go to <a href="https://docs.mesastar.org/en/latest/test_suite/">https://docs.mesastar.org/en/latest/test_suite/</a>, and find the documentation for this test suite. 
-</p>
-
-<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-	<h4>questions:</h4>
-	<p>
-		What is the purpose of the different inlist files? <br>
-		Can you change the right inlist to activate the pgstar plot? 
-	</p>
-</div>
-
-<p>
-When you have successfully activated the pgstar plot, restart the run and a screen will pop up that looks like:
-</p>
-	
-    <div style="align: left; text-align:center;">
-        <img src="../IAUhackathon/IAUhackathonImages/PGplot_15Msundynamo.png" width="50%" /> 
-        <div class="caption" style="width: 800"> Example PGstar for the 15Msun dynamo model </div>
-    </div>
-    
-
-<p>
-<h3>Inspecting your MESA output</h3>
-
-
-</p>
-
-
-</section>
-
 
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
@@ -219,91 +148,6 @@ When you have successfully activated the pgstar plot, restart the run and a scre
     
 
 </section>
-
-
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-
-
-<section>
-	<h2> Stellar winds </h2>
-
-
-
-
-</section>
-			
-
-
-
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-
-
-<section>
-
-	<h2> Angular momentum transport </h2>
-
-	It is now interesting to look at the evolution of total angular momentum as function of
-	time. Then, you might want to plot together the j-profiles calculated for the different
-	phases, to look at how the internal angular momentum content has evolved with time.
-	You want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>
-	<br><br>
-
-	<h3> Evolution without the Tayler-Spruit dynamo </h3>
-
-	The jury is still out regarding the Tayler-Spruit dynamo mechanism, so you might want 
-	to check what differences it makes including it or not in your calculations. 
-
-	The control parameters you want to add/modify in your inlist are:
-
-<pre>
-	<code>
-	! set to 0 for non-magnetic
-	D_ST_factor = 1.0
-	nu_ST_factor = 1.0
-	</code>
-</pre>
-
-	where the first parameter multiplies the diffusion coefficient for angular momentum transport
-	resulting from Tayler-Spruit dynamo (internal magnetic torque), while the second multiplies the diffusion coefficient for chemicals (magnetic mixing). 
-	<br><br>	
-
-	<h4>Q: Is there any difference between the MS timescale for the models with and without Tayler-
-	Spruit B? Why? </h4>
-	
-	
-	Plot your angular momentum profiles at different evolutionary stages. 
-	Again, you want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>.
-
-
-	
-</section>
-
-
-
-
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-
-
-<section>
-
-	<h2> Exercises </h2>
-
-	<ol>
-		<li> Is the N-enrichment compatible with
-		results from other codes? And with massive stars observations? 
-		Take a look at <a href="https://ui.adsabs.harvard.edu/abs/2000ApJ...528..368H/abstract">Heger et al. 2000</a> (e.g. Fig. 5) 
-		and Fig. 6 from <a href="https://ui.adsabs.harvard.edu/abs/2012MNRAS.419..748P/abstract">Potter et al. 2012</a>   to draw your conclusions.
-		</li>
-
-
-		<li> What is the effect of the Tayler-Spruit dynamo on the angular momentum profile of the star?
-		</li>
-				   
-
-	</ol>
 
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->

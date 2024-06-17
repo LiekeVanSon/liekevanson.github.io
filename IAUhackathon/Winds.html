@@ -64,7 +64,7 @@
 					<li><a href="../IAUhackathon/MESAoutput.html">MESA Output </a></li>
 				  </ul>
                 <li><a href="../IAUhackathon/day2.html">Day 2</a></li>
-				<ul style="padding-left: 20px;">
+                <ul style="padding-left: 20px;">
 					<li><a href="../IAUhackathon/Rotation.html">Rotation </a></li>
 					<li><a href="../IAUhackathon/Winds.html">Winds </a></li>
 					<li><a href="../IAUhackathon/AMtransport.html">AM Transport </a></li>
@@ -105,97 +105,28 @@
 						<p> 
        
 
+
+
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 
 
 <section>
+	<h2> Stellar winds </h2>
 
 
-<h2> Welcome! </h2> 
-
-<p>
-This workshop is part of the focus meeting <a href="https://idia.ac.za/bdh2024/">"New horizons at the interface between computational astrophysics and big data"</a>.
-In this hackathon: <a href = "https://idia.ac.za/bdh2024-hackathons/">"A first taste of MESA - an open source tool box for experiments in stellar astrophysics"</a>, we will explore some of the essentials of the open-source stellar evolution code <a href="https://docs.mesastar.org/en/latest/index.html">MESA</a> . 
-</p>
-
-<h4> &#9733; Created by: <a href="mailto:lvanson@flatironinstitute.org">Lieke van Son</a>, <a href="mailto:shelley.cheng@cfa.harvard.edu">Shelley Cheng</a>, and <a href="mailto:aolejak@mpa-garching.mpg.de">Aleksandra Olejak</a> &#9733; </h4> 
 
 
 </section>
-
-
-
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-
-<section>
-
-    <h2> Before getting started  </h2> 
-
-    <p>
-    In this tutorial, we have pre-installed MESA for you on the _flatiron_ cluster. 
-	If you would like to install MESA on your own computer or cluster, you can find the installation instructions <a href="https://docs.mesastar.org/en/latest/installation.html">here</a>.
-	</p>
-
-	<p>
-    You will be able to access the cluster through the <em>Binder</em> environment. For this, you need to log in using a <strong>Google account</strong>. 
-    This can be any Google account, including a personal one. 
-    <br>
-    To gain access to the Binder environment, <strong>please send the Gmail address you will use to log in to <ahref="mailto:lvanson@flatironinstitute.org">lvanson_at_flatironinstitute.org </a> </strong> so we can add you to the list of approved users!
-    </p>
-
-
-
-    <h3> How to use the Binder environment </h3>
-
-
-    <p>
-		Once we've added you to the list of approved users, you can access the Binder environment through the following link:
-			<a href="https://sdsc-binder.flatironinstitute.org/~lvanson/MESAhackathon" style="font-weight: bold; color: rgb(0, 140, 222);">https://sdsc-binder.flatironinstitute.org/~lvanson/MESAhackathon</a>
-	
-	<br>
-	General instructions on how to use this Binder environment can be found <a href=https://wiki.flatironinstitute.org/Public/UsingFiBinder">on the Flatiron institute wiki</a>. 
-	<!-- General instructions on Binder  can be found <a href="https://mybinder.readthedocs.io/en/latest/howto/index.html">here</a>. -->
-	</p>
-
-    <div style="align: left; text-align:center;">
-        <img src="../IAUhackathon/IAUhackathonImages/Binder_screenshot.png" width="80%" /> 
-        <div class="caption" style="width: 800"> <strong>placeholder</strong> This is what your binder environment will look like. </div>
-    </div>
-
-	
-<br>
-
-
-<h3> Setting up your environment for MESA </h3>
-
-Open a terminal and type the following command to set up the environment for MESA usage:
-
-    <pre>
-        <code>
-# set OMP_NUM_THREADS to be the number of cores available on your machine
-export OMP_NUM_THREADS=16
-
-# Mesa root
-export MESA_DIR='/mnt/home/lvanson/Programs/MESA/mesa-r24.03.1'
-
-# Mesa sdk
-export MESASDK_ROOT='/mnt/home/lvanson/Programs/MESA/mesasdk_23051/mesasdk'
-source $MESASDK_ROOT/bin/mesasdk_init.sh
-        </code>
-    </pre>
-    
-	Note, normally, you would add these lines to your <code>.bashrc</code> file so that they are automatically executed every time you log in.
-	See also the MESA installation instructions <a href="https://docs.mesastar.org/en/latest/installation.html">here</a>.
-
-    
-</section>
+			
 
 
 
 
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
 
 				<!-- Copyright -->
 					<div id="copyright">
