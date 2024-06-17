@@ -140,8 +140,8 @@ The history for the run is saved, one line per logged model, in the file
 second line has column names, and the following lines have the
 corresponding values. In case of a restart, lines are not
 removed from the history.data; instead new values are simply appended to
-the end of the file. As a result the model_numbers are not guaranteed to
-be monotonically increasing in the log. The code that uses the history
+the end of the file. <b> As a result the model_numbers are not guaranteed to
+be monotonically increasing in the log.</b> The code that uses the history
 must bear the burden of removing lines that have been made obsolete.
 This can most easily be done by storing
 the data into arrays as it is read using the model_number as the array
@@ -160,7 +160,7 @@ store a profile at the end of the run.
 </p>
 
 <p>
-For each profile, there is a line in profiles.index giving the model
+For each profile, there is a line in <code>profiles.index</code> giving the model
 number, its priority, and its profile number. Priority level 2 is for
 models saved because of some special event in the evolution such as the
 onset of helium burning. Priority level 1 is for models saved because
@@ -217,29 +217,27 @@ the comment character).
 
 <p>
 But what if you want a history or profile quantity that isn't on the
-list? For that, you'll want to <code>use run_star_extras.f </code> 
-<p style="color:red;">Which we will discuss on day 2!</p>
+list? For that, you'll want to use <code>run_star_extras.f </code> 
+<span style="color:red;">Which we will discuss on day 2!</span>
 </p>
 
 
-<h3>Plotting MESA output</h3>
+<h2>Plotting MESA output</h2>
 
 <p>
 While pgstar is great for observing your stellar models evolving in real
 time and for quickly making videos, more complicated and higher-quality
 plots require post-processing in another environment. Perhaps the most
 popular environment in recent years is Python, and in particular, via
-the `numpy <http://www.numpy.org>`__ and
-`matplotlib <//matplotlib.org>`__ packages.
+the <a href="http://www.numpy.org">numpy</a> and <a href="http://matplotlib.org">matplotlib</a> packages.
 </p>
 
 <p>
 While you may want to write your own tools to read and analyze the
-output of your MESA calculations, `many already
-exist <http://cococubed.com/mesa_market/add-ons.html>`__. In that
-vein, we introduce a simple module for use in python scripts and
-interactive sessions called ``mesa_reader``, which only requires
-`numpy <//www.numpy.org>`__.
+output of your MESA calculations, <a href="http://cococubed.com/mesa_market/add-ons.html">many already exist</a>. 
+In that vein, we introduce a simple module for use in python scripts and
+interactive sessions called <span style="color:rgb(0, 64, 255); font-weight:bold;">mesa_reader</span>, which only requires
+<a href="http://www.numpy.org">numpy</a>.
 </p>
 
 
@@ -261,16 +259,18 @@ Examples
 
 <p>
 Full documentation for how MESA Reader is installed and how to use the
-three classes can be found at the project's `Github
-repository <https://github.com/wmwolf/py_mesa_reader>`__ and
-accompanying
-`documentation <//wmwolf.github.io/py_mesa_reader>`__. Below, we
-show some simple example use cases of MESA Reader.
+three classes can be found at the project's <a href="https://github.com/wmwolf/py_mesa_reader">Github repository</a> 
+and accompanying <a href="//wmwolf.github.io/py_mesa_reader">documentation</a>.
+Below, we show some simple example use cases of MESA Reader.
 </p>
 
+<p style="color:rgb(255, 0, 0); ">
+    We have pre-installed mesa_reader for you. In order for it to work, you need to activate the vens environment using:
+    <code>source /shared/venv/bin/activate </code>
+    Then you can open up a new jupyter notebook to try out the following: </p>
 
-The Basics
-^^^^^^^^^^
+
+<h3>The Basics</h3>
 
 <pre>
   <code class="language-python">
@@ -342,7 +342,7 @@ by just loading the last saved profile:
 <p>
 There are many ways to get at specific profile files and even to select
 profiles based on criteria in the history file. See the full
-`documentation <//wmwolf.github.io/py_mesa_reader>`__ for more.
+<a href="//wmwolf.github.io/py_mesa_reader">documentation</a> for more.
 </p>
 
 
@@ -357,8 +357,8 @@ assume that it is being used in pylab's interactive mode:
 
 <pre>
   <code class="language-python">
-   # start pylab mode
-   %pylab
+   %matplotlib inline
+
    # import mesa_reader
    import mesa_reader as mr
 
@@ -372,6 +372,8 @@ assume that it is being used in pylab's interactive mode:
 
    # invert the x-axis
    plt.gca().invert_xaxis()
+
+   plt.show()
   </code>
 </pre>
 
@@ -393,7 +395,6 @@ To plot a temperature-density profile, the process is very similar:
 
 <pre>
   <code class="language-python">
-   %pylab
    import mesa_reader as mr
 
    # load entire LOG directory information
@@ -405,6 +406,8 @@ To plot a temperature-density profile, the process is very similar:
    loglog(p.Rho, p.T)
    xlabel("Density")
    ylabel("Temperature")
+
+   plt.show()
   </code>
 </pre>
 
@@ -425,8 +428,14 @@ or profiles that are match some criterion (say, profiles that were taken
 when the star was in a particular region of the HR diagram). More
 complicated plots can be made, like Kippenhahn diagrams, with a little
 bit more clever work.
+
 </p>
 
+
+<p style="color:rgb(255, 0, 0); ">
+    For an example of a Kippenhahn diagram, see <a href="https://www.astro.ru.nl/~onnop/education/stev_utrecht_notes/">Onno Pols' lecture note</a>.
+    E.g., in Chapter 10, Fig. 10.5. 
+</p>
 
 </section>
 
