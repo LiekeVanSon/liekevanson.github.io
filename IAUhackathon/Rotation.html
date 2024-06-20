@@ -113,19 +113,37 @@
 
 	<h1> Rotating Zero Age Main Sequence</h1>
 
-	<ol>
-		<li> Create a 15M, Z=0.02, ZAMS star and save a model. Again, if you have trouble
-		doing this, you can find some usefule examples in mesa/star/test_suite/. A
-		good starting point is having a look at the test suite massive_prems_to_late.
-		One vital skill is knowing how to tell MESA when to stop via inlist parameters
-		(hint: grep “when to stop”). This has the advantage of letting you save a model
-		of particular physical interest without knowing a priori what model number it will
-		be. </li>
+	<p>
+	
+	One vital skill is knowing how to tell MESA when to stop via inlist parameters (hint: grep “when to stop”). 
+	This has the advantage of letting you save a model of particular physical interest without knowing a priori what model number it will be.
+	</p>
 
 
-		<li>Make the star rotating with a (typical) initial rotation of 200 km/s. 
-			To do this set the following in the &star_job section of your inlist:
-		</li>
+	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Tasks:</h4>
+		<p>
+			<ol>
+				<li> Run your model until a ZAMS model is created for a 15Msun star ar Z = 0.02</li>
+
+				<li>Make the star rotating with a (typical) initial rotation of 200 km/s. 
+					To do this set the following in the &star_job section of your inlist:
+				</li>
+
+		</p>
+	</div>
+
+
+
+
+
+
+	
+	
+	<h3>Inspecting your MESA output</h3>
+
+
+
 
 <pre>
 <code>
