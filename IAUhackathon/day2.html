@@ -107,29 +107,352 @@
 
 <section>
 
+<h1> Day 2 of Hackathon: Rotating stars </h1> 
 
-<h1> Day 2 of Hackathon: The effects of Rotation on stars  </h1> 
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<h2>Scientific background: should black holes spin?</h2>
 
 <p>
-Today we are going to have a look at the effects of rotation on stars. 
-We will explore three different cases that will have an effect on the the rotation of the star.
+In 2015, astronomy had a big break through: this was the first time that we managed to observe black holes using gravitational waves!
+Gravitational waves are emitted when 2 black holes circle around each other and eventually merge. For these gravitational waves, we can measure the masses and spins of black holes.
+It came as a surprise to many astronomers that these black holes seem to be mostly spinning very slowly. 
+This is because of observations of X-ray binaries: binaries consisting of a star and a black hole where the star is transferring mass to it's black hole companion. 
+Before we had gravitational waves, we had exclusively detected stellar mass black holes through Xray binaries. 
+And all these Xray binaries seemed to be spinning rapidly. 
 </p>
 
 <p>
-We will start from the test suite <code>15M_Dynamo</code> in the <code>/mesa/star/test_suite/</code>  dir. 
-Note how MESA has a lot of test suites available that can be very useful to start from when setting up a new model.
+To date this is a hot research topic: Do we expect to form many spinning black holes or not? 
+Do the black holes in XRB and gravitational-wave sources form differently? 
+Are the XRB spins overestimated? 
+</p>
+
+<span style="color:red;"> INSERT stellar graveyard figure + link to interactive version</span>
+
+<p>
+	The first step to understanding this problem is to ask ourself if we expect the core of the star that came before the black hole is rotating. 
+	Today we will look at the effect of different assumptions on the rotation of stars and their core. 
+	
+	We will explore three different cases that will have an effect on the final rotation of the star:
+	its birth rotation, stellar winds, and angular momentum transport inside the star.
+	</p>
+
+</section>
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<section>
+
+<h2>Creating a ZAMS model</h2>
+
+<p>
+We will start with creating a 15Msun Zero Age Main Sequence star at solar metallicity (Z=0.02), and safe this ZAMS model. 
+To do this, it is useful to start from the <code>$MESA_DIR/star/test_suite/</code> (just like we did on day 1). 
+Note how MESA has a lot of test suites available that can be very useful to start from when setting up a new model!
 </p>
 
 <p>
-Similar to day one, we will start by copying the test suite to our home directory.
+There are two test_suites that are of interest to us today: <code>make_zams</code>, and <code>15M_Dynamo</code>. 
+The latter is a bit more complicated than what we will do today, but it does contain some useful files that we will use in our own project. 
 </p>
+
+<p>
+Similar to day one, we will start by copying the test suite to our home directory. <br>
+<code> cp -r $MESA_DIR/star/test_suite/make_zams ~/rotating_star_proj </code>
+</p>
+
+
+<div style="border: 1px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>Task 2.1:</h4>
+	<p>
+	<ul>
+		<li>Change <code>inlist_zams</code> to run a 15Msun star, at a metallicity of 0.02. 
+		Now make and run your model (<span style="color:red;"> it should take about one minute to create zams.mod</span>  
+		) </li>
+		<!-- 2.2) Can you change the right inlist to activate the pgstar plot?  -->
+	</ul>
+	</p>
+</div>
+<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>Solution:</h4>
+	<p>
+	<ul>
+		<li> 2.1) Change in <code>inlist_zams</code>: <code>initial_mass</code> to 15, and both <code> Zbase</code> and <code>initial_z</code> to 0.02 </li>
+		
+	</ul>
+	</p>
+</div>
+
+</section>
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<section>
+
+<h2>Loading our ZAMS model</h2>
+
+<p>
+We now want to load our zams model in a new inlist. 
+</p>
+
+
+<div style="border: 1px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>task 2.2: Creating a new inlist</h4>
+	<p>
+	<ul>
+		<li> Copy over the contents of inlist <code>inlist_rotating_star</code> to a text file with the same name in your home directory. 
+			<span style="color:red;"> TODO: link to file on website</span>
+		</li>
+		<li> Limit your model to only run for 500 models by adding <code> max_model_number = 100 </code> to the <code>&controls</code>.
+		</li>
+		<li> To load the ZAMS model you just created, add the following to the &star_job 
+<pre>
+<code>
+load_saved_model = .true.
+load_model_filename = 'zams.mod' 
+</code>
+</pre>
+	</li>
+	</ul>
+
+	</p>
+</div>
+
+<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>Solution:</h4>
+	<p>
+	<ul>
+		<li> your inlist_rotating_star should look like: 
 
 <pre>
-	<code>
-	cp -r $MESA_DIR/star/test_suite/15M_dynamo/ ~/
-	</code>
+<code>
+	&star_job
+
+	! load your zams model <exersize>
+		  load_saved_model = .true.
+		  load_model_filename = 'zams.mod'
+	
+	! reset age and model number
+		  set_initial_model_number = .true.
+		  initial_model_number = 0
+	
+		  set_initial_age = .true.
+		  initial_age = 0
+	
+	! pgstar <exersize>
+		  pgstar_flag = .false.
+		  save_pgstar_files_when_terminate = .false.
+	
+	/ ! end of star_job namelist
+	
+	
+	&eos
+	
+	/ ! end of eos namelist
+	
+	
+	&kap
+		  use_type2_opacities = .true.
+		  Zbase = 0.02
+	
+	/ ! end of kap namelist
+	
+	
+	&controls
+	! initial model
+		  initial_mass = 15
+		  initial_z = 0.02
+	
+	! limit max_model_number as part of test_suite
+		  max_model_number = 100
+				
+	/ ! end of controls namelist	
+	
+</code>
+</pre>
+		</li>
+		
+	</ul>
+	</p>
+</div>
+
+
+<p>
+	
+</p>
+
+<div style="border: 1px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>task 2.3: Setting up your run</h4>
+	<ul>
+		<li>We want to point the main inlist to our newly created <code>inlist_rotating_star</code>.
+			In the file <code>inlist</code>, find and replace all "inlist_zams" to "inlist_rotating_star".
+		</li>
+		<li>
+			The <code>rn</code> file determines which inlist is called first. 
+			We want to make sure that this now calls inlist. 
+			You can achieve this by commenting out 'do_one inlist_zams_header zams.mod' and adding 
+			'do_one inlist'.
+		</li>
+
+		<li> <code>./clean</code>  <code>./mk</code> and <code>./run</code> when you finished all steps! </li>
+
+	</ul>
+	</p>
+</div>
+<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>Solution:</h4>
+	<p>
+		Your <code>rn</code> file should look like
+<pre>
+<code>
+	#!/bin/bash
+
+	# this provides the definition of do_one (run one part of test)
+	# do_one [inlist] [output model] [LOGS directory]
+	source "${MESA_DIR}/star/test_suite/test_suite_helpers"
+	
+	date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+	
+	#do_one inlist_zams_header zams.mod
+	do_one inlist
+	
+	
+	date "+DATE: %Y-%m-%d%nTIME: %H:%M:%S"
+	
+	echo 'finished'
+		
+</code>
 </pre>
 
+And your inlist should look like
+<pre>
+	<code>
+&star_job
+
+
+read_extra_star_job_inlist(2) = .true.
+extra_star_job_inlist_name(2) = 'inlist_rotating_star'
+
+/ ! end of star_job namelist
+
+
+&eos
+
+read_extra_eos_inlist(1) = .true.
+extra_eos_inlist_name(1) = 'inlist_rotating_star'
+
+/ ! end of eos namelist
+
+
+&kap
+
+read_extra_kap_inlist(1) = .true.
+extra_kap_inlist_name(1) = 'inlist_rotating_star'
+
+/ ! end of kap namelist
+
+
+
+&controls
+
+read_extra_controls_inlist(1) = .true.
+extra_controls_inlist_name(1)= 'inlist_rotating_star'
+
+/ ! end of controls namelist
+
+
+&pgstar
+
+read_extra_pgstar_inlist(1) = .true.
+extra_pgstar_inlist_name(1)= 'inlist_rotating_star'
+
+/ ! end of pgstar namelist			
+	</code>
+	</pre>
+	</p>
+</div>
+
+
+<p>
+	Now we want to save more output than is output by default.
+	For this the output in the 15Msun model is a good example, copy over the 
+	<!-- <code>history_columns.list</code>, and  -->
+	<code>profile_columns.list</code> from <code>$MESA_DIR/star/test_suite/15M_Dynamo</code> 
+	to your <code>rotating_star_proj</code> directory.
+</p>
+
+
+</section>
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<section>
+
+ <h2>Setting pgplot</h2>
+
+Of course it's fun to see a bunch of numbers running across your screen, 
+but it's even better to have pictures show up life while we are running our model!
+We will use the PGstar plot that comes from the 15Msun_dynamo model
+
+
+ <div style="border: 1px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>task 2.4: setting up PGstar</h4>
+	<p>
+	<ul>
+		<li>Enable pgstar by setting <code>pgstar_flag = .true.</code>
+		</li> Add the following code  to the end of <code>inlist_rotating_star</code>.
+<pre>
+<code>
+	&pgstar
+	
+	file_white_on_black_flag = .true. ! white_on_black flags -- true means white foreground color on black background
+	file_device = 'png'            ! png
+	file_extension = 'png'
+	
+	!file_device = 'vcps'          ! postscript
+	!file_extension = 'ps'
+	
+		pgstar_interval = 50
+		file_digits = 8
+	
+		Dynamo_legend_txt_scale_factor = 0.7
+		Mixing_legend_txt_scale_factor = 0.55
+		Profile_Panels4_txt_scale = 0.8
+	
+		Profile_Panels4_win_flag = .true.
+		Profile_Panels4_win_width = 7
+		Profile_Panels4_title = '15M Dynamo'
+	
+		Profile_Panels4_file_flag = .true.
+		Profile_Panels4_file_dir = 'png'
+		Profile_Panels4_file_prefix = 'profile_Panels4_'
+		Profile_Panels4_file_interval = 50
+		Profile_Panels4_file_width = 10
+	
+	/ ! end of pgstar namelist 
+</code>
+</pre>
+</li>
+	</ul>
+	</p>
+</div>
+
+
+
+ <p>
+	When you have successfully activated the pgstar plot, restart the run and a screen will pop up that looks like:
+		<div style="align: left; text-align:center;">
+			<img src="../IAUhackathon/IAUhackathonImages/PGplot_15Msundynamo.png" width="50%" /> 
+			<div class="caption" style="width: 800"> Example PGstar for the 15Msun dynamo model </div>
+		</div>
+		
+</p>
+
+
+</section>
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+
+
+<!-- 
+	------------------------------------------------------------------------------------------------------------
 <p>
 	note you might have to reload your JupyterLab environment to see the new folder in JupyterLab
 	</p>
@@ -142,11 +465,31 @@ Similar to day one, we will start by copying the test suite to our home director
 	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>questions:</h4>
 		<p>
-			What is the purpose of the different inlist files? <br>
-			Can you change the right inlist to activate the pgstar plot? 
+			2.1) What is the purpose of the different inlist files? <br>
+			2.2) Can you change the right inlist to activate the pgstar plot? 
 		</p>
 	</div>
+	<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Solution:</h4>
+		<p>
+		<ul>
+			<li> 2.1) </li> From the docs: "This test case has three parts.
 
+			<ul>
+			<li>Part 1 (``inlist_zams``) creates a 15 Msun pre-main-sequence model and evolves it to the main sequence. </li>
+
+			<li>Part 2 (``inlist_to_he_burn``) turns on rotation nnd continues the evolution for 500 steps (for test case purposes), ending approximately at core hydrogen depletion.</li>
+			
+			<li>Part 3 (``inlist_15M_dynamo``) continues the evolution until the central helium mass fractions drops below 0.6. </li>
+			</ul>
+
+			Note how the different inlists call each other;
+
+			<li> 2.2) </li>  set <code>pgstar_flag = .true.</code> and <code> save_pgstar_files_when_terminate = .true.</code>
+			
+		</ul>
+		</p>
+	</div>
 	
 
 
@@ -154,19 +497,6 @@ Similar to day one, we will start by copying the test suite to our home director
 cd into the new folder created in your home directory and <code>./mk</code> and <code>./rn</code> MESA.
 </p>
 
-
-<p>
-When you have successfully activated the pgstar plot, restart the run and a screen will pop up that looks like:
-</p>
-	
-    <div style="align: left; text-align:center;">
-        <img src="../IAUhackathon/IAUhackathonImages/PGplot_15Msundynamo.png" width="50%" /> 
-        <div class="caption" style="width: 800"> Example PGstar for the 15Msun dynamo model </div>
-    </div>
-    
-<p>
-Don't run the full test_suite, this will take about 40 min!
-Just end the run by typing <code>Ctrl + C</code> in the terminal.
 
 <p>	
 	One vital skill is knowing how to tell MESA when to stop via inlist parameters (hint: grep “when to stop”). 
@@ -177,15 +507,26 @@ Just end the run by typing <code>Ctrl + C</code> in the terminal.
 	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Tasks:</h4>
 		<p>
-			<ol>
-				<li> Run your model until a ZAMS model is created for a 15Msun star ar Z = 0.02</li>
+			2.2) Run your model until a ZAMS model is created for a 15Msun star ar Z = 0.02
 
+		</p>
 
+	</div>
+
+	<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Solution:</h4>
+		<p>
+			In <code>inlist_zmas</code> in the <code>&controls</code> section, there is the following
+			<pre>
+			<code>
+				stop_near_zams = .true.
+				Lnuc_div_L_zams_limit = 0.9d0
+			</code>
+			</pre>
 		</p>
 	</div>
 
-
-</section>
+</section> -->
 
 
 <!-- -------------------------------------------------------------------------------------------------------------- -->
