@@ -44,6 +44,12 @@
             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
           </script>
           
+		<!-- Adding latex support -->
+		<script src="../assets/js/mathjax-config.js"></script>
+		<script type="text/javascript" id="MathJax-script" async
+		src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+		</script>
+
          
 	</head>
 
@@ -115,55 +121,145 @@
 
 	<p>
 	
-	Load in the ZAMS model from the previous exercise and make the star rotate.
+	Starting from our ZAMS model, we will now make the star rotate.
+	We will continue to work on <code>inlist_rotating_star</code>. 
+	The question that we are hoping to address is: what does the rotation do to the star?
+
 	</p>
 
 
 	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-		<h4>Tasks:</h4>
-		<p>
-			<ol>
+	<h4>Task R.1 </h4>
+	<p>
+	<ul>
 
-				<li>Make the star rotating with a (typical) initial rotation of 200 km/s. 
-					To do this set the following in the &star_job section of your inlist:
-				</li>
-
-		</p>
-	</div>
-
-
-<p>
-	things
-	</p>
-
-
-
-	
-	
-	<h2>Inspecting your MESA output</h2>
-
-
-
-
+		<li>Make the star rotating with a rotation of $20\%$ of the critical rotation.
+			To do this set the following in the &star_job section of your <code>inlist_rotating_star</code>:
 <pre>
 <code>
 	&star_job 
 
 	(...)
 
-	change_rotation_flag = .true.
+	! Change the initial rotation of the star
+	change_rotation_flag = .true.  !enabling rotation
 	new_rotation_flag = .true.
-	set_surf_rotation_v_step_limit = 10
-	new_surface_rotation_v = 200.0 ! km/sec
+
+	! specify the initial rotation as a fraction of the critical rotation
+	set_initial_omega_div_omega_crit = .true. 
+	new_omega_div_omega_crit = 0.2
+
+	<!-- 	set_surf_rotation_v_step_limit = 10
+	new_surface_rotation_v = 200.0 ! km/sec -->
 
 </code>
 </pre>
+	</li>
+
+	<li> Remove the 'max model' requirement (max_model_number = 100), and instead stop the model
+			when we have a significant contribution from He burning.
+		To do this, set <code>power_he_burn_upper_limit = 10d0</code> in the &controls section of your <code>inlist_rotating_star</code>.
+	</li>
+	
+	<li>Run the model until you see <code>termination code: power_he_burn_upper_limit</code>
+		</p>
+	</div>
+
+<p>
+	
+	While this model is running, 
+	Before we proceed to looking at the output of the model that we have just created, 
+	let's think about the meaning of the changes we have just made. 
+
+	Remember that the rotatioinal velocity $\Omega = v/r$. 
+
+</p>
+
+
+	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Task R.2 </h4>
+		<p>
+		<ul style="list-style-type: '- ';">
+				<li>What is MESA doing when we set a value for set_omega_div_omega_crit? (hint: check \$MESA_DIR/star/defaults/star_job.defaults) 
+				</li>
+				<li>What is the definition of $\Omega_{crit}$ ? 
+					(hint: look for critical rotation in <a href="https://ui.adsabs.harvard.edu/abs/2000ApJ...528..368H/abstract">Heger et al. (2000)</a>
+				</li>
+				</ul>
+			</p>
+	</div>
+
+	<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Solution:</h4>
+		<p>
+		<ul style="list-style-type: '- ';">
+			<li> In \$MESA_DIR/star/defaults/star_job.defaults, we see that set_initial_omega_div_omega_crit = .true.
+				sets a uniform omega/omega crit = new_omega_div_omega_crit. 
+				Because this is _initial, it only applies at start of run, not for restarts. 
+			</li>
+
+			<li> $\Omega_{crit}$ is the 'critical rotation rate' (in rad/s). 
+				In other words it is defined as the rotational velocity where the centrifugal force equals the gravitational force.
+				In other words, this is the limit where the star would start to break apart due to the centrifugal force. <br>
+
+				$
+				v_{\text{crit}}^2 = \frac{Gm}{r} \cdot \left(1 - \Gamma \right) 
+				$<br>
+
+				where $\Gamma$ is the ratio of the luminosity to the Eddington luminosity.
+				$
+				\begin{equation}
+				\Gamma = L /L_{\text{Edd}}
+				\end{equation}
+				$ <br>
+			
+
+				remember that $\Omega = v/r$ so that we get the expression linked in the MESA source code: <br>
+				$
+				\omega_{\text{crit}} = \sqrt{(1 - \Gamma) \times G m /r^3 }
+				$
+
+		</ul>
+		</p>
+	</div>
+
+
+
+
+</section>
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<section>
+	
+	
+	<h2>Inspecting your output</h2>
+
+	It is now interesting to look at internal rotational profile of your rotating star.
+
+
+	It is now interesting to look at the evolution of total angular momentum as function of
+	time. Then, you might want to plot together the j-profiles calculated for the different
+	phases, to look at how the internal angular momentum content has evolved with time.
+	You want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>
+	<br><br>
+
+	and plot the surface rotation velocity as a function of radius. 
+	You can do this by adding the following line to your <code>history_columns.list</code>:
+
+
+
 
 <h4>Q: What is MESA doing when we set a value for new_surface_rotation_v?</h4>
 (hint grep “new_surface_rotation_v” in the MESA source code)
 
 
-    
+<ul>
+	<li>Omega profile at ZAMS?</li>
+
+    <li>Omega profile at He-exhaustion (1% He mass fraction). Core-Envelope coupling?</li>
+
+	<li>Omega profile at C-exhaustion (Tc = 1:2   109). Core-Envelope coupling?</li>
+</ul>
 
 </section>
 
