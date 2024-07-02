@@ -130,7 +130,6 @@
 
 	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>Task R.1 </h4>
-	<p>
 	<ul>
 
 		<li>Make the star rotating with a rotation of $20\%$ of the critical rotation.
@@ -156,23 +155,32 @@
 </pre>
 	</li>
 
-	<li> Remove the 'max model' requirement (max_model_number = 100), and instead stop the model
-			when we have a significant contribution from He burning.
-		To do this, set <code>power_he_burn_upper_limit = 10d0</code> in the &controls section of your <code>inlist_rotating_star</code>.
+	<li> Remove the 'max model' requirement (max_model_number = 100), and instead stop the model when we run 
+		out of He in the core (in other words, when we have reached the end of core He burning).
+			<!-- when we have a significant contribution from He burning. -->
+			To do this, set the following in the &controls section of your <code>inlist_rotating_star</code>:
+			<pre>
+			<code>
+				xa_central_lower_limit_species(1) = 'he4'
+				xa_central_lower_limit(1) = 1d-6
+			</code>
+			</pre>	
+			
+		<!-- To do this, set <code>power_he_burn_upper_limit = 10d0</code> in the &controls section of your <code>inlist_rotating_star</code>. -->
 	</li>
 	
-	<li>Run the model until you see <code>termination code: power_he_burn_upper_limit</code>
-		</p>
+	<li>Run the model until you see <code>termination code: xa_central_lower_limit</code>. </li>
+		<!-- <code>termination code: power_he_burn_upper_limit</code> -->
+	</div>
+	<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Solution R.1:</h4>
+		At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlistR1">this</a>
+
 	</div>
 
 <p>
-	
-	While this model is running, 
-	Before we proceed to looking at the output of the model that we have just created, 
-	let's think about the meaning of the changes we have just made. 
-
+	While this model is running (this should take <span style="color: red;">about 5 minutes</span>), let's think about the physical meaning of the changes we have just made. 
 	Remember that the rotatioinal velocity $\Omega = v/r$. 
-
 </p>
 
 
@@ -190,7 +198,7 @@
 	</div>
 
 	<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-		<h4>Solution:</h4>
+		<h4>Solution R.2:</h4>
 		<p>
 		<ul style="list-style-type: '- ';">
 			<li> In \$MESA_DIR/star/defaults/star_job.defaults, we see that set_initial_omega_div_omega_crit = .true.
@@ -225,7 +233,6 @@
 
 
 
-
 </section>
 <!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
 <!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
@@ -234,32 +241,92 @@
 	
 	<h2>Inspecting your output</h2>
 
-	It is now interesting to look at internal rotational profile of your rotating star.
+	<p>
+	The Hertzsprung-Russell diagram of the rotating ZAMS model should look like this:
+	<div style="align: center; text-align:center;">
+		<img src="./IAUhackathonImages/HR_diagram.png" width="80%" />
+	</div>
+
+	The dashed grey lines indicate lines of constant radius (remember the relation between R, T and L from the 
+	<a href="https://en.wikipedia.org/wiki/Stefan%E2%80%93Boltzmann_law">Stefan Boltzmann law</a>). 
+	We have colored the points in the evolution by the central helium fraction, to indicate the evolutionary state of the star.
+	</p>
+
+	It is now interesting to look at the output of your model.
+	Start a new Jupyter notebook and load the history data of your model.
+	If you need a refresher on how to look at the output of your MESA model, have a look at the <a href="MESAoutput.html">MESA output</a> page.
+
+	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Task R.3 </h4>
+		<ul>
+				<li> Plot the surface rotation velocity as a function of the age of the star. 
+					Color the points by the center_he4 fraction to keep track of the evolutionary state of the star (similar to the HR diagram above).
+					Do the same for the $\Omega/\Omega_{crit}$.
+					<ul style="list-style-type: '- ';">
+						<li> At what moments does the star spin up or spin down? (hint: compare the star to when ) </li>
+						<li> What is the surface velocity at the end of I) the core H burning II) H shell burning, and III) core He burning? </li>
+					</ul>
+				</li>
+
+				<li> What is the internal rotation profile of the star? 
+					Plot the the internal specific angular momentum profile of the star (that is ) at:
+					<ul style="list-style-type: '- ';">
+						<li>At ZAMS</li>
+						<li>the end of the MS (TAMS)</li>	
+						<li>He-exhaustion (1% He mass fraction). </li>
+					</ul>
+
+					To do this, you want to read in the profile data of your model. Have a look at the profiles.index file to see which profiles you have available.
+					For each of these profiles, 
+				</li>
+
+				</li>
+
+		</ul>
+	</div>
+
+	<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Solution R.3:</h4>
+		<ul>
+			<li> 
+			</li>
+		</ul>
+	</div>
+
+	Core-Envelope coupling?
+	and 
+	Evolution of surface rotation. Compare to critical velocity
+	
+	<ul>
+
+	</ul>
+
+	<!-- specific angular momentum -->
+	<p>
+		Another interesting quantity is the specific angular momentum throughout the star. 
+		
+		Then, you might want to plot together the j-profiles calculated for the different
+		phases, to look at how the internal angular momentum content has evolved with time.
+
+		You want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>
+	</p>
+	
+
+	<!-- Diffusion coefficients -->
+	<p>
+		Finally, take a look at the different
+		diffusion coefficients responsible for transporting angular momentum inside the star.
+		Q: Which mixing processes dominate?
+	</p>
 
 
-	It is now interesting to look at the evolution of total angular momentum as function of
-	time. Then, you might want to plot together the j-profiles calculated for the different
-	phases, to look at how the internal angular momentum content has evolved with time.
-	You want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>
 	<br><br>
-
-	and plot the surface rotation velocity as a function of radius. 
-	You can do this by adding the following line to your <code>history_columns.list</code>:
-
-
 
 
 <h4>Q: What is MESA doing when we set a value for new_surface_rotation_v?</h4>
 (hint grep “new_surface_rotation_v” in the MESA source code)
 
 
-<ul>
-	<li>Omega profile at ZAMS?</li>
-
-    <li>Omega profile at He-exhaustion (1% He mass fraction). Core-Envelope coupling?</li>
-
-	<li>Omega profile at C-exhaustion (Tc = 1:2   109). Core-Envelope coupling?</li>
-</ul>
 
 </section>
 
