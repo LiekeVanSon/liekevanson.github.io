@@ -107,49 +107,110 @@
 
 	<h1> Angular momentum transport </h1>
 
-	It is now interesting to look at the evolution of total angular momentum as function of
-	time. Then, you might want to plot together the j-profiles calculated for the different
-	phases, to look at how the internal angular momentum content has evolved with time.
-	You want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>
-	<br><br>
+	<p>
+	In the previous exercise, we've seen how the rotation of the core and the rotation of the envelope are not coupled.
+	Namely, while the core of the star is contracting and spinning up, the envelope of the star is expanding and spinning down.
 
-	<h3> Evolution without the Tayler-Spruit dynamo </h3>
+	There are however ways in which we can couple the core to the envelope. 
+	In other words, ways in which we can transport angular momentum from the core to the envelope.
+	<!-- We will now look at how the angular momentum is transported in the star, and how this affects the evolution/rotation of the star. -->
+	</p>
+
+	<!-- Then, you might want to plot together the j-profiles calculated for the different
+	phases, to look at how the internal angular momentum content has evolved with time.
+	You want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a> -->
+	</p>
+
+	<h2> Evolution with the Tayler-Spruit dynamo </h2>
+
+	<p>
+	One way to carry angular momentum in the star is through the magnetic field. 
+	Magnetic field lines can `thread' the star and carry angular momentum with them.
+	</p>
+
+	<div style="align: center; text-align:center;">
+		<figure>
+			<img src="./IAUhackathonImages/Tayler-Spruit_cartoon.png" width="80%" />
+			<figcaption>The magnetic field couples the interior of the star to it's outer layers. <br> 
+				Image credit: slide from Matteo Cantiello MESA summer school 2012. </figcaption>
+		</figure>
+	</div>
+
+	<p>
+	There is a 'magneto-hydrodynamic' instability known as the Tayler–Spruit dynamo <a href="https://ui.adsabs.harvard.edu/abs/2002A%26A...381..923S/abstract">(Spruit 2002)</a>
+	In short, the differential rotation between different layers in the star generates a magnetic field. This instability becomes bigger because.. 
+	</p>
 
 	The jury is still out regarding the Tayler-Spruit dynamo mechanism, so you might want 
 	to check what differences it makes including it or not in your calculations. 
 
-	The control parameters you want to add/modify in your inlist are:
 
+	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Tasks AM.1 </h4>
+
+		We are going to re-run the same 15Msun star from ZAMS to core He exhaustion, but now including the Tayler-Spruit dynamo.
+		<ul>
+			<li>To save your run in a separate folder (so as to not overwrite your previous results), 
+				you can change the logs folder name by adding the following to the <code>&controls</code> part of your inlist:
+				<code>log_directory = 'LOGS_AM'</code>
+			</li>
+
+			<li> To add the Tayler-Spruit dynamo, the control parameters you want to add/modify in your inlist are:
 <pre>
 	<code>
-	! set to 0 for non-magnetic
+	! set the diffusion coefficients for AM transport and chemical mixing by TS dynamo
 	D_ST_factor = 1.0
-	nu_ST_factor = 1.0
+	am_nu_ST_factor = 1.0
 	</code>
 </pre>
+					where the first parameter multiplies the diffusion coefficient for angular momentum transport resulting from Tayler-Spruit dynamo (internal magnetic torque), 
+					while the second multiplies the diffusion coefficient for chemicals (magnetic mixing). 
+			</li>
 
-	where the first parameter multiplies the diffusion coefficient for angular momentum transport
-	resulting from Tayler-Spruit dynamo (internal magnetic torque), while the second multiplies the diffusion coefficient for chemicals (magnetic mixing). 
-	<br><br>	
+			<li> Run your model and compare the results with the previous run. 
 
-	<h4>Q: Is there any difference between the MS timescale for the models with and without Tayler-
-	Spruit B? Why? </h4>
+				<ul style="list-style-type: '- ';">
+					<li> Plot the radial velocity profile (omega vs mass) at ZAMS, TAMS, and core He exhaustion. (You will probably want to set the y-scale in log).</li>
+
+					<li> Plot the specific angular momentum profile. Focus on the angular momentum profile at ZAMS, TAMS, and core He exhaustion.</li>
+
+					<li> Is there any difference between the MS timescale for the models with and without Tayler-Spruit B? Why? </li>
+
+				</ul>
+			</li>
+
+
+		</ul>	
+	</div>
+
+		<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+			<h4>Solution AM.1:</h4>
+			<ul> 
+			<li> Some solution
+			</li>
+
+			<li>
+				<ul style="list-style-type: '- ';">
+					<li> Focus on the angular momentum profile at ZAMS, TAMS, and core He exhaustion.</li>
+
+					<li> Is there any difference between the MS timescale for the models with and without Tayler-Spruit B? Why? </li>
+
+				</ul>
+			</li>
+
+				
+			<!-- It is now interesting to look at the evolution of total angular momentum as function of time.
+			Plot your angular momentum profiles at different evolutionary stages. 
+			Again, you want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>. -->
+
+			</ul>
 	
+		</div>
 	
-	Plot your angular momentum profiles at different evolutionary stages. 
-	Again, you want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>.
 
-
-	
 </section>
-
-
-
-
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
-
-
 <section>
 
 	<h2> Exercises </h2>
