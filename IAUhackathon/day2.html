@@ -121,7 +121,14 @@ Do the black holes in XRB and gravitational-wave sources form differently?
 Are the XRB spins overestimated? 
 </p>
 
-<span style="color:red;"> INSERT stellar graveyard figure + link to interactive version</span>
+<div style="align: center; text-align:center;">
+    <figure>
+        <img src="./IAUhackathonImages/Masses_of_Dead_Stars_LIGO_Virgo_KAGRA.png" width="80%" />
+        <figcaption>An overview of the observed stellar mass black holes and neutron stars.
+			An interactive version is available <a href="https://media.ligo.northwestern.edu/gallery/mass-plot">here</a> 
+			Credit: LIGO-Virgo-KAGRA / Aaron Geller / Northwestern </figcaption>
+    </figure>
+</div>
 
 <p>
 	The first step to understanding this problem is to ask ourself if we expect the core of the star that came before the black hole is rotating. 
@@ -155,7 +162,7 @@ Similar to day one, we will start by copying the test suite to our home director
 </p>
 
 
-<div style="border: 1px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>Task 2.1:</h4>
 	<p>
 	<ul>
@@ -166,7 +173,7 @@ Similar to day one, we will start by copying the test suite to our home director
 	</ul>
 	</p>
 </div>
-<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>Solution:</h4>
 	<p>
 	<ul>
@@ -188,7 +195,7 @@ We now want to load our zams model in a new inlist.
 </p>
 
 
-<div style="border: 1px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>task 2.2: Creating a new inlist</h4>
 	<p>
 	<ul>
@@ -210,7 +217,7 @@ load_model_filename = 'zams.mod'
 	</p>
 </div>
 
-<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>Solution:</h4>
 	<p>
 	<ul>
@@ -273,7 +280,7 @@ load_model_filename = 'zams.mod'
 	
 </p>
 
-<div style="border: 1px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>task 2.3: Setting up your run</h4>
 	<ul>
 		<li>We want to point the main inlist to our newly created <code>inlist_rotating_star</code>.
@@ -291,7 +298,7 @@ load_model_filename = 'zams.mod'
 	</ul>
 	</p>
 </div>
-<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>Solution:</h4>
 	<p>
 		Your <code>rn</code> file should look like
@@ -386,7 +393,7 @@ but it's even better to have pictures show up life while we are running our mode
 We will use the PGstar plot that comes from the 15Msun_dynamo model
 
 
- <div style="border: 1px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+ <div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>task 2.4: setting up PGstar</h4>
 	<p>
 	<ul>
@@ -455,14 +462,14 @@ We will use the PGstar plot that comes from the 15Msun_dynamo model
 	Go to <a href="https://docs.mesastar.org/en/latest/test_suite.html">https://docs.mesastar.org/en/latest/test_suite.html</a>, and find the documentation for this test suite. 
 	</p>
 	
-	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>questions:</h4>
 		<p>
 			2.1) What is the purpose of the different inlist files? <br>
 			2.2) Can you change the right inlist to activate the pgstar plot? 
 		</p>
 	</div>
-	<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Solution:</h4>
 		<p>
 		<ul>
@@ -497,7 +504,7 @@ cd into the new folder created in your home directory and <code>./mk</code> and 
 	</p>
 
 
-	<div style="border: 3px solid #dad434; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Tasks:</h4>
 		<p>
 			2.2) Run your model until a ZAMS model is created for a 15Msun star ar Z = 0.02
@@ -506,7 +513,7 @@ cd into the new folder created in your home directory and <code>./mk</code> and 
 
 	</div>
 
-	<div style="border: 3px solid #2cbf2f; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Solution:</h4>
 		<p>
 			In <code>inlist_zmas</code> in the <code>&controls</code> section, there is the following
