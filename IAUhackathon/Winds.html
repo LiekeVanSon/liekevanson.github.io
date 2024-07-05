@@ -10,7 +10,7 @@
 		<!-- Script for solution toggle button -->
 		<script src="../assets/js/togglesol.js"></script>
 
-		
+
 		<title> Lieke van Son </title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no" />
@@ -107,25 +107,142 @@
 <section>
 	<h1> Stellar winds </h1>
 
-	Lets write and test something
+	<!-- NOT sure how strongly we will base this on minilab 3 yet..  
+		<p style="color:red;">This part of the hackathon is based heavily on
+		<a href="https://sites.google.com/view/massive-stars-mesa-down-under/minilab3/task-1-constant-mass-loss?authuser=0">the MESA down under day 2 minilab3</a>.
+		Credit goes to <a href="https://sites.google.com/view/aldanagrichener">Aldana Grichener</a>, and <a href="https://jaredagoldberg.wordpress.com/">Jared Goldberg</a> for the content.
+	</p> -->
 
-	<pre>
-		<code>
-RGB_wind_scheme = ’Dutch’
-AGB_wind_scheme = ’Dutch’
-RGB_to_AGB_wind_switch = 1d-4
-Dutch_wind_eta = 0.8
-</code>
+	Stellar winds are an important aspect of massive star evolution.
+	As mass is lost from the outer layers of the star, they carry away angular momentum (see pre). 
+	We are going to add some winds to our 15Msun star, to make it more realistic.
+
+	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Tasks W.1 </h4>
+
+		<ul>
+			<li> We want to save our run in a separate folder again: change: <code>log_directory = 'LOGS_winds'</code>
+			</li>
+
+			<li> To add some basic wind prescription to our model, we need to add the following to the controls section of our <code>inlist_rotating_star</code>:
 <pre>
+	<code>
+	! wind
+      cool_wind_full_on_T = 0.8d4
+      hot_wind_full_on_T = 1.2d4
+      cool_wind_RGB_scheme = 'Dutch'
+      cool_wind_AGB_scheme = 'Dutch'
+      hot_wind_scheme = 'Dutch'
+      Dutch_wind_lowT_scheme = 'de Jager'
+
+      max_T_center_for_any_mass_loss = 1.1d9
+	</code>
+</pre>
+<!-- 
+	RGB_wind_scheme = ’Dutch’
+	AGB_wind_scheme = ’Dutch’
+	RGB_to_AGB_wind_switch = 1d-4
+	Dutch_wind_eta = 0.8 -->
+
+	where.. 
+			</li>
+
+			<li> Run your model and compare the results with the previous run. 
+
+				<ul style="list-style-type: '- ';">
+					<li> Plot a thing
+					</li>
+
+					<li> Plot something else.
+					</li>
+
+				</ul>
+			</li>
 
 
+		</ul>	
+	</div>
+
+	<button onclick="toggleVisibility('W1')">Solution W 1</button>
+	<div id="W1" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+			<h4>Solution W.1:</h4>
+			<ul> 
+			<li> At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlist">this.</a>
+			</li>
+
+			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_AMtransport.ipynb">here</a>. <br> 
+				<ul style="list-style-type: '- ';">
+					<li> sub solution 1 </li>
+				</ul>
+			</li>
+
+			</ul>
+	
+		</div>
 
 
 </section>
 			
 
 
+</section>
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------- -->
+<section>
 
+	<h2> Using the Other_wind hook </h2>
+
+	<p>
+	In this part we are going to add wind mass loss to our stellar model by using the other_wind_routine. 
+	The 'other' hooks in MESA are extremally useful as they allow us to implement different physical concepts through run_star_extras.f90 without changing the source-code.  
+	</p>
+
+	<p>
+	Applying different schemes of stellar winds to the star could be relevant for studying mass transfer in binary systems, 
+	the formation and evolution of Wolf-Rayet stars, and many other processes in life and death of massive stars. 
+	</p>
+
+	<p>
+	Many processes by which stars launch winds are poorly-understood. 
+	In this next section, we will therefore instead take a parameterized approach, 
+	considering constant mass loss rates and their impact on the stellar structure and evolution in the HR diagram. 
+	To do this, we need to use the other_wind hook in run_star_extras.f90.
+	</p>
+
+
+
+	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Tasks W.2 </h4>
+
+		<ul>
+			<li>Open the file <code>$MESA_DIR/star/other/other_wind.f90.</code>
+			</li>
+
+			<li>From there, copy the subroutine null_other_wind to your run_star_extras.f90 file located in $TUESDAY_WORK_DIR/MINILAB3_winds/20M/src/. 
+				This routine turns on a stellar wind through which the star loses mass at a constant rate specified by w (in units of M⊙/year).
+				 Rename this routine to be called other_wind_routine for clarity. 
+				  Don't forget to rename both the beginning (declaration) and the  end statement of the subroutine!
+			</li>
+
+		</ul>	
+	</div>
+
+	<button onclick="toggleVisibility('W2')">Solution W 2</button>
+	<div id="W2" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+			<h4>Solution W.2:</h4>
+			<ul> 
+			<li> Some solution
+			</li>
+
+			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_AMtransport.ipynb">here</a>. <br> 
+				<ul style="list-style-type: '- ';">
+					<li> sub solution 1 </li>
+				</ul>
+			</li>
+
+			</ul>
+	
+		</div>
 
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
