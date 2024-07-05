@@ -7,16 +7,8 @@
 <html>
 	<head>
 		
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEKVVHCKS3"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'G-FEKVVHCKS3');
-		</script>
-
+		<!-- Script for solution toggle button -->
+		<script src="../assets/js/togglesol.js"></script>
 		
 		<title> Lieke van Son </title>
 		<meta charset="utf-8" />
@@ -146,7 +138,8 @@
 		</ul>
 	</div>
 
-	<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<button onclick="toggleVisibility('AM1')">Solution AM 1</button>
+	<div id="AM1" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Solution AM.1:</h4>
 		
 		The notebook with the solution can be found <a href="./Solutions/Day2_AMtransport.ipynb">here</a>. <br> 
@@ -241,7 +234,8 @@
 		</ul>	
 	</div>
 
-		<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<button onclick="toggleVisibility('AM2')">Solution AM 2</button>
+	<div id="AM2" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 			<h4>Solution AM.2:</h4>
 			<ul> 
 			<li> At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlistAM2">this.</a>
@@ -261,6 +255,8 @@
 						</figure>
 						We see that the Tayler-Spruit dynamo model has a more uniform specific angular momentum profile, 
 						with a core that is rotating much more slowly.
+						This result is in agreement with (though even more prominent than) what is shown in Heger et al. (2005) 
+						where the specific angular momentum of the core has dropped by about an order of magnitude at core He exhaustion.
 					</li>
 
 				</ul>

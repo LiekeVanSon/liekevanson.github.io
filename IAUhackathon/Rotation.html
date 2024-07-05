@@ -6,18 +6,10 @@
 -->
 <html>
 	<head>
-		
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEKVVHCKS3"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
 
-		  gtag('config', 'G-FEKVVHCKS3');
-		</script>
+		<!-- Script for solution toggle button -->
+		<script src="../assets/js/togglesol.js"></script>
 
-		
 		<title> Lieke van Son </title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no" />
@@ -172,7 +164,9 @@
 	<li>Run the model until you see <code>termination code: xa_central_lower_limit</code>. </li>
 		<!-- <code>termination code: power_he_burn_upper_limit</code> -->
 	</div>
-	<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+
+	<button onclick="toggleVisibility('R1')">Solution R.1</button>
+	<div id="R1" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Solution R.1:</h4>
 		At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlistR1">this</a>
 
@@ -197,7 +191,8 @@
 			</p>
 	</div>
 
-	<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<button onclick="toggleVisibility('R2')">Solution R.2</button>
+	<div id="R2" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Solution R.2:</h4>
 		<p>
 		<ul style="list-style-type: '- ';">
@@ -279,20 +274,21 @@
 		</ul>	
 	</div>
 
-		<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-			<h4>Solution R.3:</h4>
-			<ul> 
-			<li> The notebook with the solution can be found <a href="./Solutions/Day2_rotation.ipynb">here</a>. 
-				<ul style="list-style-type: '- ';">
-					<li> The star spins down as it expands (i.e., as the radius increases during the main sequence, and especially during the Hertzsprung gap), 
-						while it spins up when it contracts (end of main sequence) </li>
-					<li> The surface velocity starts at about 130km/s, spins down to about 65 km/s at the end of core H burning, 
-						and ends with essentially 0km/s at the end of core He burning. </li>
-				</ul>
-			</li>
+	<button onclick="toggleVisibility('R3')">Solution R.3</button>
+	<div id="R3" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Solution R.3:</h4>
+		<ul> 
+		<li> The notebook with the solution can be found <a href="./Solutions/Day2_rotation.ipynb">here</a>. 
+			<ul style="list-style-type: '- ';">
+				<li> The star spins down as it expands (i.e., as the radius increases during the main sequence, and especially during the Hertzsprung gap), 
+					while it spins up when it contracts (end of main sequence) </li>
+				<li> The surface velocity starts at about 130km/s, spins down to about 65 km/s at the end of core H burning, 
+					and ends with essentially 0km/s at the end of core He burning. </li>
 			</ul>
-	
-		</div>
+		</li>
+		</ul>
+
+	</div>
 
 		
 	<p>
@@ -320,23 +316,25 @@
 		</ul>
 	</div>
 
-	<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<button onclick="toggleVisibility('R4')">Solution R.4</button>
+	
+	<div id="R4" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Solution R.4:</h4>
-		
 		The notebook with the solution can be found <a href="./Solutions/Day2_rotation.ipynb">here</a>. <br> 
 		We expect the core to spin up (slow down) when it contracts (expands), similar to the envelope!
 		<ul> 
-		<li>The first model corresponds to ZAMS, 
-			the center_he fraction stagnates at model ~100 or 150, these are a reasonable proxy for the TAMS, 
-			the last model (598) corresponds to the end of core He burning.
+			<li>The first model corresponds to ZAMS, 
+				the center_he fraction stagnates at model ~100 or 150, these are a reasonable proxy for the TAMS, 
+				the last model (598) corresponds to the end of core He burning.
 
-			The star starts as a solid body rotator: the angular velocity is constant throughout the star. 
-			As the star evolves, the core contracts and so we see a spin up of the inner parts of the core. 
-			At core He exhaustion, we clearly see a rotating core and a rotating shell a bit higher up, while the envelope is not rotating. 
-		</li>
-	
+				The star starts as a solid body rotator: the angular velocity is constant throughout the star. 
+				As the star evolves, the core contracts and so we see a spin up of the inner parts of the core. 
+				At core He exhaustion, we clearly see a rotating core and a rotating shell a bit higher up, while the envelope is not rotating. 
+			</li>
 		</ul>
 	</div>
+
+
 
 
 
@@ -383,6 +381,8 @@
                     document.getElementById('left-menu').style.display = 'none';
                 });
             </script>
+
+
 
 	</body>
 </html>

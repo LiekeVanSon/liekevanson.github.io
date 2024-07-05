@@ -7,16 +7,8 @@
 <html>
 	<head>
 		
-		<!-- Google tag (gtag.js) -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=G-FEKVVHCKS3"></script>
-		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
-
-		  gtag('config', 'G-FEKVVHCKS3');
-		</script>
-
+		<!-- Script for solution toggle button -->
+		<script src="../assets/js/togglesol.js"></script>
 		
 		<title> Lieke van Son </title>
 		<meta charset="utf-8" />
@@ -173,14 +165,14 @@ Similar to day one, we will start by copying the test suite to our home director
 	</ul>
 	</p>
 </div>
-<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-	<h4>Solution:</h4>
-	<p>
+
+<button onclick="toggleVisibility('2.1')">Solution 2.1</button>
+<div id="2.1" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>Solution 2.1</h4>
 	<ul>
-		<li> 2.1) Change in <code>inlist_zams</code>: <code>initial_mass</code> to 15, and both <code> Zbase</code> and <code>initial_z</code> to 0.02 </li>
+		<li> Change in <code>inlist_zams</code>: <code>initial_mass</code> to 15, and both <code> Zbase</code> and <code>initial_z</code> to 0.02 </li>
 		
 	</ul>
-	</p>
 </div>
 
 </section>
@@ -217,8 +209,9 @@ load_model_filename = 'zams.mod'
 	</p>
 </div>
 
-<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-	<h4>Solution:</h4>
+<button onclick="toggleVisibility('2.2')">Solution 2.2</button>
+<div id="2.2" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>Solution 2.2</h4>
 	<p>
 	<ul>
 		<li> your inlist_rotating_star should look like: 
@@ -298,8 +291,10 @@ load_model_filename = 'zams.mod'
 	</ul>
 	</p>
 </div>
-<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-	<h4>Solution:</h4>
+
+<button onclick="toggleVisibility('2.3')">Solution 2.3</button>
+<div id="2.3" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+	<h4>Solution 2.3</h4>
 	<p>
 		Your <code>rn</code> file should look like
 <pre>
