@@ -113,13 +113,69 @@
 
 	There are however ways in which we can couple the core to the envelope. 
 	In other words, ways in which we can transport angular momentum from the core to the envelope.
-	<!-- We will now look at how the angular momentum is transported in the star, and how this affects the evolution/rotation of the star. -->
+	We will now look at the distribution of the angular momentum throughout the star, and how this affects the evolution/rotation of the star.
 	</p>
 
 	<!-- Then, you might want to plot together the j-profiles calculated for the different
 	phases, to look at how the internal angular momentum content has evolved with time.
 	You want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a> -->
-	</p>
+
+	<!-- -------------------------- -->
+	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Task AM.1 </h4>
+			<ul>
+				<li> Plot the the log of the specific angular momentum as a function of the mass, again at three different evolutionary stages:
+					I) Zero Age Main Sequence (ZAMS) II) Terminal Age Main Sequence (TAMS), and III) core He-exhaustion
+				
+					<ul style="list-style-type: '- ';">
+
+						<li>Look at how the internal angular momentum content has evolved with time. 
+							Can you explain the differences between the start and the end of the evolution of the star?
+							Remember that the specific angular momentum is defined as $j = r^{2} \cdot \omega $.
+						</li>
+					
+						<li>Compare your results with the bottom panel of Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>.
+							Is the general shape of the angular momentum profile similar to what you see in your model?
+							Do you spot any notable differences?
+						</li>
+					
+					</ul>
+
+				</li>
+
+		</ul>
+	</div>
+
+	<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h4>Solution AM.1:</h4>
+		
+		The notebook with the solution can be found <a href="./Solutions/Day2_AMtransport.ipynb">here</a>. <br> 
+		<ul> 
+		<li> Start by selecting an loading the profile data, similar to task R4, still using the profiles of model_number 1 for ZAMS, model_number 200 for TAMS, and model_number 598 for core He exhaustion.
+			<ul style="list-style-type: '- ';">
+				<li>Similar to the omega profile in task R4, we see that the specific angular momentum represents that of a rigid rotator at ZAMS. 
+					Namely specific angular momentum is defined as $j = r^{2} \cdot \omega $. 
+					At ZAMS, the star is a uniform ball of gas so that we can approximate $r = \left(\frac{4}{3}\pi \rho \right)^{-1/3} m^{1/3} \propto m^{1/3}$.
+					So that, $j \propto \omega \cdot m^{2/3} $, where omega is constant. We are plotting $\log_{10}(j) \propto \log_{10}(m^{2/3})$. 
+					This explains the main functional shape of the angular momentum profile. <br> 
+					We see that at TAMS, the outer part of the star still looks like a rigid rotator, but a divide has appeared between the core and the envelope.
+					At core He exhaustion, we see the star has gained additional structure from H shell burning, and we now have a distinct core-shell-and envelope.
+				</li>	
+
+				<li>When comparing to Fig. 2 in Heger et al. (2005), you will see that the general shape of the angular momentum profile is similar. 
+					Some notable differences include: the lower angular momentum at TAMS (H-depletion), and that the line for He depletion ends at a lower mass ($\sim 12 \mathrm{M_{\odot}}$). 
+					Both of these effects are related to the included wind-mass loss in the Heger et al. (2005) models (see next section <a href="Winds.html">on winds!</a>)
+				</li>
+			
+		</li>
+		</ul>
+	</div>
+
+</section>
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
+<section>
+
 
 	<h2> Evolution with the Tayler-Spruit dynamo </h2>
 
@@ -146,7 +202,7 @@
 
 
 	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-		<h4>Tasks AM.1 </h4>
+		<h4>Tasks AM.2 </h4>
 
 		We are going to re-run the same 15Msun star from ZAMS to core He exhaustion, but now including the Tayler-Spruit dynamo.
 		<ul>
@@ -170,11 +226,13 @@
 			<li> Run your model and compare the results with the previous run. 
 
 				<ul style="list-style-type: '- ';">
-					<li> Plot the radial velocity profile (omega vs mass) at ZAMS, TAMS, and core He exhaustion. (You will probably want to set the y-scale in log).</li>
+					<li> Plot the radial velocity profile (omega vs mass) at ZAMS, TAMS, and core He exhaustion. 
+						What is the effect of the Tayler-Spruit dynamo on the rotation profile?<br> 
+						(You will probably want to set the y-scale in log).</li>
 
-					<li> Plot the specific angular momentum profile. Focus on the angular momentum profile at ZAMS, TAMS, and core He exhaustion.</li>
-
-					<li> Is there any difference between the MS timescale for the models with and without Tayler-Spruit B? Why? </li>
+					<li> Plot the specific angular momentum profile at ZAMS, TAMS and core He exhaustion. <br> 
+						Compare your results with the top panel of Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>.
+					</li>
 
 				</ul>
 			</li>
@@ -184,50 +242,55 @@
 	</div>
 
 		<div style="border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-			<h4>Solution AM.1:</h4>
+			<h4>Solution AM.2:</h4>
 			<ul> 
-			<li> Some solution
+			<li> At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlistAM2">this.</a>
 			</li>
 
-			<li>
+			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_AMtransport.ipynb">here</a>. <br> 
 				<ul style="list-style-type: '- ';">
-					<li> Focus on the angular momentum profile at ZAMS, TAMS, and core He exhaustion.</li>
+					<li> At ZAMS, the $\Omega$ profiles are the same. <br> 
+						 At TAMS, the $\Omega$ profile is different, with the Tayler-Spruit dynamo model having a more slowly spinning core and generally a flat (rigid rotation) profile. <br> 
+						 At core He exhaustion, the Tayler-Spruit dynamo model still has a core that is rotating more than 2 orders of magnitude slower than the .	
+					</li>
 
-					<li> Is there any difference between the MS timescale for the models with and without Tayler-Spruit B? Why? </li>
+					<li> The specific angular momentum profiles should look like this:  
+						<figure>
+							<img src="./IAUhackathonImages/j_profile_wTS.png" width="80%" />
+							<figcaption>Specific angular momentum profiles of rotating $15M_{\odot}$ star, with and without a magnetic field. </figcaption>
+						</figure>
+						We see that the Tayler-Spruit dynamo model has a more uniform specific angular momentum profile, 
+						with a core that is rotating much more slowly.
+					</li>
 
 				</ul>
 			</li>
-
-				
-			<!-- It is now interesting to look at the evolution of total angular momentum as function of time.
-			Plot your angular momentum profiles at different evolutionary stages. 
-			Again, you want to compare your results with Fig. 2 in <a href="https://ui.adsabs.harvard.edu/abs/2005ApJ...626..350H/abstract">Heger et al. (2005)</a>. -->
 
 			</ul>
 	
 		</div>
 	
-
+	<!-- <li> What is the effect of the Tayler-Spruit dynamo on the angular momentum profile of the star? </li> --> 
+								
+	<!-- It is now interesting to look at the evolution of total angular momentum as function of time.
+	Plot your angular momentum profiles at different evolutionary stages. -->
 </section>
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <section>
 
-	<h2> Exercises </h2>
+	<h2> Bonus Exercises </h2>
 
-	<ol>
+	<ul>
 		<li> Is the N-enrichment compatible with
-		results from other codes? And with massive stars observations? 
+		results from other codes? And with massive stars observations?  <br> 
 		Take a look at <a href="https://ui.adsabs.harvard.edu/abs/2000ApJ...528..368H/abstract">Heger et al. 2000</a> (e.g. Fig. 5) 
 		and Fig. 6 from <a href="https://ui.adsabs.harvard.edu/abs/2012MNRAS.419..748P/abstract">Potter et al. 2012</a>   to draw your conclusions.
-		</li>
+		</li> 
 
+		<li> Is there any difference between the MS timescale for the models with and without Tayler-Spruit B? Why? </li> 
 
-		<li> What is the effect of the Tayler-Spruit dynamo on the angular momentum profile of the star?
-		</li>
-				   
-
-	</ol>
+	</ul>
 
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->

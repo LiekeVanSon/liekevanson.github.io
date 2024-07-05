@@ -372,13 +372,7 @@ extra_pgstar_inlist_name(1)= 'inlist_rotating_star'
 </div>
 
 
-<p>
-	Now we want to save more output than is output by default.
-	For this the output in the 15Msun model is a good example, copy over the 
-	<!-- <code>history_columns.list</code>, and  -->
-	<code>profile_columns.list</code> from <code>$MESA_DIR/star/test_suite/15M_Dynamo</code> 
-	to your <code>rotating_star_proj</code> directory.
-</p>
+
 
 
 </section>
@@ -386,17 +380,30 @@ extra_pgstar_inlist_name(1)= 'inlist_rotating_star'
 <!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
 <section>
 
- <h2>Setting pgplot</h2>
+ <h2>Setting output and pgplot</h2>
 
-Of course it's fun to see a bunch of numbers running across your screen, 
+ <p>
+ For the next few exercises, we want to save more output than what is set by default.
+ For this the output in the 15Msun model is a good example.
+</p>
+
+<p>
+Moreover, we know it's fun to see a bunch of numbers running across your screen, 
 but it's even better to have pictures show up life while we are running our model!
 We will use the PGstar plot that comes from the 15Msun_dynamo model
-
+</p>
 
  <div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-	<h4>task 2.4: setting up PGstar</h4>
+	<h4>task 2.4 </h4>
 	<p>
 	<ul>
+		<li>
+			 copy over the <code>history_columns.list</code>, and <code>profile_columns.list</code> from <code>$MESA_DIR/star/test_suite/15M_Dynamo</code> 
+			to your <code>rotating_star_proj</code> directory.
+			In the <code>history_columns.list</code>, uncomment the line with <code>c_log_eps_burn cno</code>
+		</li>
+
+
 		<li>Enable pgstar by setting <code>pgstar_flag = .true.</code>
 		</li> Add the following code  to the end of <code>inlist_rotating_star</code>.
 <pre>
