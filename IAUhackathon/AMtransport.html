@@ -7,9 +7,7 @@
 <html>
 	<head>
 		
-		<!-- Script for solution toggle button -->
-		<script src="../assets/js/togglesol.js"></script>
-		
+
 		<title> Lieke van Son </title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no" />
@@ -23,11 +21,18 @@
         <!-- Link to your left-menu.css file -->
         <link rel="stylesheet" href="../assets/css/left-menu.css" />
 
-		<!-- Adding latex support -->
-		<script src="../assets/js/mathjax-config.js"></script>
-		<script type="text/javascript" id="MathJax-script" async
-		src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-		</script>
+        <!-- Adding latex support -->
+          <script>
+            MathJax = {
+              tex: {
+                inlineMath: [['$', '$']]
+              }
+            };
+          </script>
+          
+          <script type="text/javascript" id="MathJax-script" async
+            src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+          </script>
           
          
 	</head>
@@ -62,8 +67,7 @@
 			<div id="wrapper">
 
 				<!-- Header -->
-					<header id="he
-                    ader">
+					<header id="header">
 						<a href="../IAUhackathon/home.html" class="logo"> A first taste of MESA </a>
 					</header>
 
@@ -169,7 +173,6 @@
 <!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
 <section>
 
-
 	<h2> Evolution with the Tayler-Spruit dynamo </h2>
 
 	<p>
@@ -270,6 +273,7 @@
 								
 	<!-- It is now interesting to look at the evolution of total angular momentum as function of time.
 	Plot your angular momentum profiles at different evolutionary stages. -->
+
 </section>
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
@@ -288,9 +292,9 @@
 
 	</ul>
 
+</section>
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
-
 
 
 				<!-- Copyright -->
@@ -308,6 +312,8 @@
 			<script src="assets/js/breakpoints.min.js"></script>
 			<script src="assets/js/util.js"></script>
 			<script src="assets/js/main.js"></script>
+			<!-- Script for solution toggle button -->
+			<script src="../assets/js/togglesol.js"></script>
             <!-- for left button  -->
             <script>
                 document.getElementById('left-menu-button').addEventListener('mouseover', function() {
