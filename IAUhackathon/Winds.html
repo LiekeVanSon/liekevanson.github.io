@@ -125,52 +125,51 @@
 				<code>D_ST_factor = 1.0</code> and <code>am_nu_ST_factor = 1.0</code>.
 			</li>
 
-			<li> Add some basic wind prescription to our model, by including the following in the controls section of our <code>inlist_rotating_star</code>:
+			<li> Add some wind prescriptions to our model, by including the following in the controls section of our <code>inlist_rotating_star</code>:
 <pre>
 	<code>
-! mass loss
-	hot_wind_scheme = 'Dutch'
-	hot_wind_full_on_T = 1d0
-	cool_wind_full_on_T = 0d0
-	Dutch_scaling_factor = 0.8
-
-	mdot_omega_power = 0.43
-<!-- ! winds
+! wind
 	cool_wind_full_on_T = 0.8d4 ! cool wind scheme takes effect below this temperature
-	cool_wind_RGB_scheme = 'van Loon'
-	cool_wind_AGB_scheme = 'Blocker'
+	cool_wind_RGB_scheme = 'Dutch'
+	cool_wind_AGB_scheme = 'Dutch'
 
 	hot_wind_full_on_T = 1.2d4 ! hot wind scheme takes effect above this temperature
-	hot_wind_scheme = 'Vink'
-	Dutch_wind_lowT_scheme = 'de Jager' -->
+	hot_wind_scheme = 'Dutch'
+	Dutch_wind_lowT_scheme = 'de Jager'
+
+	Dutch_scaling_factor = 0.8 ! scaling for the Dutch wind scheme (default = 0, so no mass loss)
+	! mdot_omega_power = 0.43 ! Enhanced mass loss due to rotation
 
 	</code>
 </pre>
-<!-- 
-	RGB_wind_scheme = ’Dutch’
-	AGB_wind_scheme = ’Dutch’
-	RGB_to_AGB_wind_switch = 1d-4
-	Dutch_wind_eta = 0.8 -->
 
 	where the top 3 lines set the wind schemes for cool stars (that is winds on the red giant branch and asymptotic giant branch), and
-	the next 3 lines are for hot stars (i.e., main sequence and Wolf-Rayet stars).
+	the next 3 lines are for hot stars (i.e., main sequence, Hertzsprung-gap and Wolf-Rayet stars), and the last line is a scaling factor.
 			</li>
 
-			<li> Run your model and compare the results with the previous runs: 
-				Plot the j-profiles again? Now compare all three lines: only rotation, rotation and magnetic fields, and rotation and winds.
-				Can you explain why winds lower the rotation of the star? 
-				(Hint: what do you think is the effect of removing high j? and what is the effect of removing low j? )
-			</li>
+			<li> Run your model and plot the following: </li> 
+			
+			<ul style="list-style-type: '- ';">
 
-			<li> Plot the star_mass and the he_core_mass as a function of star_age. Are both affected equally by the winds?
-			</li>
+				<li> Plot the omega profile at ZAMS, TAMS, and core-He exhaustion for the models with rotation only, rotation and magnetic fields, and rotation and winds. 
+					What is the effect of winds on the rotation profile of the star?
+				</li>	
+				<li> Plot the star_mass and the he_core_mass as a function of star_age. Are both affected equally by the winds?
+				</li>
 
+				<li>
+					Plot the j-profiles again. Make 3 plots: one for ZAMS, one for TAMS, and one for core-He exhaustion.
+					Compare the results with the previous runs within each plot: only rotation, rotation and magnetic fields, and rotation and winds.
+					Can you explain why winds lower the rotation of the star? <br> 
+					(Hint: what do you think is the effect of removing high j? and what is the effect of removing low j? )
+				</li>
 
-			<li> Write down the values of the stellar radius, mass, envelope mass, total hydrogen mass, 
-				surface hydrogen fraction, and surface helium fraction, stellar luminosity and effective temperature, 
-				at the end of core carbon on a piece of paper.
-			</li>
+				<!-- <li> Write down the values of the stellar radius, mass, envelope mass, total hydrogen mass, 
+					surface hydrogen fraction, and surface helium fraction, stellar luminosity and effective temperature, 
+					at the end of core carbon on a piece of paper.
+				</li> -->
 
+			</ul>
 
 		</ul>	
 	</div>
@@ -179,16 +178,20 @@
 	<div id="W1" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 			<h4>Solution W.1:</h4>
 			<ul> 
-			<li> At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlist">this.</a>
+			<li> At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlistW1">this.</a>
 			</li>
 
-			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_AMtransport.ipynb">here</a>. <br> 
+			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_winds.ipynb">here</a>. <br> 
 				<ul style="list-style-type: '- ';">
-					<li> sub solution 1 </li>
-				</ul>
-			</li>
+					<li> The envelope is rotating less fast, but the core is moving outwards? </li>
 
-			<li>Can you explain why winds lower the rotation of the star? Well if you look at the j-profile, you will see that the
+					<li> The envelope loses mass, but the He core increases with the inclusion of winds??? </li>
+
+					<li> The j-profile is the same for all three models at ZAMS, 
+						The winds shift the core and the shell to higher masses??
+						The Tayler-Spruit dynamo  </li>
+
+				</ul>
 			</li>
 
 			</ul>
@@ -208,23 +211,21 @@
 	<h2> Using the Other_wind hook </h2>
 
 	<p>
-	In this part we are going to add wind mass loss to our stellar model by using the other_wind_routine. 
-	The 'other' hooks in MESA are extremally useful as they allow us to implement different physical concepts through run_star_extras.f90 without changing the source-code.  
+	The wind mass loss prescriptions that we use in MESA are based on observations. 
+	Unfortunately, massive stars are rare, and even when you manage to observe them, it is very difficult to measure their mass loss rates.
+	Moreover the theoretical processes by which stars launch winds are also poorly-understood. 
+	Because of this, the wind mass loss rates are still very uncertain, and you might find yourself in a situation where you want to test the effect of your own custom wind prescription.
 	</p>
 
 	<p>
-	Applying different schemes of stellar winds to the star could be relevant for studying mass transfer in binary systems, 
-	the formation and evolution of Wolf-Rayet stars, and many other processes in life and death of massive stars. 
+	Because of the many uncertainties, we will take a parameterized approach: we will consider <i>constant</i> mass loss rates and their impact on 
+	the stellar structure and evolution of the star. 
+	To do this, we need to use the 'other_wind hook' in <code>run_star_extras.f90</code> .
+	The 'other' hooks in MESA are extremely useful as they allow us to implement different physical concepts through <code>run_star_extras.f90</code> 
+	without changing the source-code of MESA.  
 	</p>
 
-	<p>
-	Many processes by which stars launch winds are poorly-understood. 
-	In this next section, we will therefore instead take a parameterized approach, 
-	considering constant mass loss rates and their impact on the stellar structure and evolution in the HR diagram. 
-	To do this, we need to use the other_wind hook in run_star_extras.f90.
-	</p>
-
-
+	<!-- In this part we are going to add wind mass loss to our stellar model by using the <code>other_wind_routine</code>.  -->
 
 	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Tasks W.2 </h4>
@@ -233,8 +234,8 @@
 			<li>Open the file <code>$MESA_DIR/star/other/other_wind.f90.</code>
 			</li>
 
-			<li>From there, copy the subroutine null_other_wind to your run_star_extras.f90 file located in $TUESDAY_WORK_DIR/MINILAB3_winds/20M/src/. 
-				This routine turns on a stellar wind through which the star loses mass at a constant rate specified by w (in units of M⊙/year).
+			<li>From there, copy the subroutine null_other_wind to your run_star_extras.f90 file located at <code>~/rotating_star_proj/src/run_star_extras.f90</code>. 
+				This routine turns on a stellar wind through which the star loses mass at a constant rate specified by w (in units of Msun/year).
 				 Rename this routine to be called other_wind_routine for clarity. 
 				  Don't forget to rename both the beginning (declaration) and the  end statement of the subroutine!
 			</li>
