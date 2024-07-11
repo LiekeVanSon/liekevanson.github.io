@@ -198,8 +198,7 @@
 				Because this is _initial, it only applies at start of run, not for restarts. 
 			</li>
 
-			<li> $\Omega_{crit}$ is the 'critical rotation rate' (in rad/s). 
-				In other words it is defined as the rotational velocity where the centrifugal force equals the gravitational force.
+			<li> $\Omega_{crit}$ (the 'critical rotation rate' in rad/s), is the rotational velocity where the centrifugal force equals the gravitational force.
 				In other words, this is the limit where the star would start to break apart due to the centrifugal force. <br>
 
 				$
@@ -305,9 +304,13 @@
 						<li>II) the end of core H burning, or Terminal Age Main Sequence (TAMS) </li>
 						<li>III) core He-exhaustion</li>
 					</ul>
-					Hint: to find which profile you need, we suggest you print <code>c_log_eps_burn_cno</code> for the models corresponding to each profile.
+					We'll define TAMS as the moment when the central hydrogen fraction drops below $10^{-7}$.
+					Hint: to find which profile you need, we suggest you have a look at the <code>profiles.index</code> file, 
+					which lists all the profiles and their corresponding module_number.
+					Check the central H fration for each of these module_numbers using the history.data to define TAMS. 
+					<!-- Hint: to find which profile you need, we suggest you print <code>c_log_eps_burn_cno</code> for the models corresponding to each profile.
 					<code>c_log_eps_burn_cno</code> is the (log of the) nuclear reaction rate of the CNO cycle (i.e. H-burning) in the center. 
-					This will be essentially zero at the end of core H burning.
+					This will be essentially zero at the end of core H burning. -->
 
 				</li> 
 		</ul>
@@ -320,9 +323,9 @@
 		The notebook with the solution can be found <a href="./Solutions/Day2_rotation.ipynb">here</a>. <br> 
 		We expect the core to spin up (slow down) when it contracts (expands), similar to the envelope!
 		<ul> 
-			<li>The first model corresponds to ZAMS, 
-				the center_he fraction stagnates at model ~100 or 150, these are a reasonable proxy for the TAMS, 
-				the last model (598) corresponds to the end of core He burning.
+			<li>The first model corresponds to ZAMS, and the last model (598) corresponds to the end of core He burning.
+				the center_H1 fraction drops below $10^{-7}$ at model ~157.0, making it a reasonable proxy for the TAMS. <br> 
+				
 
 				The star starts as a solid body rotator: the angular velocity is constant throughout the star. 
 				As the star evolves, the core contracts and so we see a spin up of the inner parts of the core. 

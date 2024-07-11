@@ -188,8 +188,10 @@ We now want to load our zams model in a new inlist.
 	<h4>task 2.2: Creating a new inlist</h4>
 	<p>
 	<ul>
-		<li> Copy over the contents of inlist <code>inlist_rotating_star</code> to a text file with the same name in your home directory. 
-			<span style="color:red;"> TODO: link to file on website</span>
+		<li> Copy over the contents of the inlist file <a href="./startup_files/inlist_rotating_star"><code>inlist_rotating_star</code></a>
+			 to a text file with the same name in your home directory. 
+			 Note that all that this inlist does is reset the age and module_number to zero at the start, 
+			 and wants to run a $15\,M_{\odit}$ star at a metallicity of $Z= 0.02$.
 		</li>
 		<li> Limit your model to only run for 500 models by adding <code> max_model_number = 100 </code> to the <code>&controls</code>.
 		</li>
@@ -392,7 +394,7 @@ We will use the PGstar plot that comes from the 15Msun_dynamo model
 		<li>
 			 copy over the <code>history_columns.list</code>, and <code>profile_columns.list</code> from <code>$MESA_DIR/star/test_suite/15M_Dynamo</code> 
 			to your <code>rotating_star_proj</code> directory.
-			In the <code>history_columns.list</code>, uncomment the line with <code>c_log_eps_burn cno</code>
+			<!-- In the <code>history_columns.list</code>, uncomment the line with <code>c_log_eps_burn cno</code> -->
 		</li>
 
 

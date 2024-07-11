@@ -1,0 +1,36 @@
+&star_job
+
+! reset age and model number
+      set_initial_model_number = .true.
+      initial_model_number = 0
+
+      set_initial_age = .true.
+      initial_age = 0
+
+! pgstar 
+        pgstar_flag = .false.
+        save_pgstar_files_when_terminate = .false.
+        
+/ ! end of star_job namelist
+
+
+&eos
+
+/ ! end of eos namelist
+
+
+&kap
+      use_type2_opacities = .true.
+      Zbase = 0.02
+
+/ ! end of kap namelist
+
+
+&controls
+! initial model
+      initial_mass = 15
+      initial_z = 0.02
+
+            
+/ ! end of controls namelist
+
