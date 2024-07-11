@@ -278,6 +278,13 @@ load_model_filename = 'zams.mod'
 		<li>We want to point the main inlist to our newly created <code>inlist_rotating_star</code>.
 			In the file <code>inlist</code>, find and replace all "inlist_zams" to "inlist_rotating_star".
 		</li>
+
+		<li> In your folder <code>~/rotating_star_proj</code> there is a folder called <code>src</code>, with a file called 'run_star_extras.f90'.
+			Replace the contents of this file with the contents of the file <a href="./startup_files/run_star_extras.f90"><code>run_star_extras.f90</code></a>  <br> 
+			Note: We have made a small change in this file to save some extra output that will be useful for the next exercises.
+			In the last <a href="./Winds.html">section on Winds</a>, we will get back to 'run_star_extras.f90' and learn how to add your own extra output.
+	   </li>
+		
 		<li>
 			The <code>rn</code> file determines which inlist is called first. 
 			We want to make sure that this now calls inlist. 

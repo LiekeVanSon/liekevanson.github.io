@@ -1,6 +1,6 @@
 &star_job
 
-! load your zams model <exersize>
+! load your zams model
       load_saved_model = .true.
       load_model_filename = 'zams.mod'
 
@@ -11,11 +11,11 @@
       set_initial_age = .true.
       initial_age = 0
 
-! pgstar <exersize>
+! pgstar 
       pgstar_flag = .true.
       save_pgstar_files_when_terminate = .true.
 
-! rotation <exersize>
+! rotation 
 	! Change the initial rotation of the star
 	change_rotation_flag = .true.  !enabling rotation
 	new_rotation_flag = .true.
@@ -41,18 +41,18 @@
 
 &controls
 ! Save your output to a different directory
-      log_directory = 'LOGS_winds'
+      log_directory = 'LOGS_winds' !LOGS_other_wind
 
 ! wind
-      cool_wind_full_on_T = 0.8d4 ! cool wind scheme takes effect below this temperature
+      ! use_other_wind = .true.
+      cool_wind_full_on_T = 1d4 ! cool wind scheme takes effect below this temperature
       cool_wind_RGB_scheme = 'Dutch'
       cool_wind_AGB_scheme = 'Dutch'
+      Dutch_scaling_factor = 0.8d0 ! scaling for the Dutch wind scheme (default = 0, so no mass loss)
 
-      hot_wind_full_on_T = 1.2d4 ! hot wind scheme takes effect above this temperature
-      hot_wind_scheme = 'Dutch'
-      Dutch_wind_lowT_scheme = 'de Jager'
-
-      Dutch_scaling_factor = 0.8 ! scaling for the Dutch wind scheme (default = 0, so no mass loss)
+      hot_wind_full_on_T = 1.01d4 ! hot wind scheme takes effect above this temperature
+      hot_wind_scheme = 'Vink'
+      Vink_scaling_factor = 3d0 
 
 ! initial model
       initial_mass = 15

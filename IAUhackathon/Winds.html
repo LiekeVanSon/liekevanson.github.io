@@ -103,55 +103,128 @@
 
 <section>
 	<h1> Stellar winds </h1>
+	
+	<span class="image left">
+		<img src="./IAUhackathonImages/The_Bubble_Nebula_-_NGC_7635_-_Heic1608a.jpeg" alt=""
+		<figcaption>The 'bubble nebula' NGC_7635 caused by the winds of a $44 M_{\odot}$ star. <br> Credit: NASA, Hubble Space Telescope </figcaption> 
+	</span>
 
-	<!-- NOT sure how strongly we will base this on minilab 3 yet..  
-		<p style="color:red;">This part of the hackathon is based heavily on
+	<!--  Add vertical whitespace -->
+	<div style="height: 1cm;"></div>
+
+	<p>
+	Stellar winds are an important aspect of massive star evolution. 
+	As mass is lost from the outer layers of the star, they carry away angular momentum (see previous section). 
+	We are going to add some winds to our $15\mathrm{M_{\odot}}$ star, which will make it much more realistic.
+	</p>
+
+	<!-- NOT sure how strongly we will base this on minilab 3 yet..   -->
+		<p style="color:rgb(0, 0, 0);">This part of the hackathon is based heavily on
 		<a href="https://sites.google.com/view/massive-stars-mesa-down-under/minilab3/task-1-constant-mass-loss?authuser=0">the MESA down under day 2 minilab3</a>.
-		Credit goes to <a href="https://sites.google.com/view/aldanagrichener">Aldana Grichener</a>, and <a href="https://jaredagoldberg.wordpress.com/">Jared Goldberg</a> for the content.
-	</p> -->
+		A lot of credit goes to <a href="https://sites.google.com/view/aldanagrichener">Aldana Grichener</a>, and <a href="https://jaredagoldberg.wordpress.com/">Jared Goldberg</a> for the content.
+	</p>
 
-	Stellar winds are an important aspect of massive star evolution.
-	As mass is lost from the outer layers of the star, they carry away angular momentum (see pre). 
-	We are going to add some winds to our 15Msun star, to make it more realistic.
+	<!--  Add vertical whitespace -->
+	<div style="height: 5cm;"></div>
+
+
 
 	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Tasks W.1 </h4>
+		<ol>
+			<li>Setting up your run:
 
-		<ul>
-			<li> We want to save our run in a separate folder again: change: <code>log_directory = 'LOGS_winds'</code>
-			</li>
+			<ul style="list-style-type: '- ';">
 
-			<li> Remove the Tayler Spruit dynamo that we added in the previous exercise, i.e. comment out or remove
-				<code>D_ST_factor = 1.0</code> and <code>am_nu_ST_factor = 1.0</code>.
-			</li>
+				<li> We want to save our run in a separate folder again: change: <code>log_directory = 'LOGS_winds'</code>
+				</li>
 
-			<li> Add some wind prescriptions to our model, by including the following in the controls section of our <code>inlist_rotating_star</code>:
+				<li> Remove the Tayler Spruit dynamo that we added in the previous exercise, i.e. comment out or remove
+					<code>D_ST_factor = 1.0</code> and <code>am_nu_ST_factor = 1.0</code>.
+				</li>
+
+				<li> Add some wind prescriptions to our model, by including the following in the controls section of our <code>inlist_rotating_star</code>:
 <pre>
 	<code>
 ! wind
-	cool_wind_full_on_T = 0.8d4 ! cool wind scheme takes effect below this temperature
+	! use_other_wind = .true.
+	cool_wind_full_on_T = 1d4 ! cool wind scheme takes effect below this temperature
 	cool_wind_RGB_scheme = 'Dutch'
 	cool_wind_AGB_scheme = 'Dutch'
+	Dutch_scaling_factor = 0.8d0 ! scaling for the Dutch wind scheme (default = 0, so no mass loss)
 
-	hot_wind_full_on_T = 1.2d4 ! hot wind scheme takes effect above this temperature
-	hot_wind_scheme = 'Dutch'
-	Dutch_wind_lowT_scheme = 'de Jager'
-
-	Dutch_scaling_factor = 0.8 ! scaling for the Dutch wind scheme (default = 0, so no mass loss)
-	! mdot_omega_power = 0.43 ! Enhanced mass loss due to rotation
-
+	hot_wind_full_on_T = 1.01d4 ! hot wind scheme takes effect above this temperature
+	hot_wind_scheme = 'Vink'
+	Vink_scaling_factor = 3d0 
 	</code>
 </pre>
-
-	where the top 3 lines set the wind schemes for cool stars (that is winds on the red giant branch and asymptotic giant branch), and
-	the next 3 lines are for hot stars (i.e., main sequence, Hertzsprung-gap and Wolf-Rayet stars), and the last line is a scaling factor.
-			</li>
-
-			<li> Run your model and plot the following: </li> 
+				where the top 4 lines set the wind schemes for cool stars (that is winds on the red giant branch and asymptotic giant branch), and
+				the bottom 3 lines are for hot stars (i.e., main sequence, Hertzsprung-gap and Wolf-Rayet stars).
+				</li>
+				<li> Run your model with ./rn !</li>  
+			</ul>
 			
+			<li>Plot the 'star_age' versus the log of the wind mass loss rate 'log_abs_mdot'.
+				When is the star losing more mass, earlier or later in its evolution?
+			</li>
+			
+			<li> Plot the j-profile, this time only at <strong>only at core-He exhaustion.</strong>.
+
 			<ul style="list-style-type: '- ';">
 
-				<li> Plot the omega profile at ZAMS, TAMS, and core-He exhaustion for the models with rotation only, rotation and magnetic fields, and rotation and winds. 
+				<li> Surface effects: Does the wind carry away high or low specific-angular momentum? <br> 
+					How will this affect the surface rotation? 
+					Check your expectation by printing out the surface rotation rate at the end of the simulation 
+					(e.g., <code>histdata.surf_avg_v_rot[-1]</code>).
+				</li>
+
+				<li> What is happening to the core? <br> 
+					Focus on the core-envelope boundary, is the core-envelope boundary at higher or lower mass?
+					Now focus on the height of the specific angular momentum.
+				</li>	
+			</ul>
+			
+			</li> 
+
+		</ol>	
+	</div>
+
+	<button onclick="toggleVisibility('W1')">Solution W 1</button>
+	<div id="W1" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+			<h4>Solution W.1:</h4>
+			<ol> 
+			<li> At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlistW1">this.</a>
+			</li>
+
+			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_winds.ipynb">here</a>. <br> 
+				<img src="./Solutions/W1_mdot.png" alt="j-profiles" style="width: 50%;"/> <br> 
+
+				The mass loss rates increases towards the end of the stars evolution.
+			</li>
+
+			<li> Your j-profiles should look like this: <br>
+				<img src="./Solutions/W1_j_core_He_exhaust.png" alt="j-profiles" style="width: 70%;"/>
+
+				<ul style="list-style-type: '- ';">
+					<li> The wind carries away the outer layers of the star, which has high specific angular momentum. 
+						This means that we should expect windy stars to spin down. 
+						If we print the last surf_avg_v_rot from the history file for the model without and with winds, 
+						we indeed see that the model with winds has lower surface rotation.
+					</li>
+
+					<li> When winds are included, the core-envelope boundary is at a lower mass. 
+						However, the height of the specific angular momentum is about the same for the model with vs. without winds. 
+						This shows again that the angular momentum is not carried outward (when we don't include magnetic fields).
+					</li>
+
+				</ul>
+			</li>
+
+			</ol>
+	
+		</div>
+		
+				<!-- <li> Plot the omega profile at ZAMS, TAMS, and core-He exhaustion for the models with rotation only, rotation and magnetic fields, and rotation and winds. 
 					What is the effect of winds on the rotation profile of the star?
 				</li>	
 				<li> Plot the star_mass and the he_core_mass as a function of star_age. Are both affected equally by the winds?
@@ -162,45 +235,13 @@
 					Compare the results with the previous runs within each plot: only rotation, rotation and magnetic fields, and rotation and winds.
 					Can you explain why winds lower the rotation of the star? <br> 
 					(Hint: what do you think is the effect of removing high j? and what is the effect of removing low j? )
-				</li>
+				</li> -->
 
 				<!-- <li> Write down the values of the stellar radius, mass, envelope mass, total hydrogen mass, 
 					surface hydrogen fraction, and surface helium fraction, stellar luminosity and effective temperature, 
 					at the end of core carbon on a piece of paper.
 				</li> -->
 
-			</ul>
-
-		</ul>	
-	</div>
-
-	<button onclick="toggleVisibility('W1')">Solution W 1</button>
-	<div id="W1" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
-			<h4>Solution W.1:</h4>
-			<ul> 
-			<li> At this point, your <code>inlist_rotating_star</code> should look like <a href="./Solutions/Solution_inlistW1">this.</a>
-			</li>
-
-			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_winds.ipynb">here</a>. <br> 
-				<ul style="list-style-type: '- ';">
-					<li> The envelope is rotating less fast, but the core is moving outwards? </li>
-
-					<li> The envelope loses mass, but the He core increases with the inclusion of winds??? </li>
-
-					<li> The j-profile is the same for all three models at ZAMS, 
-						The winds shift the core and the shell to higher masses??
-						The Tayler-Spruit dynamo  </li>
-
-				</ul>
-			</li>
-
-			</ul>
-	
-		</div>
-
-
-</section>
-			
 
 
 </section>
@@ -250,14 +291,15 @@
 				<p style="color:rgb(160, 8, 8);">Note! Runs with higher values of w tend to take longer to run </p>
 			</li>
 
-			<li>Now that our wind routine is implemented, we need to tell MESA to actually use that wind routine. 
+			<li>We need to tell MESA to actually use the wind routine we just created. 
 				Add a pointer your other_wind_routine in the subroutine 'extras_controls' by adding the line
 				<code>s% other_wind => other_wind_routine  </code>
 			</li>
 
 			<li>Finally, activate the 'other_wind_routine' in your simulation by replacing the previously added winds (e.g., by commenting them out),
 				with a pointer to the new 'other_wind_routine'. <br> 
-				Do this by adding <code>use_other_wind = .true. </code> as a line to the &controls section of <code>inlist_rotating_star</code> 
+				Do this by adding <code>use_other_wind = .true. </code> as a line to the &controls section of <code>inlist_rotating_star</code> <br> 
+				If you want to save this in a separate folder again (recommended), change: <code>log_directory = 'LOGS_other_wind'</code> 
 			</li>
 
 			<li> Don’t forget to recompile the simulations by using the command
@@ -266,7 +308,6 @@
 
 		</ul>	
 	</div>
-
 
 	<!-- Note 1: that the commented segments in this subroutine are of no concern to the winds we are going to implement in this Minilab,
 		 but are very important for more complex schemes. -->
