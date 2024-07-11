@@ -234,23 +234,54 @@
 			<li>Open the file <code>$MESA_DIR/star/other/other_wind.f90.</code>
 			</li>
 
-			<li>From there, copy the subroutine null_other_wind to your run_star_extras.f90 file located at <code>~/rotating_star_proj/src/run_star_extras.f90</code>. 
-				This routine turns on a stellar wind through which the star loses mass at a constant rate specified by w (in units of Msun/year).
-				 Rename this routine to be called other_wind_routine for clarity. 
-				  Don't forget to rename both the beginning (declaration) and the  end statement of the subroutine!
+			<li>From there, copy the subroutine "null_other_wind" to your <code>run_star_extras.f90</code> file located at
+				<code>~/rotating_star_proj/src/run_star_extras.f90</code> <br>  
+				This routine will set your stellar wind mass loss to a constant rate specified by w (in units of Msun/year).
 			</li>
+
+			<li> Rename this routine to "other_wind_routine" for clarity. 
+				Don't forget to rename both the beginning (declaration) and the  end statement of the subroutine!
+			</li>
+
+			<li>Choose a constant mass loss rate between $5\cdot10^{-4}\,\mathrm{M_{\odot}/yr}$ and $9.5\cdot10^{-4}\,\mathrm{M_{\odot}/yr}$ which you would like to apply to the star,
+				by writing your name next to the chosen rate in <a href="https://docs.google.com/spreadsheets/d/1yBW6bbH1Nwwd3Icn9q8MHNvhgaCF4voMAhIrjtiyAD4/edit?usp=sharing">this google spreadsheet.</a>
+				In your <code>run_star_extras.f90</code>, change <code>w=0</code> to your chosen rate. <br> 
+				
+				<p style="color:rgb(160, 8, 8);">Note! Runs with higher values of w tend to take longer to run </p>
+			</li>
+
+			<li>Now that our wind routine is implemented, we need to tell MESA to actually use that wind routine. 
+				Add a pointer your other_wind_routine in the subroutine 'extras_controls' by adding the line
+				<code>s% other_wind => other_wind_routine  </code>
+			</li>
+
+			<li>Finally, activate the 'other_wind_routine' in your simulation by replacing the previously added winds (e.g., by commenting them out),
+				with a pointer to the new 'other_wind_routine'. <br> 
+				Do this by adding <code>use_other_wind = .true. </code> as a line to the &controls section of <code>inlist_rotating_star</code> 
+			</li>
+
+			<li> Don’t forget to recompile the simulations by using the command
+				<code>./clean ; ./mk </code> from the terminal in your rotating star directory, before you <code>./rn</code>!
+			</li>	
 
 		</ul>	
 	</div>
+
+
+	<!-- Note 1: that the commented segments in this subroutine are of no concern to the winds we are going to implement in this Minilab,
+		 but are very important for more complex schemes. -->
+
+	<!-- Note 2: if you worked with run_star_extras.f90 in the past, you might have noticed that the version of run_star_extras.f90 available in the directory of Minilab3 has some additions compared to the standard version. 
+		Additional routines, such as alpha_mlt_routine.f90,  are designed to implement physics that better represents processes in massive stars.  -->
 
 	<button onclick="toggleVisibility('W2')">Solution W 2</button>
 	<div id="W2" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 			<h4>Solution W.2:</h4>
 			<ul> 
-			<li> Some solution
+			<li> Your <code>inlist_rotating_star</code> will now look like <a href="./Solutions/Solution_inlistW1">this.</a>
 			</li>
 
-			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_AMtransport.ipynb">here</a>. <br> 
+			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_winds.ipynb">here</a>. <br> 
 				<ul style="list-style-type: '- ';">
 					<li> sub solution 1 </li>
 				</ul>
