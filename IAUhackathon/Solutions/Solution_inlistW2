@@ -1,0 +1,91 @@
+&star_job
+
+! load your zams model
+      load_saved_model = .true.
+      load_model_filename = 'zams.mod'
+
+! reset age and model number
+      set_initial_model_number = .true.
+      initial_model_number = 0
+
+      set_initial_age = .true.
+      initial_age = 0
+
+! pgstar 
+      pgstar_flag = .true.
+      save_pgstar_files_when_terminate = .true.
+
+! rotation 
+	! Change the initial rotation of the star
+	change_rotation_flag = .true.  !enabling rotation
+	new_rotation_flag = .true.
+
+	! specify the initial rotation as a fraction of the critical rotation
+	set_initial_omega_div_omega_crit = .true. 
+	new_omega_div_omega_crit = 0.2
+
+/ ! end of star_job namelist
+
+
+&eos
+
+/ ! end of eos namelist
+
+
+&kap
+      use_type2_opacities = .true.
+      Zbase = 0.02
+
+/ ! end of kap namelist
+
+
+&controls
+! Save your output to a different directory
+      log_directory = 'LOGS_other_winds'
+
+! wind
+      use_other_wind = .true.
+      ! cool_wind_full_on_T = 1d4 ! cool wind scheme takes effect below this temperature
+      ! cool_wind_RGB_scheme = 'Dutch'
+      ! cool_wind_AGB_scheme = 'Dutch'
+      ! Dutch_scaling_factor = 0.8d0 ! scaling for the Dutch wind scheme (default = 0, so no mass loss)
+
+      ! hot_wind_full_on_T = 1.01d4 ! hot wind scheme takes effect above this temperature
+      ! hot_wind_scheme = 'Vink'
+      ! Vink_scaling_factor = 3d0 
+ 
+! initial model
+      initial_mass = 15
+      initial_z = 0.02
+
+! stopping condition
+      xa_central_lower_limit_species(1) = 'he4'
+      xa_central_lower_limit(1) = 1d-6
+
+/ ! end of controls namelist
+
+! PG star information <exersize>
+&pgstar
+
+  file_white_on_black_flag = .true. ! white_on_black flags -- true means white foreground color on black background
+  file_device = 'png'            ! png
+  file_extension = 'png'
+
+   pgstar_interval = 50
+   file_digits = 8
+
+   Dynamo_legend_txt_scale_factor = 0.7
+   Mixing_legend_txt_scale_factor = 0.55
+   Profile_Panels4_txt_scale = 0.8
+
+   Profile_Panels4_win_flag = .true.
+   Profile_Panels4_win_width = 7
+   Profile_Panels4_title = '15M Dynamo'
+
+   Profile_Panels4_file_flag = .true.
+   Profile_Panels4_file_dir = 'png'
+   Profile_Panels4_file_prefix = 'profile_Panels4_'
+   Profile_Panels4_file_interval = 50
+   Profile_Panels4_file_width = 10
+
+/ ! end of pgstar namelist

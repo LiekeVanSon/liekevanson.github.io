@@ -104,13 +104,10 @@
 <section>
 	<h1> Stellar winds </h1>
 	
-	<span class="image left">
-		<img src="./IAUhackathonImages/The_Bubble_Nebula_-_NGC_7635_-_Heic1608a.jpeg" alt=""
-		<figcaption>The 'bubble nebula' NGC_7635 caused by the winds of a $44 M_{\odot}$ star. <br> Credit: NASA, Hubble Space Telescope </figcaption> 
-	</span>
+
 
 	<!--  Add vertical whitespace -->
-	<div style="height: 1cm;"></div>
+	<!-- <div style="height: 1cm;"></div> -->
 
 	<p>
 	Stellar winds are an important aspect of massive star evolution. 
@@ -125,7 +122,7 @@
 	</p>
 
 	<!--  Add vertical whitespace -->
-	<div style="height: 5cm;"></div>
+	<!-- <div style="height: 5cm;"></div> -->
 
 
 
@@ -251,6 +248,11 @@
 
 	<h2> Using the Other_wind hook </h2>
 
+	<span class="image left">
+		<img src="./IAUhackathonImages/The_Bubble_Nebula_-_NGC_7635_-_Heic1608a.jpeg" alt=""
+		<figcaption>The 'bubble nebula' NGC_7635 caused by the winds of a $44 M_{\odot}$ star. <br> Credit: NASA, Hubble Space Telescope </figcaption> 
+	</span>
+	
 	<p>
 	The wind mass loss prescriptions that we use in MESA are based on observations. 
 	Unfortunately, massive stars are rare, and even when you manage to observe them, it is very difficult to measure their mass loss rates.
@@ -271,11 +273,9 @@
 	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 		<h4>Tasks W.2 </h4>
 
-		<ul>
+		<ol>
 			<li>Open the file <code>$MESA_DIR/star/other/other_wind.f90.</code>
-			</li>
-
-			<li>From there, copy the subroutine "null_other_wind" to your <code>run_star_extras.f90</code> file located at
+				From there, copy the subroutine "null_other_wind" to your <code>run_star_extras.f90</code> file located at
 				<code>~/rotating_star_proj/src/run_star_extras.f90</code> <br>  
 				This routine will set your stellar wind mass loss to a constant rate specified by w (in units of Msun/year).
 			</li>
@@ -284,11 +284,11 @@
 				Don't forget to rename both the beginning (declaration) and the  end statement of the subroutine!
 			</li>
 
-			<li>Choose a constant mass loss rate between $5\cdot10^{-4}\,\mathrm{M_{\odot}/yr}$ and $9.5\cdot10^{-4}\,\mathrm{M_{\odot}/yr}$ which you would like to apply to the star,
-				by writing your name next to the chosen rate in <a href="https://docs.google.com/spreadsheets/d/1yBW6bbH1Nwwd3Icn9q8MHNvhgaCF4voMAhIrjtiyAD4/edit?usp=sharing">this google spreadsheet.</a>
+			<li>Choose a constant mass loss rate between $5\cdot10^{-8}\,\mathrm{M_{\odot}/yr}$ and $8\cdot10^{-7}\,\mathrm{M_{\odot}/yr}$ which you would like to apply to the star,
+				by writing your name next to the chosen rate in <strong><a href="https://docs.google.com/spreadsheets/d/1yBW6bbH1Nwwd3Icn9q8MHNvhgaCF4voMAhIrjtiyAD4/edit?usp=sharing">this google spreadsheet.</a></strong>
 				In your <code>run_star_extras.f90</code>, change <code>w=0</code> to your chosen rate. <br> 
 				
-				<p style="color:rgb(160, 8, 8);">Note! Runs with higher values of w tend to take longer to run </p>
+				<p style="color:rgb(79, 2, 2);">Note! Runs with higher values of w tend to take longer to run </p>
 			</li>
 
 			<li>We need to tell MESA to actually use the wind routine we just created. 
@@ -299,14 +299,19 @@
 			<li>Finally, activate the 'other_wind_routine' in your simulation by replacing the previously added winds (e.g., by commenting them out),
 				with a pointer to the new 'other_wind_routine'. <br> 
 				Do this by adding <code>use_other_wind = .true. </code> as a line to the &controls section of <code>inlist_rotating_star</code> <br> 
-				If you want to save this in a separate folder again (recommended), change: <code>log_directory = 'LOGS_other_wind'</code> 
+				If you want to save this in a separate folder again (recommended), change: <code>log_directory = 'LOGS_other_winds'</code> 
 			</li>
 
 			<li> Don’t forget to recompile the simulations by using the command
 				<code>./clean ; ./mk </code> from the terminal in your rotating star directory, before you <code>./rn</code>!
 			</li>	
 
-		</ul>	
+			<li><strong>Write down </strong> the final surface rotation velocity ('surf_avg_v_rot') and mass of the carbon oxygen core ('co_core_mass')
+				in the <a href="https://docs.google.com/spreadsheets/d/1yBW6bbH1Nwwd3Icn9q8MHNvhgaCF4voMAhIrjtiyAD4/edit?usp=sharing">google spreadsheet.</a> next to your name.
+				When everyone has filled out their values, we will see a pattern in the core masses and surface rotation velocities.
+			</li>
+
+		</ol>	
 	</div>
 
 	<!-- Note 1: that the commented segments in this subroutine are of no concern to the winds we are going to implement in this Minilab,
@@ -319,14 +324,15 @@
 	<div id="W2" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 			<h4>Solution W.2:</h4>
 			<ul> 
-			<li> Your <code>inlist_rotating_star</code> will now look like <a href="./Solutions/Solution_inlistW1">this.</a>
+			<li> Your <code>inlist_rotating_star</code> will now look <a href="./Solutions/Solution_inlistW2">like this,</a>
+				and your <code>run_star_extras.f90</code> will look <a href="./Solutions/Solution_run_star_extras">like this.</a>
 			</li>
 
-			<li> The notebook with the solution to the plots can be found <a href="./Solutions/Day2_winds.ipynb">here</a>. <br> 
-				<ul style="list-style-type: '- ';">
-					<li> sub solution 1 </li>
-				</ul>
+			<li> We will compare the results in <a href="https://docs.google.com/spreadsheets/d/1yBW6bbH1Nwwd3Icn9q8MHNvhgaCF4voMAhIrjtiyAD4/edit?usp=sharing"> the google spreadsheet</a> 
+				with the whole group after everyone has filled in their values!
+
 			</li>
+
 
 			</ul>
 	
