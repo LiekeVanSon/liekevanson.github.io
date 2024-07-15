@@ -156,12 +156,13 @@ Similar to day one, we will start by copying the test suite to our home director
 	<h4>Task 2.1:</h4>
 	<p>
 	<ul>
-		<li>Change <code>inlist_zams</code> to run a 15Msun star, at a metallicity of 0.02. 
+		<li>Change <code>inlist_zams</code> to run a 15Msun star, at a metallicity of 0.02 (for the latter, change both Zbase and initial_z). 
 		</li>		
 
 		<li> Go into <code>~/home/rotating_star_proj</code>, and
 			<code>./clean</code>  <code>./mk</code> and <code>./rn</code> your code
-			(<span style="color:red;"> it should take about one minute to create zams.mod</span>  
+			(<span style="color:red;"> it should take about one minute to create zams.mod</span>  <br>  
+			Check that file called <code>zams.mod</code> just appeared. Congratulations, you just created a ZAMS model!
 		</li>
 		
 		<!-- 2.2) Can you change the right inlist to activate the pgstar plot?  -->
@@ -173,14 +174,11 @@ Similar to day one, we will start by copying the test suite to our home director
 <div id="2.1" style="display: none; border: 3px solid #B7CB99; padding: 8px; margin: 5px 0; background-color: #fffefe;">
 	<h4>Solution 2.1</h4>
 	<ul>
-		<li> Change in <code>inlist_zams</code>: <code>initial_mass</code> to 15, and both <code> Zbase</code> and <code>initial_z</code> to 0.02 </li>
+		<li> Change in <code>inlist_zams</code>: <code>initial_mass = 15</code> , and both <code> Zbase = 0.02</code> and <code>initial_z = 0.02</code> </li>
 		
 	</ul>
 </div>
 
-<p>
-Check that file called <code>zams.mod</code> just appeared. Congratulations, you just created a ZAMS model!
-</p>
 
 
 </section>
@@ -204,7 +202,7 @@ We now want to load our zams model in a new inlist.
 			 Note that all that this inlist does is reset the age and module_number to zero at the start, 
 			 and wants to run a $15\,M_{\odot}$ star at a metallicity of $Z= 0.02$.
 		</li>
-		<li> Limit your model to only run for 500 models by adding <code> max_model_number = 500 </code> to the <code>&controls</code>.
+		<li> Limit your model to only run for 250 models by adding <code> max_model_number = 250 </code> to the <code>&controls</code>.
 		</li>
 		<li> To load the ZAMS model you just created, add the following to the &star_job 
 <pre>
@@ -410,14 +408,14 @@ We will use the PGstar plot that comes from the 15Msun_dynamo model
 	<p>
 	<ul>
 		<li>
-			 copy over the <code>history_columns.list</code>, and <code>profile_columns.list</code> from <code>$MESA_DIR/star/test_suite/15M_Dynamo</code> 
+			 copy over the <code>history_columns.list</code>, and <code>profile_columns.list</code> from <code>$MESA_DIR/star/test_suite/15M_dynamo</code> 
 			to your <code>rotating_star_proj</code> directory.
 			<!-- In the <code>history_columns.list</code>, uncomment the line with <code>c_log_eps_burn cno</code> -->
 		</li>
 
 
-		<li>Enable pgstar by setting <code>pgstar_flag = .true.</code>
-		</li> Add the following code  to the end of <code>inlist_rotating_star</code>.
+		<li>Enable pgstar by setting <code>pgstar_flag = .true.</code> in your <code>inlist_rotating_star</code>,
+		and add the following code  to the end of the same file:
 <pre>
 <code>
 	&pgstar
@@ -447,6 +445,7 @@ We will use the PGstar plot that comes from the 15Msun_dynamo model
 		Profile_Panels4_file_width = 10
 	
 	/ ! end of pgstar namelist 
+
 </code>
 </pre>
 </li>
@@ -457,7 +456,7 @@ We will use the PGstar plot that comes from the 15Msun_dynamo model
 
 
  <p>
-	When you have successfully activated the pgstar plot, restart the run and a screen will pop up that looks like:
+	When you have successfully activated the pgstar plot, run the star again (i.e. type <code>./rn</code> in your terminal) and a screen will pop up that looks like:
 		<div style="align: left; text-align:center;">
 			<img src="../IAUhackathon/IAUhackathonImages/PGplot_15Msundynamo.png" width="50%" /> 
 			<div class="caption" style="width: 800"> Example PGstar for the 15Msun dynamo model </div>
