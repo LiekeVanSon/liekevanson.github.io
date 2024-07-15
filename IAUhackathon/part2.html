@@ -157,8 +157,13 @@ Similar to day one, we will start by copying the test suite to our home director
 	<p>
 	<ul>
 		<li>Change <code>inlist_zams</code> to run a 15Msun star, at a metallicity of 0.02. 
-		Now make and run your model (<span style="color:red;"> it should take about one minute to create zams.mod</span>  
-		) </li>
+		</li>		
+
+		<li> Go into <code>~/home/rotating_star_proj</code>, and
+			<code>./clean</code>  <code>./mk</code> and <code>./rn</code> your code
+			(<span style="color:red;"> it should take about one minute to create zams.mod</span>  
+		</li>
+		
 		<!-- 2.2) Can you change the right inlist to activate the pgstar plot?  -->
 	</ul>
 	</p>
@@ -172,6 +177,11 @@ Similar to day one, we will start by copying the test suite to our home director
 		
 	</ul>
 </div>
+
+<p>
+Check that file called <code>zams.mod</code> just appeared. Congratulations, you just created a ZAMS model!
+</p>
+
 
 </section>
 <!-- ------ ------ ------ ------ ------ ------ ------ ------ -->
@@ -189,12 +199,12 @@ We now want to load our zams model in a new inlist.
 	<h4>task 2.2: Creating a new inlist</h4>
 	<p>
 	<ul>
-		<li> Copy over the contents of the inlist file <a href="./startup_files/inlist_rotating_star"><code>inlist_rotating_star</code></a>
-			 to a text file with the same name in your home directory. 
+		<li> Make a new file called 'inlist_rotating_star' in your in your rotating_star_proj directory (note, <strong> don't</strong> add .txt to the end of the file name). 
+			  Copy over the contents of the inlist file <a href="./startup_files/inlist_rotating_star"><code>inlist_rotating_star</code></a> to your new file with the same name. 
 			 Note that all that this inlist does is reset the age and module_number to zero at the start, 
-			 and wants to run a $15\,M_{\odit}$ star at a metallicity of $Z= 0.02$.
+			 and wants to run a $15\,M_{\odot}$ star at a metallicity of $Z= 0.02$.
 		</li>
-		<li> Limit your model to only run for 500 models by adding <code> max_model_number = 100 </code> to the <code>&controls</code>.
+		<li> Limit your model to only run for 500 models by adding <code> max_model_number = 500 </code> to the <code>&controls</code>.
 		</li>
 		<li> To load the ZAMS model you just created, add the following to the &star_job 
 <pre>
