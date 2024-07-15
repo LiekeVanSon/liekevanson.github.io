@@ -138,9 +138,6 @@
 	set_initial_omega_div_omega_crit = .true. 
 	new_omega_div_omega_crit = 0.2
 
-	<!-- 	set_surf_rotation_v_step_limit = 10
-	new_surface_rotation_v = 200.0 ! km/sec -->
-
 </code>
 </pre>
 	</li>
@@ -149,12 +146,13 @@
 		out of He in the core (in other words, when we have reached the end of core He burning).
 			<!-- when we have a significant contribution from He burning. -->
 			To do this, set the following in the &controls section of your <code>inlist_rotating_star</code>:
-			<pre>
-			<code>
-				xa_central_lower_limit_species(1) = 'he4'
-				xa_central_lower_limit(1) = 1d-6
-			</code>
-			</pre>	
+<pre>
+<code>
+	xa_central_lower_limit_species(1) = 'he4'
+	xa_central_lower_limit(1) = 1d-6
+
+</code>
+</pre>	
 			
 		<!-- To do this, set <code>power_he_burn_upper_limit = 10d0</code> in the &controls section of your <code>inlist_rotating_star</code>. -->
 	</li>
@@ -324,7 +322,7 @@
 		The notebook with the solution can be found <a href="./Solutions/Day2_rotation.ipynb">here</a>. <br> 
 		We expect the core to spin up (slow down) when it contracts (expands), similar to the envelope!
 		<ul> 
-			<li>The first model corresponds to ZAMS, and the last model (598) corresponds to the end of core He burning.
+			<li>The first model corresponds to ZAMS, and the last model corresponds to the end of core He burning.
 				the center_H1 fraction drops below $10^{-7}$ at model ~157.0, making it a reasonable proxy for the TAMS. <br> 
 				
 
