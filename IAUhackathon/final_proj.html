@@ -7,6 +7,7 @@
 <html>
 	<head>
 
+
 		<title> Lieke van Son </title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no" />
@@ -53,12 +54,12 @@
 					<li><a href="../IAUhackathon/MESAoutput.html">MESA Output </a></li>
 				  </ul>
                 <li><a href="../IAUhackathon/day2.html">Day 2</a></li>
-				<ul style="padding-left: 20px;">
+                <ul style="padding-left: 20px;">
 					<li><a href="../IAUhackathon/Rotation.html">Rotation </a></li>
 					<li><a href="../IAUhackathon/AMtransport.html">AM Transport </a></li>
 					<li><a href="../IAUhackathon/Winds.html">Winds </a></li>
-					<li><a href="../IAUhackathon/final_proj.html">Spin it! </a></li>
-				</ul>
+                    <li><a href="../IAUhackathon/final_proj.html">Spin it! </a></li>
+				  </ul>
             </ul>
         </div>
 
@@ -95,97 +96,117 @@
 						<p> 
        
 
+
+
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 
 
 <section>
-
-
-<h2> Welcome! </h2> 
-
-<p>
-This workshop is part of the focus meeting <a href="https://idia.ac.za/bdh2024/">"New horizons at the interface between computational astrophysics and big data"</a>.
-In this hackathon: <a href = "https://idia.ac.za/bdh2024-hackathons/">"A first taste of MESA - an open source tool box for experiments in stellar astrophysics"</a>, we will explore some of the essentials of the open-source stellar evolution code <a href="https://docs.mesastar.org/en/latest/index.html">MESA</a> . 
-</p>
-
-<h4> &#9733; Created by: <a href="mailto:lvanson@flatironinstitute.org">Lieke van Son</a>, <a href="mailto:aolejak@mpa-garching.mpg.de">Aleksandra Olejak</a>, and <a href="mailto:shelley.cheng@cfa.harvard.edu">Shelley Cheng</a> &#9733; </h4> 
-
-
-</section>
-
-
-
-<!-- -------------------------------------------------------------------------------------------------------------- -->
-
-<section>
-
-    <h2> Before getting started  </h2> 
-
-    <p>
-    In this tutorial, we have pre-installed MESA for you on the _flatiron_ cluster. 
-	If you would like to install MESA on your own computer or cluster, you can find the installation instructions <a href="https://docs.mesastar.org/en/latest/installation.html">here</a>.
+	<h1> Spin it as you like ! </h1>
+	
+	<p>
+	Now that you have looked at different factors that affect the rotation of the cores of star, let's have a look at what kind of final spin we would expect for the compact object!
+    To measure the spin of a black hole, we can use the dimensionless spin parameter $a$ which is defined as:
 	</p>
 
-	<p>
-    You will be able to access the cluster through the <em>Binder</em> environment. For this, you need to log in using a <strong>Google account</strong>. 
-    This can be any Google account, including a personal one. 
-    <br>
-    To gain access to the Binder environment, <strong>please send the Gmail address you will use to log in to <ahref="mailto:lvanson@flatironinstitute.org">lvanson_at_flatironinstitute.org </a> </strong> so we can add you to the list of approved users!
+    <p>
+    $$
+    a = \frac{J}{J_{max}}
+    $$
+    
+    whith J the angular momentum of the core, and $J_{max}$ the maximum angular momentum $J_{max}$ that a Kerr black hole of that mass can have:
+    $$
+    J_{max}(M) = \frac{GM^2}{c}
+    $$
+    
+    so that
+    
+    $$
+    a = j  \frac{c}{GM}
+    $$
+
+    with $j$ the specific angular momentum, $c$ the speed of light, $G$ the gravitational constant and $M$ the mass.
+    </p>
+
+
+    <p>
+        The LIGO-Virgo-KAGRA (LVK) collaboration has measured the spins of black holes through gravitational waves. 
+        The figure below shows the distributions of the component spin magnitudes of black holes measured from the most recent catalog,
+        gravitational-wave transient catalog 3 (GWTC-3).
+    </p>
+
+
+	<div style="align: center; text-align:center;">
+		<figure>
+			<img src="./IAUhackathonImages/default_spin_magnitudes.png" width="60%" />
+			<figcaption>The distributions of component spin magnitudes of black holes measured through gravitational waves by the LVK collaboration 
+                <a href="https://arxiv.org/abs/2111.03634">Phys. Rev. X 13, 011048 (2023)</a> </figcaption>
+		</figure>
+	</div>
+
+
+    <p>
+        We see that most black holes are slowly spinning, but they don't have a spin of zero. 
+        Most black holes have a spin parameter $a$ of around 0.1.
     </p>
 
 
 
-    <h3> How to use the Binder environment </h3>
 
 
-    <p>
-		Once we've added you to the list of approved users, you can access the Binder environment through the following link:
-			<a href="https://sdsc-binder.flatironinstitute.org/~lvanson/MESAhackathon" style="font-weight: bold; color: rgb(0, 140, 222);">https://sdsc-binder.flatironinstitute.org/~lvanson/MESAhackathon</a>
-	
-	<br>
-	General instructions on how to use this Binder environment can be found <a href=https://wiki.flatironinstitute.org/Public/UsingFiBinder">on the Flatiron institute wiki</a>. 
-	<!-- General instructions on Binder  can be found <a href="https://mybinder.readthedocs.io/en/latest/howto/index.html">here</a>. -->
-	</p>
+	<div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+		<h2>Final project </h2>
 
-    <div style="align: left; text-align:center;">
-        <img src="../IAUhackathon/IAUhackathonImages/Binder_screenshot.png" width="80%" /> 
-        <div class="caption" style="width: 800"> <strong>placeholder</strong> This is what your binder environment will look like. </div>
-    </div>
+        <p>
+            Form a group of 3 with your fellow participants and Calculate the final spin of a compact object for different initial conditions.
+        </p>
 
-	
-<br>
+        <p>
+            Use the mass of the core and the specific angular momentum at core He-exhaustion as your input parameters.
+            To retrieve those values, use the value at the core-envelope boundary of your j-profiles as shown in the example plot below:
+        </p>
 
+            <img src="./IAUhackathonImages/example_jprofile.png" width="60%" />
 
-<h3> Setting up your environment for MESA </h3>
+        <ul>
+            <li> <strong> Can you get a black hole with a spin that looks like the GW-detected black holes?</strong> </li>
+        </ul>
 
-Open a terminal and type the following command to set up the environment for MESA usage:
+        <p> 
+            Vary your initial rotation between $10\% - 60\%$ of critical rotation, 
+            the constant mass-loss rate $ < 5 \cdot 10^{-7} \mathrm{M_{\odot}/yr}$, and turn the Tayler-Spruit dynamo on and off. <br> 
+            Warning: if you deviate much from these values there is a good chance that that the simulation will break!
+        </p>
+        
+        <ul>
+            <li> <strong> Work with your group to prepare a 5-minute presentation on your results. </strong></li>
+        </ul>
 
-    <pre>
-        <code>
-# set OMP_NUM_THREADS to be the number of cores available on your machine
-export OMP_NUM_THREADS=16
+        <p>
+            If you didn't get your MESA simulation to run, don't worry. 
+            Just explain how you would have varied the different input parameters, focussing in particular on the effect of each parameter on the final spin.
+        </p>
 
-# Mesa root
-export MESA_DIR='/mnt/home/lvanson/Programs/MESA/mesa-r24.03.1'
+        <p>
+            Good luck!
+        </p>
+		
 
-# Mesa sdk
-export MESASDK_ROOT='/mnt/home/lvanson/Programs/MESA/mesasdk_23051/mesasdk'
-source $MESASDK_ROOT/bin/mesasdk_init.sh
-        </code>
-    </pre>
-    
-	Note, normally, you would add these lines to your <code>.bashrc</code> file so that they are automatically executed every time you log in.
-	See also the MESA installation instructions <a href="https://docs.mesastar.org/en/latest/installation.html">here</a>.
+        <!-- <div style="align: center; text-align:center;">
+            <figure>
+                <img src="./IAUhackathonImages/default_spin_magnitudes.png" width="60%" />
+                <figcaption>The distributions of component spin magnitudes of black holes measured through gravitational waves by the LVK collaboration 
+                    <a href="https://arxiv.org/abs/2111.03634">Phys. Rev. X 13, 011048 (2023)</a> </figcaption>
+            </figure>
+        </div> -->
 
-    
-</section>
-
-
-
+	</div>
 
 <!-- -------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------- -->
+
+
 
 				<!-- Copyright -->
 					<div id="copyright">
