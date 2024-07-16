@@ -418,7 +418,7 @@ We will use the PGstar plot that comes from the 15Msun_dynamo model
 		and add the following code  to the end of the same file:
 <pre>
 <code>
-	&pgstar
+&pgstar
 	
 	file_white_on_black_flag = .true. ! white_on_black flags -- true means white foreground color on black background
 	file_device = 'png'            ! png
@@ -427,23 +427,23 @@ We will use the PGstar plot that comes from the 15Msun_dynamo model
 	!file_device = 'vcps'          ! postscript
 	!file_extension = 'ps'
 	
-		pgstar_interval = 50
-		file_digits = 8
+	pgstar_interval = 50
+	file_digits = 8
+
+	Dynamo_legend_txt_scale_factor = 0.7
+	Mixing_legend_txt_scale_factor = 0.55
+	Profile_Panels4_txt_scale = 0.8
+
+	Profile_Panels4_win_flag = .true.
+	Profile_Panels4_win_width = 7
+
+	Profile_Panels4_file_flag = .true.
+	Profile_Panels4_file_dir = 'png'
+	Profile_Panels4_file_prefix = 'profile_Panels4_'
+	Profile_Panels4_file_interval = 50
+	Profile_Panels4_file_width = 10
 	
-		Dynamo_legend_txt_scale_factor = 0.7
-		Mixing_legend_txt_scale_factor = 0.55
-		Profile_Panels4_txt_scale = 0.8
-	
-		Profile_Panels4_win_flag = .true.
-		Profile_Panels4_win_width = 7
-	
-		Profile_Panels4_file_flag = .true.
-		Profile_Panels4_file_dir = 'png'
-		Profile_Panels4_file_prefix = 'profile_Panels4_'
-		Profile_Panels4_file_interval = 50
-		Profile_Panels4_file_width = 10
-	
-	/ ! end of pgstar namelist 
+/ ! end of pgstar namelist 
 
 </code>
 </pre>

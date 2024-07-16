@@ -44,6 +44,29 @@
       initial_mass = 15
       initial_z = 0.02
 
+! mixing  (needed for the star to run smoothly)
+
+      mixing_length_alpha = 1.5
+      MLT_option = 'Henyey'
+
+      use_Ledoux_criterion = .true.
+
+      alpha_semiconvection = 0d0
+      semiconvection_option = 'Langer_85 mixing; gradT = gradr'
+      
+      thermohaline_coeff = 0d0
+      thermohaline_option = 'Kippenhahn'
+
+      overshoot_scheme(1) = 'exponential'
+      overshoot_zone_type(1) = 'burn_Z'
+      overshoot_zone_loc(1) = 'shell'
+      overshoot_bdy_loc(1) = 'bottom'
+      overshoot_f(1) = 0.01
+      overshoot_f0(1) = 0.005
+
+      min_overshoot_q = 0d0
+      overshoot_D_min = 100.0
+
 ! stopping condition
       xa_central_lower_limit_species(1) = 'he4'
       xa_central_lower_limit(1) = 1d-6
