@@ -256,9 +256,9 @@ Below, we show some simple example use cases of MESA Reader.
 </p>
 
 <p style="color:rgb(255, 0, 0); ">
-    We have pre-installed mesa_reader for you. In order for it to work, you need to activate the vens environment using:
-    <code>source /shared/venv/bin/activate </code>
-    Then you can open up a new jupyter notebook to try out the following: </p>
+    We have pre-installed mesa_reader for you on the cluster. If you would like to use it at home, you will want to <code>git clone https://github.com/wmwolf/py_mesa_reader.git</code>
+    and then <code>python setup.py install</code> 
+  </p>
 
 
 <h3>The Basics</h3>
@@ -352,14 +352,16 @@ assume that it is being used in pylab's interactive mode:
 
    # import mesa_reader
    import mesa_reader as mr
+   # and matplotlib
+   import matplotlib.pyplot as plt
 
    # load and plot data
    h = mr.MesaData('LOGS/history.data')
-   plot(h.log_Teff, h.log_L)
+   plt.plot(h.log_Teff, h.log_L)
 
    # set axis labels
-   xlabel('log Effective Temperature')
-   ylabel('log Luminosity')
+   plt.xlabel('log Effective Temperature')
+   plt.ylabel('log Luminosity')
 
    # invert the x-axis
    plt.gca().invert_xaxis()
@@ -394,6 +396,7 @@ To plot a temperature-density profile, the process is very similar:
 <pre>
   <code class="language-python">
    import mesa_reader as mr
+   import matplotlib.pyplot as plt
 
    # load entire LOG directory information
    l = mr.MesaLogDir('./LOGS')
@@ -401,9 +404,9 @@ To plot a temperature-density profile, the process is very similar:
    p = l.profile_data()
 
    # this works even if you only have logRho and logT!
-   loglog(p.Rho, p.T)
-   xlabel("Density")
-   ylabel("Temperature")
+   plt.loglog(p.Rho, p.T)
+   plt.xlabel("Density")
+   plt.ylabel("Temperature")
 
    plt.show()
   </code>
