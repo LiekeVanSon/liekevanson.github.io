@@ -193,10 +193,11 @@ In this hackathon: <a href = "https://idia.ac.za/bdh2024-hackathons/">"A first t
         <li>Or using PowerShell: <code>Add-WindowsCapability -Online -Name OpenSSH.Client*</code></li>
     </ul>
 
-    <h2>To log in to the Ilifu cluster:</h2>
+    <h3>To log in to the Ilifu cluster:</h3>
     <p>
-        Open a terminal (or Command Prompt/PowerShell on Windows) and type: <code>ssh -Y username@ga2024-mesa-test2.idia.ac.za</code>
-		<br>
+        Open a terminal (or Command Prompt/PowerShell on Windows) and type: 
+		<pre><code>ssh -Y USERNAME@ga2024-mesa-test2.idia.ac.za</code></pre>
+
 		The <code>-Y</code> flag is used to enable X11 forwarding, which allows you to display graphics from the Ilifu cluster on your local machine.
     </p>
 
@@ -206,6 +207,17 @@ In this hackathon: <a href = "https://idia.ac.za/bdh2024-hackathons/">"A first t
 
 </section>
 
+<section>
+
+	<h2> Installing additional python packages </h2>
+
+	If you find yourself needing to install additional python packages into your team's shared virtualenv (located in <code>/shared/venv</code>) so that you can use it in the jupyter sessions, you can run the following command in a jupyter cell:
+	
+<pre>
+<code>	!/shared/venv/bin/python -m pip install PACKAGE </code>
+</pre>
+
+</section>
 
 
 
