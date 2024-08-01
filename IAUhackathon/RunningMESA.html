@@ -106,7 +106,10 @@
   <p>This page has information about how to use MESA to evolve a single star.  
 	It assumes you have already installed MESA (see <a href="#installation">Installing MESA</a>).</p>
 
-  <p>The <code>$MESA_DIR</code> directory has lots of subdirectories.  Most of these
+  <p>The <code>$MESA_DIR</code> directory has lots of subdirectories.  
+    <span style="color:red;"> Have a look at the contents of $MESA_DIR using <code>ls $MESA_DIR</code> or <code>cd $MESA_DIR ; ls </code>.</span>
+
+    Most of these
     subdirectories are modules (the "M" in MESA) that provide some
     specific functionality (e.g., "kap" provides routines for calculating
     opacities). The most important module is "star", which contains the
@@ -125,29 +128,23 @@
     each time you want to start a new MESA project, you should make a new
     copy of the star/work directory. Let's do that for this tutorial.</p>
 
-  <pre>
-    <code>
-    cp -r $MESA_DIR/star/work ~/tutorial
-    </code>
-  </pre>
+  <pre><code>cp -r $MESA_DIR/star/work ~/tutorial</code></pre>
 
 
   <p>Now that we have our copy of the work directory, we need to compile the
     code that lives in it.</p>
 
-  <pre>
-	<code>
-    cd tutorial
-    ./mk
-	</code>
-  </pre>
+  <pre><code>cd tutorial
+./mk</code></pre>
   
   <h3>Set up configuration files</h3>
 
   <p>The work directory already contains a set of simple configuration files
     that will evolve a 15 solar mass star through on to the zero-age main
     sequence (core hydrogen ignition). For now, you won't need to edit
-    anything, but you should take a look at each of these files.</p>
+    anything, but you should take a look at each of these files.
+    <span style="color:red;"> We recommend you inspect these files using the binder environment, though you could also run e.g., vim from the terminal. </span>
+  </p>
 
 
   <h4>inlist</h4>
@@ -167,25 +164,50 @@
 
   <p>Each definition in a namelist is of the form:</p>
 
-  <pre>
-	<code class="language-fortran">
-    name = value ! comment
-	</code>
-  </pre>
+  <pre><code class="language-fortran"> name = value ! comment</code></pre>
 
   <p>Values are specified using the normal Fortran syntax. Blank lines and comment lines can be freely included in the list. Blanks at the start of a line containing a name-value pair are okay too so you can (and should) indent things to make them more readable.</p>
 
   <p>All of the controls are given reasonable default values at initialization, so you only need to set the ones that you actually want to change.</p>
   
 
+
+
+  <div style="border: 3px solid #778FD2; padding: 8px; margin: 5px 0; background-color: #fffefe;">
+    <h3>Change the location of the MESA cache</h3>
+    <p>Because we have pre-installed MESA for you, MESA will try to write cache data to the system directories. 
+      This will cause permission warnings. To avoid this, we will change the location of the MESA cache.
+      Firsly, create a directory in your home directory to store the cache data using
+      <code>mkdir ~/mesa_caches</code>
+
+     </p> 
+
+
+    <p>
+    Then, open the inlist file and add the following lines to the &star_job section:
+    </p>
+
+    <pre><code>&star_job
+
+! set mesa cache to local binder env. to avoid permission errors  
+  ionization_cache_dir = '~/mesa_caches/ionization_cache'  
+  kap_cache_dir = '~/mesa_caches/kap_cache'  
+  rates_cache_dir = '~/mesa_caches/rates_cache'
+</code></pre> 
+
+<!-- eosDT_cache_dir = '/home/ga2024mesa11/mesa_caches/eosDT_cache'   -->
+
+
+  </div>
+
   <!-- -------------------------------------------------------------------------------------------------------------- -->
 
+<br>  
 
   <h2>Run MESA</h2>
   <p>Running the code is now as simple as typing:</p>
   
-  <pre><code>./rn
-  </code></pre>
+  <pre><code>./rn</code></pre>
   
   <p>MESA will keep you updated via terminal output that looks like this:</p>
   
@@ -199,7 +221,10 @@
   5.0236E+04   0.611187   4.374553 -99.000000 -99.000000  -9.031542   0.000000   0.001654   0.002085   0.020299  0.000E+00  max increase
   </code></pre>
   
-  <p>MESA will also display some pgstar plots that look like:</p>
+  <p>MESA will also display some pgstar plots that look like below.
+    <span style="color:red;"> Note that it will take a hot second for these PGstar plots to open and MESA to continue.</span>
+
+  </p>
   
   <p><img src="../IAUhackathon/IAUhackathonImages/hr_000200.png" alt="HR Diagram"></p>
   
@@ -241,11 +266,7 @@ If you scroll back in the terminal output from the run, you should find a line t
 like (though the number may differ slightly between MESA versions):
 </p>
 
-<pre>
-<code>
-  save photos/x849 for model 849
-</code>  
-</pre>
+<pre><code>save photos/x849 for model 849</code> </pre>
 
 <p>
 indicating that one of these snapshots was automatically saved when the run terminated.
@@ -255,15 +276,13 @@ indicating that one of these snapshots was automatically saved when the run term
 Open up inlist_project in your editor. You can see there were two stopping conditions,
 </p>
 
-<pre>
-  <code>
-! stop when the star nears ZAMS (Lnuc/L > 0.99)
-Lnuc_div_L_zams_limit = 0.99d0
-stop_near_zams = .true.
+<pre><code>! stop when the star nears ZAMS (Lnuc/L > 0.99)
+  Lnuc_div_L_zams_limit = 0.99d0
+  stop_near_zams = .true.
 
 ! stop when the center abundance by mass of h1 drops below this limit
-xa_central_lower_limit_species(1) = 'h1'
-xa_central_lower_limit(1) = 1d-3
+  xa_central_lower_limit_species(1) = 'h1'
+  xa_central_lower_limit(1) = 1d-3
   </code>
 </pre>
 
@@ -272,24 +291,15 @@ As MESA indicated in the termination message, we stopped because of the first co
 (naturally, ZAMS is before H-exhaustion). Turn off this stopping condition by editing your inlist so that
 </p>
 
-<pre>
-  <code>
-stop_near_zams = .false.
+<pre><code>stop_near_zams = .false. </code> </pre>
 
 and save the inlist file.
-</code>
-</pre>
-
 
 <p>
 Now we can restart using the photo and our new settings. Try it.
 </p>  
 
-<pre>
-  <code>
-./re x208
-</code>
-</pre>
+<pre><code>./re x208</code> </pre>
 
 <p>
 This resumes the run from model 208, but this time the run will stop when our other condition is satisfied, 
@@ -308,11 +318,9 @@ Remember that the photo file is a machine readable binary that is not designed f
 Let's save a model file at the end of our run. Go to the following lines to the &star_job section of your inlist:
 </p>
 
-<pre>
-  <code>
-! save a model at the end of the run
-save_model_when_terminate = .false.
-save_model_filename = '15M_at_TAMS.mod'
+<pre><code>! save a model at the end of the run
+  save_model_when_terminate = .false.
+  save_model_filename = '15M_at_TAMS.mod'
 </code>
 </pre>
 
@@ -323,11 +331,7 @@ Tell MESA that you want to save a model file at the end by editing your inlist a
 Save the file and then restart MESA from the same point as before.
 </p>
 
-<pre>
-  <code>
-./re x208
-</code>
-</pre>
+<pre><code>./re x208</code></pre>
 
 
 This time when the run terminates MESA will save a model named <code>15M_at_TAMS.mod</code>. Take a look and see.
@@ -389,6 +393,7 @@ Now you could begin studying the post-main sequence evolution of stars, starting
 
 <p>
 If you want to try this out, save the preceding text as a file named <code>inlist_load</code>
+<span style="color:red;">(i.e., save it as inlist_load, NOT inlist_load.txt)</span>
  in your work directory. Make sure your file ends with a blank new line. 
  Then edit your main inlist file so that it will use <code>inlist_load</code> instead of <code>inlist_project</code> 
  everywhere within inlist (i.e., <code>extra_star_job_inlist_name(1)</code> and <code>extra_controls_inlist_name(1))</code>.
@@ -407,6 +412,8 @@ Then as usual, do
 
 <p>
 and MESA will start up using your newly saved file. 
+<span style="color:red;">Note that the above inlist_load does not have a stopping condition, and so you probably want to end it early at some point.</span> 
+
 Unlike the photos, saved models don't have a complete snapshot of the internal state of the system. 
 Photos are guaranteed to give the same results; saved models are not.
  There may be small differences when you run a saved model compared to what you saw in the run before you saved it. 
