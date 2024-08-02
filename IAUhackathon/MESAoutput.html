@@ -182,22 +182,16 @@ preceded by a line with column numbers and a line with column names.
 <p>
 The default MESA output is set by the files
 
-<pre>
-  <code>
-   $MESA_DIR/star/defaults/history_columns.list
-   $MESA_DIR/star/defaults/profile_columns.list
-  </code>
-</pre>
+<pre><code>$MESA_DIR/star/defaults/history_columns.list
+$MESA_DIR/star/defaults/profile_columns.list
+</code></pre>
 
 In order to customize the output, copy these files to your work
 directory
 
-<pre>
-  <code>
-   cp $MESA_DIR/star/defaults/history_columns.list .
-   cp $MESA_DIR/star/defaults/profile_columns.list .
-  </code>
-</pre>
+<pre><code>cp $MESA_DIR/star/defaults/history_columns.list .
+cp $MESA_DIR/star/defaults/profile_columns.list .
+</code></pre>
 
 <p>
 Then, open up history_columns.list or profile_columns.list in a text
@@ -209,7 +203,7 @@ the comment character).
 <p>
 But what if you want a history or profile quantity that isn't on the
 list? For that, you'll want to use <code>run_star_extras.f </code> 
-<span style="color:red;">Which we will discuss on Part 2!</span>
+<span style="color:red;">Which is a file we will discuss in Part 2!</span>
 </p>
 
 
@@ -258,27 +252,26 @@ Below, we show some simple example use cases of MESA Reader.
 <p style="color:rgb(255, 0, 0); ">
     We have pre-installed mesa_reader for you on the cluster. If you would like to use it at home, you will want to <code>git clone https://github.com/wmwolf/py_mesa_reader.git</code>
     and then <code>python setup.py install</code> 
-  </p>
+</p>
 
+<p style="color:rgb(255, 0, 0); ">
+  Let's open up a Notebook through the JupyterHub Launcher and try out the following examples:
+</p>
 
 <h3>The Basics</h3>
 
-<pre>
-  <code class="language-python">
-  # import mesa_reader to make its classes accessible
-  import mesa_reader as mr
+<pre><code class="language-python"># import mesa_reader to make its classes accessible
+import mesa_reader as mr
 
-  # make a MesaData object from a history file
-  h = mr.MesaData('LOGS/history.data')
+# make a MesaData object from a history file
+h = mr.MesaData('LOGS/history.data')
 
-  # extract the star_age column of data
-  ages = h.data('star_age')
+# extract the star_age column of data
+ages = h.data('star_age')
 
-  # or do it more succinctly
-  ages = h.star_age
-
-  </code>
-</pre>
+# or do it more succinctly
+ages = h.star_age
+</code></pre>
 
 
 <p>
@@ -291,17 +284,12 @@ That's how to set up a history file, but what about profiles? We can do
 the same thing if we know the exact file we want to load:
 </p>
 
-<pre>
-  <code class="language-python">
-   import mesa_reader as mr
+<pre><code class="language-python"># load the profile file into a MesaData instance
+p = mr.MesaData('LOGS/profile1.data')
 
-   # load the profile file into a MesaData instance
-   p = mr.MesaData('LOGS/profile1.data')
-
-   # access the temperature column of data
-   temperatures = 10 ** p.logT
-  </code>
-</pre>
+# access the temperature column of data
+temperatures = 10 ** p.logT
+</code></pre>
 
 <p>
 But often it's frustrating to know exactly what profile file you want to
@@ -311,24 +299,19 @@ by just loading the last saved profile:
 </p>
 
 
-<pre>
-  <code class="language-python">
-   import mesa_reader as mr
+<pre><code class="language-python">l = mr.MesaLogDir('./LOGS')
 
-   l = mr.MesaLogDir('./LOGS')
+# load the profile associated with model number 300
+p_300 = l.profile_data(300)
+# the same as the following
+p_300 = l.profile_data(model_number=300)
 
-   # load the profile associated with model number 100
-   p_100 = l.profile_data(100)
-   # the same as the following
-   p_100 = l.profile_data(model_number=100)
+# load the profile with PROFILE number 12
+p_12 = l.profile_data(profile_number=12)
 
-   # load the profile with PROFILE number 12
-   p_12 = l.profile_data(profile_number=12)
-
-   # load the last profile saved (largest model number)
-   p_last = l.profile_data()
-  </code>
-</pre>
+# load the last profile saved (largest model number)
+p_last = l.profile_data()
+</code></pre>
 
 <p>
 There are many ways to get at specific profile files and even to select
@@ -342,82 +325,78 @@ profiles based on criteria in the history file. See the full
 <p>
 Okay, how about making a plot with this data? MESA Reader has no
 implicit plotting capabilities, but it makes plotting in other
-environments dead simple. For this example, we'll use matplotlib and
-assume that it is being used in pylab's interactive mode:
+environments dead simple. For this example, we'll use matplotlib:
 </p>
 
-<pre>
-  <code class="language-python">
-   %matplotlib inline
+%matplotlib inline
+<pre><code class="language-python"># import matplotlib 
+import matplotlib.pyplot as plt 
 
-   # import mesa_reader
-   import mesa_reader as mr
-   # and matplotlib
-   import matplotlib.pyplot as plt
+# import mesa_reader
+import mesa_reader as mr
+# and matplotlib
+import matplotlib.pyplot as plt
 
-   # load and plot data
-   h = mr.MesaData('LOGS/history.data')
-   plt.plot(h.log_Teff, h.log_L)
+# load and plot data
+h = mr.MesaData('LOGS/history.data')
+plt.plot(h.log_Teff, h.log_L)
 
-   # set axis labels
-   plt.xlabel('log Effective Temperature')
-   plt.ylabel('log Luminosity')
+# set axis labels
+plt.xlabel('log Effective Temperature')
+plt.ylabel('log Luminosity')
 
-   # invert the x-axis
-   plt.gca().invert_xaxis()
+# invert the x-axis
+plt.gca().invert_xaxis()
 
-   plt.show()
-  </code>
-</pre>
-
+plt.show()
+</code></pre>
 
 
-<p style="color:rgb(255, 0, 0); ">
-    Using the output from the tutorial, this produces
-    something like the following image:
+
+<p>
+Using the output from the tutorial, this produces
+something like the following image:
 </p>
 
-<!-- 
+
 <div style="align: left; text-align:center;">
-    <img src="../IAUhackathon/IAUhackathonImages/TRho_sample.png" width="50%" /> 
-</div> -->
+    <img src="../IAUhackathon/IAUhackathonImages/HR_MESAoutput.png" width="70%" /> 
+</div> 
 
-<!-- <p>
+<p>
 Don't worry if your plot has a different style than this, as that is
-just a function of your ``matplotlibrc`` file, which won't be discussed
-here.
-</p> -->
+just a function of your ``matplotlibrc`` settings, which won't be discussed here.
+</p> 
+
+
+
 
 <h3>A Temperature-Density Profile</h3>
 
 <p>
 To plot a temperature-density profile, the process is very similar:
 
-<pre>
-  <code class="language-python">
-   import mesa_reader as mr
-   import matplotlib.pyplot as plt
+<pre><code class="language-python">import mesa_reader as mr
+import matplotlib.pyplot as plt
 
-   # load entire LOG directory information
-   l = mr.MesaLogDir('./LOGS')
-   # grab the last profile
-   p = l.profile_data()
+# load entire LOG directory information
+l = mr.MesaLogDir('./LOGS')
+# grab the last profile
+p = l.profile_data()
 
-   # this works even if you only have logRho and logT!
-   plt.loglog(p.Rho, p.T)
-   plt.xlabel("Density")
-   plt.ylabel("Temperature")
+# this works even if you only have logRho and logT!
+plt.loglog(p.Rho, p.T)
+plt.xlabel("Density")
+plt.ylabel("Temperature")
 
-   plt.show()
-  </code>
-</pre>
+plt.show()</code></pre>
 
 <p>
 which produces something like the following image:
 
 
 <div style="align: left; text-align:center;">
-    <img src="../IAUhackathon/IAUhackathonImages/TRho_sample.png" width="50%" /> 
+    <img src="../IAUhackathon/IAUhackathonImages/Trho_MESAoutput.png" width="50%" /> 
 </div>
 
 </p>
@@ -438,7 +417,7 @@ bit more clever work.
 
 
 <p style="color:rgb(255, 0, 0); ">
-    For an example of a Kippenhahn diagram, see <a href="https://www.astro.ru.nl/~onnop/education/stev_utrecht_notes/">Onno Pols' lecture note</a>.
+    To read about what a `Kippenhahn diagram' is, see <a href="https://www.astro.ru.nl/~onnop/education/stev_utrecht_notes/">Onno Pols' lecture note</a>.
     E.g., in Chapter 10, Fig. 10.5. 
 </p>
 
