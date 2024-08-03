@@ -124,35 +124,27 @@
 
 		<li>Make the star rotating with a rotation of $20\%$ of the critical rotation.
 			To do this set the following in the &star_job section of your <code>inlist_rotating_star</code>:
-<pre>
-<code>
-	&star_job 
+<pre><code>&star_job 
 
-	(...)
+(...)
 
-	! Change the initial rotation of the star
-	change_rotation_flag = .true.  !enabling rotation
-	new_rotation_flag = .true.
+! Change the initial rotation of the star
+change_rotation_flag = .true.  !enabling rotation
+new_rotation_flag = .true.
 
-	! specify the initial rotation as a fraction of the critical rotation
-	set_initial_omega_div_omega_crit = .true. 
-	new_omega_div_omega_crit = 0.2
-
-</code>
-</pre>
+! specify the initial rotation as a fraction of the critical rotation
+set_initial_omega_div_omega_crit = .true. 
+new_omega_div_omega_crit = 0.2
+</code></pre>
 	</li>
 
-	<li> Remove the 'max model' requirement (max_model_number = 100), and instead stop the model when we run 
+	<li> Remove the 'max model' requirement, and instead stop the model when we run 
 		out of He in the core (in other words, when we have reached the end of core He burning).
 			<!-- when we have a significant contribution from He burning. -->
 			To do this, set the following in the &controls section of your <code>inlist_rotating_star</code>:
-<pre>
-<code>
-	xa_central_lower_limit_species(1) = 'he4'
-	xa_central_lower_limit(1) = 1d-6
-
-</code>
-</pre>	
+<pre><code>xa_central_lower_limit_species(1) = 'he4'
+xa_central_lower_limit(1) = 1d-6
+</code></pre>	
 			
 		<!-- To do this, set <code>power_he_burn_upper_limit = 10d0</code> in the &controls section of your <code>inlist_rotating_star</code>. -->
 	</li>
@@ -178,10 +170,10 @@
 		<h4>Task R.2 </h4>
 		<p>
 		<ul style="list-style-type: '- ';">
-				<li>What is MESA doing when we set a value for set_omega_div_omega_crit? (hint: check \$MESA_DIR/star/defaults/star_job.defaults) 
+				<li>What exactly is MESA doing when we set a value for set_initial_omega_div_omega_crit? (hint: check \$MESA_DIR/star/defaults/star_job.defaults) 
 				</li>
 				<li>What is the definition of $\Omega_{crit}$ ? 
-					(hint: look for critical rotation in <a href="https://ui.adsabs.harvard.edu/abs/2000ApJ...528..368H/abstract">Heger et al. (2000)</a>
+					(hint: for an equation, look for critical rotation in <a href="https://ui.adsabs.harvard.edu/abs/2000ApJ...528..368H/abstract">Heger et al. (2000)</a>
 				</li>
 				</ul>
 			</p>
@@ -236,6 +228,7 @@
 	<div style="align: center; text-align:center;">
 		<img src="./IAUhackathonImages/HR_diagram.png" width="80%" />
 	</div>
+	(no need to reproduce this, but feel free to do so if you want to check your model!) <br> 
 
 	The dashed grey lines indicate lines of constant radius (we can draw lines of constant radii for every $T_{\mathrm{eff}}$ and $L$ because of the
 	<a href="https://en.wikipedia.org/wiki/Stefan%E2%80%93Boltzmann_law">Stefan Boltzmann law</a>). 

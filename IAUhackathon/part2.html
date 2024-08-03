@@ -98,34 +98,52 @@
 
 <p>
 In 2015, astronomy had a big break through: this was the first time that we managed to observe black holes using gravitational waves!
-Gravitational waves are emitted when 2 black holes circle around each other and eventually merge. For these gravitational waves, we can measure the masses and spins of black holes.
-It came as a surprise to many astronomers that these black holes seem to be mostly spinning very slowly. 
-This is because of observations of X-ray binaries: binaries consisting of a star and a black hole where the star is transferring mass to it's black hole companion. 
-Before we had gravitational waves, we had exclusively detected stellar mass black holes through Xray binaries. 
-And all these Xray binaries seemed to be spinning rapidly. 
-</p>
-
-<p>
-To date this is a hot research topic: Do we expect to form many spinning black holes or not? 
-Do the black holes in XRB and gravitational-wave sources form differently? 
-Are the XRB spins overestimated? 
+Gravitational waves are emitted when 2 black holes circle around each other and eventually merge. We can measure the masses and spins of the inspiraling black holes from gravitational waves signals.
 </p>
 
 <div style="align: center; text-align:center;">
     <figure>
         <img src="./IAUhackathonImages/Masses_of_Dead_Stars_LIGO_Virgo_KAGRA.png" width="80%" />
         <figcaption>An overview of the observed stellar mass black holes and neutron stars.
-			An interactive version is available <a href="https://media.ligo.northwestern.edu/gallery/mass-plot">here</a> 
+			<a href="https://media.ligo.northwestern.edu/gallery/mass-plot" style="color: #778FD2;">An interactive version is available here. </a> 
 			Credit: LIGO-Virgo-KAGRA / Aaron Geller / Northwestern </figcaption>
     </figure>
 </div>
 
 <p>
+It came as a surprise to many astronomers that these black holes appear to be spinning very slowly. 
+This is because of observations of X-ray binaries: binaries consisting of a star and a black hole where the star is transferring mass to it's black hole companion. 
+Before we had gravitational waves, we had exclusively detected stellar-mass black holes through Xray binaries. 
+And all these Xray binaries have been observed to be spinning rapidly. 
+</p>
+
+<div style="align: center; text-align:center;">
+    <figure>
+        <img src="./IAUhackathonImages/BBH-HMXB-LMXB-spincdf.png" width="80%" />
+        <figcaption>Cummulative distribution function of the spins of black holes in XRB (pink and blue), and GW-detected black holes (yellow). 
+			The black holes in GW sources are spinning much slower than the black holes in XRB 
+			<a href="https://media.ligo.northwestern.edu/gallery/mass-plot" style="color: #778FD2;">(Fishbach & Kalogera 2022).</a> 
+			</figcaption>
+    </figure>
+</div>
+
+
+<p>
+To date this is a hot research topic: Do we expect to form many spinning black holes or not? 
+Do the black holes in XRB and gravitational-wave sources form differently? 
+Are the observed XRB spins overestimated? 
+</p>
+
+
+
+<br> 
+
+<p>
 	The first step to understanding this problem is to ask ourself if we expect the core of the star that came before the black hole is rotating. 
-	Today we will look at the effect of different assumptions on the rotation of stars and their core. 
+	In part 2 of this hackathon, we will look at the effect of different assumptions on the rotation of stars and their core. 
 	
-	We will explore three different cases that will have an effect on the final rotation of the star:
-	its birth rotation, stellar winds, and angular momentum transport inside the star.
+	We will explore three different cases that have an effect on the final rotation of the star and its core:
+	its birth rotation, angular momentum transport inside the star, and stellar winds.
 	</p>
 
 </section>
@@ -137,7 +155,7 @@ Are the XRB spins overestimated?
 
 <p>
 We will start with creating a 15Msun Zero Age Main Sequence star at solar metallicity (Z=0.02), and safe this ZAMS model. 
-To do this, it is useful to start from the <code>$MESA_DIR/star/test_suite/</code> (just like we did on Part 1). 
+To do this, it is useful to start from the <code>$MESA_DIR/star/test_suite/</code> (just like we did in Part 1). 
 Note how MESA has a lot of test suites available that can be very useful to start from when setting up a new model!
 </p>
 
@@ -148,7 +166,6 @@ The latter is a bit more complicated than what we will do today, but it does con
 
 <p>
 Similar to day one, we will start by copying the test suite to our home directory. <br>
-<code> cp -r $MESA_DIR/star/test_suite/make_zams ~/rotating_star_proj </code>
 </p>
 
 
@@ -156,13 +173,16 @@ Similar to day one, we will start by copying the test suite to our home director
 	<h4>Task 2.1:</h4>
 	<p>
 	<ul>
+		<li> Copy the make_zams directory to your home dir. <br> 
+			<code> cp -r $MESA_DIR/star/test_suite/make_zams ~/rotating_star_proj </code>
+		</li>
+
 		<li>Change <code>inlist_zams</code> to run a 15Msun star, at a metallicity of 0.02 (for the latter, change both Zbase and initial_z). 
 		</li>		
 
 		<li> Go into <code>~/home/rotating_star_proj</code>, and
 			<code>./clean</code>  <code>./mk</code> and <code>./rn</code> your code
-			(<span style="color:red;"> it should take about one minute to create zams.mod</span>  <br>  
-			Check that file called <code>zams.mod</code> just appeared. Congratulations, you just created a ZAMS model!
+			<span style="color:red;"> (it should take about a minute to create zams.mod)</span>  <br>  
 		</li>
 		
 		<!-- 2.2) Can you change the right inlist to activate the pgstar plot?  -->
@@ -179,6 +199,9 @@ Similar to day one, we will start by copying the test suite to our home director
 	</ul>
 </div>
 
+<br> <br> 
+
+Check that file called <code>zams.mod</code> has appeared. Congratulations, you just created a ZAMS model!
 
 
 </section>
@@ -420,7 +443,7 @@ extra_pgstar_inlist_name(1)= 'inlist_rotating_star'
 
 <p>
 Moreover, we know it's fun to see a bunch of numbers running across your screen, 
-but it's even better to have pictures show up life while we are running our model!
+but it's even better to have pictures show up while we are running our model!
 We will use the PGstar plot that comes from the 15Msun_dynamo model
 </p>
 
