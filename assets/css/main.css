@@ -301,6 +301,17 @@ input, select, textarea {
 			color: #18bfef !important;
 		}
 
+/* Job link styling: make application links stand out */
+.job-link {
+    color: #c0392b; /* red */
+    border-bottom-color: rgba(192, 57, 43, 0.5);
+}
+
+.job-link:hover {
+    color: #e74c3c !important; /* lighter red on hover */
+    border-bottom-color: transparent;
+}
+
 	strong, b {
 		color: #212931;
 	}
