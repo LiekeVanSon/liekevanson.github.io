@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hunting for Black Holes &amp; Neutron Stars — the card deck</title>
+<!-- ==========================================================================
+  CARD DECK page · School on Gravity 2026, Day 2
+  All card content lives in bhns_cards_data.js — edit that file to add cards.
+  Observatory images are read from the bhns_card_images/ folder (img field).
+  Teacher mode: append ?answers=1 to the URL to reveal example facilities.
+  ========================================================================== -->
+<style>
+  :root{
+    --ink:#1c1b29; --paper:#fffdf9; --muted:#6e6a7c; --line:#e7e2da;
+    --magenta:#D6336C; --orange:#E98A3C; --violet:#9D4EDD; --blue:#3E63DD;
+    --yellow:#E5B910; --plum:#B5179E; --night:#22223B;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);
+       font:16px/1.55 "Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;}
+  a{color:var(--magenta)}
+
+  /* ---------- header ---------- */
+  header{max-width:1100px;margin:0 auto;padding:42px 20px 10px}
+  .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--muted);margin:0 0 8px}
+  h1{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.6rem);
+     line-height:1.12;margin:0 0 10px}
+  h1 .hl{background:linear-gradient(90deg,var(--magenta),var(--orange),var(--yellow));
+         -webkit-background-clip:text;background-clip:text;color:transparent}
+  .intro{max-width:62ch;color:var(--muted);margin:0 0 6px}
+  .howto{max-width:62ch;font-size:.92rem;border-left:3px solid var(--orange);
+         padding:6px 0 6px 14px;margin:14px 0 0;color:var(--ink)}
+
+  /* ---------- tabs & filters ---------- */
+  nav{max-width:1100px;margin:18px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .tab,.ghostbtn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);
+       padding:8px 18px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
+  .tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+  .ghostbtn{border-color:var(--line);font-size:.85rem;padding:7px 14px}
+  .tab:focus-visible,.chip:focus-visible,.ghostbtn:focus-visible,.t-head:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  #search{margin-left:auto;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;
+          font:inherit;min-width:180px;background:#fff}
+  .chips{max-width:1100px;margin:12px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:8px}
+  .chip{border:none;border-radius:999px;padding:5px 13px;font:inherit;font-size:.82rem;font-weight:600;
+        cursor:pointer;color:#fff;opacity:.45}
+  .chip[aria-pressed="true"]{opacity:1}
+
+  /* ---------- card grid ---------- */
+  main{max-width:1100px;margin:6px auto 60px;padding:0 20px}
+  .count{color:var(--muted);font-size:.85rem;margin:14px 2px 10px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start}
+  .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;
+        padding:16px 16px 14px;border-top:5px solid var(--c,var(--ink));
+        box-shadow:0 1px 2px rgba(28,27,41,.05);display:flex;flex-direction:column;gap:8px}
+  .card.extra{border-style:dashed;background:transparent}
+  .card h3{margin:0;font-size:1.04rem;line-height:1.3;font-family:Georgia,serif}
+  .meta{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .cardid{font-family:Georgia,serif;font-weight:700;font-size:1.5rem;color:var(--c,var(--ink));line-height:1}
+  .tag{font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+       color:#fff;background:var(--c,var(--ink));padding:3px 9px;border-radius:999px}
+  .tag.ghost{background:transparent;color:var(--c,var(--ink));border:1.5px solid var(--c,var(--ink))}
+  .card p{margin:0;font-size:.9rem}
+  .lbl{display:block;font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+  .ref{font-size:.78rem;color:var(--muted);margin-top:auto;padding-top:6px;border-top:1px dotted var(--line)}
+  .ref a{color:var(--muted);text-decoration-color:var(--line)}
+  .ref a:hover{color:var(--c,var(--ink))}
+  .answers{background:#fff7ee;border:1px solid #f2dcc0;border-radius:8px;padding:8px 10px;font-size:.86rem}
+
+  /* ---------- clickable telescope cards ---------- */
+  .t-card{padding:0;overflow:hidden}
+  .t-head{display:block;width:100%;border:none;background:none;font:inherit;color:inherit;
+          text-align:left;cursor:pointer;padding:0}
+  .thumb{position:relative;aspect-ratio:16/9;background:
+         linear-gradient(135deg,color-mix(in srgb,var(--c) 22%,#fff), color-mix(in srgb,var(--c) 55%,#fff));
+         display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+  .thumb .mono{font-family:Georgia,serif;font-size:2.4rem;font-weight:700;color:#fff;opacity:.85;
+               text-shadow:0 1px 6px rgba(0,0,0,.25)}
+  .thumb .open-hint{position:absolute;right:8px;bottom:8px;width:26px;height:26px;border-radius:50%;
+        background:rgba(255,255,255,.92);color:var(--ink);display:flex;align-items:center;justify-content:center;
+        font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s}
+  .t-card.open .open-hint{transform:rotate(45deg)}
+  .t-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px 8px}
+  .t-title h3{flex:1 1 100%}
+  .t-body{display:none;flex-direction:column;gap:10px;padding:2px 14px 14px}
+  .t-card.open .t-body{display:flex}
+
+  /* ---------- bars: mission timeline & spectral coverage ---------- */
+  .bar-block{margin-top:2px}
+  .bar-block .track{position:relative;height:10px;background:#f1ede6;border-radius:5px}
+  .bar-block .now{position:absolute;top:-3px;bottom:-3px;width:2px;background:var(--ink);opacity:.55}
+  .bar-block .seg{position:absolute;top:1px;bottom:1px;border-radius:4px;background:var(--c,var(--ink))}
+  .bar-block .seg.future{background:repeating-linear-gradient(45deg,var(--c),var(--c) 4px,transparent 4px,transparent 7px);
+                  border:1.5px solid var(--c)}
+  .bar-block .ticks{position:relative;height:14px;font-size:.62rem;color:var(--muted)}
+  .bar-block .ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+  .bar-sub{font-size:.78rem;color:var(--muted);margin-top:1px}
+
+  footer{max-width:1100px;margin:0 auto;padding:0 20px 50px;color:var(--muted);font-size:.8rem}
+
+  /* ---------- print: expand everything, cut & deal ---------- */
+  @media print{
+    nav,.chips,#search,.howto,footer,.open-hint{display:none}
+    body{background:#fff}
+    .grid{grid-template-columns:repeat(2,1fr)}
+    .card{break-inside:avoid;box-shadow:none}
+    .t-body{display:flex !important}
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .card{transition:transform .15s ease}
+    .card:hover{transform:translateY(-2px)}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="eyebrow">School on Gravity 2026 · Day 2 · From Motion to Commotion</p>
+  <h1>Hunting for black holes &amp; neutron stars:<br><span class="hl">the card deck</span></h1>
+  <p class="intro">Two decks: the <strong>tell-tale phenomena</strong> that reveal compact objects, and the
+     <strong>observatories</strong> we hunt them with. Your task: figure out which instruments can catch your phenomena — and how.</p>
+  <p class="howto" id="howto"><strong>In class:</strong> each group gets two object cards (e.g. “A1 &amp; D3”).
+     You have ~20 minutes: What is the signal? Which observatories could detect it, and what would they measure?
+     Click an observatory card to see its specs. Then teach it to the rest of us. Finished early? Grab an <em>extra</em> card.</p>
+</header>
+
+<nav role="tablist" aria-label="Deck">
+  <button class="tab" role="tab" id="tab-objects" aria-selected="true">Astrophysical objects</button>
+  <button class="tab" role="tab" id="tab-telescopes" aria-selected="false">Observatories</button>
+  <button class="ghostbtn hidden" id="expandall">Expand all</button>
+  <input id="search" type="search" placeholder="Search cards…" aria-label="Search cards">
+</nav>
+<div class="chips" id="chips" aria-label="Filter by category"></div>
+
+<main>
+  <p class="count" id="count"></p>
+  <div class="grid" id="grid"></div>
+</main>
+
+<footer>
+  Built for the School on Gravity 2026 · Lieke van Son.
+  Mission-time bars run 1990–2042 (hatched = planned/under construction; the tick marks today).
+  Spectral bars are log-frequency (EM), log-GW-frequency, or log-neutrino-energy.
+  Observatory images live in bhns_card_images/ (see each card's Wikipedia link for sources/credits). References link to NASA ADS.
+</footer>
+
+<script src="bhns_cards_data.js"></script>
+<script>
+(function(){
+  "use strict";
+  const ANSWERS = new URLSearchParams(location.search).get("answers") === "1";
+  const T0 = 1990, T1 = 2042, NOW = new Date().getFullYear();
+  const grid = document.getElementById("grid");
+  const chipsBox = document.getElementById("chips");
+  const countEl = document.getElementById("count");
+  const searchEl = document.getElementById("search");
+  const expandBtn = document.getElementById("expandall");
+  let deck = "objects";                 // "objects" | "telescopes"
+  const activeFilters = { objects: new Set(Object.keys(OBJECT_CATEGORIES)),
+                          telescopes: new Set(Object.keys(TELESCOPE_BANDS)) };
+  const openCards = new Set();          // expanded telescope cards, keyed by name
+
+  // spectral axes: min/max on the log scale + labelled ticks
+  const SPEC_AXES = {
+    em: { min: 7,  max: 29, unit: "log\u2081\u2080 photon frequency [Hz]",
+          ticks: [[8.5,"radio"],[11.4,"mm"],[13.4,"IR"],[14.74,"vis"],[15.2,"UV"],[17.6,"X"],[23,"\u03b3"]] },
+    gw: { min: -9, max: 4.5, unit: "log\u2081\u2080 GW frequency [Hz]",
+          ticks: [[-9,"nHz"],[-6,"\u00b5Hz"],[-3,"mHz"],[0,"Hz"],[3,"kHz"]] },
+    nu: { min: 6,  max: 16, unit: "log\u2081\u2080 neutrino energy [eV]",
+          ticks: [[6,"MeV"],[9,"GeV"],[12,"TeV"],[15,"PeV"]] },
+  };
+
+  const esc = s => String(s).replace(/[&<>"']/g, c =>
+    ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const pct = (x, lo, hi) => Math.min(Math.max((x - lo) / (hi - lo) * 100, 0), 100);
+
+  function barHTML(title, sub, segs, lo, hi, ticks, showNow, future){
+    const segHTML = segs.map(([a, b]) => {
+      const l = pct(a, lo, hi), w = Math.max(pct(b, lo, hi) - l, 1.5);
+      return `<span class="seg${future ? " future" : ""}" style="left:${l}%;width:${w}%"></span>`;
+    }).join("");
+    const tickHTML = ticks.map(([x, t]) =>
+      `<span style="left:${pct(x, lo, hi)}%">${esc(t)}</span>`).join("");
+    return `<div>
+      <span class="lbl">${esc(title)}</span>
+      <div class="bar-block">
+        <div class="track">${showNow ? `<span class="now" style="left:${pct(NOW, lo, hi)}%"></span>` : ""}${segHTML}</div>
+        <div class="ticks">${tickHTML}</div>
+      </div>
+      ${sub ? `<div class="bar-sub">${sub}</div>` : ""}</div>`;
+  }
+
+  function refsHTML(refs, wikiTitle){
+    const links = refs.map(r => r.u
+      ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>`
+      : esc(r.t)).join(" · ");
+    const wiki = wikiTitle
+      ? ` · <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(wikiTitle.replace(/ /g,"_"))}" target="_blank" rel="noopener">Wikipedia ↗</a>` : "";
+    return `<p class="ref">${links}${wiki}</p>`;
+  }
+
+  function objectCard(o){
+    const cat = OBJECT_CATEGORIES[o.cat];
+    return `<article class="card${o.extra ? " extra" : ""}" style="--c:${cat.color}">
+      <div class="meta">${o.id ? `<span class="cardid">${esc(o.id)}</span>` : ""}
+        <span class="tag">${esc(cat.label)}</span>
+        ${o.extra ? `<span class="tag ghost">extra</span>` : ""}</div>
+      <h3>${esc(o.name)}</h3>
+      <p><span class="lbl">Why it matters</span>${esc(o.why)}</p>
+      <p><span class="lbl">Tell-tale signal</span>${esc(o.signal)}</p>
+      ${ANSWERS ? `<p class="answers"><span class="lbl">Example facilities</span>${esc(o.answers)}</p>` : ""}
+    </article>`;
+  }
+
+  function telescopeCard(t){
+    const band = TELESCOPE_BANDS[t.band];
+    const open = openCards.has(t.name);
+    const mono = esc(t.name.replace(/[^A-Za-z0-9 ]/g,"").split(" ").map(w=>w[0]).slice(0,3).join(""));
+    const yrsSub = `${t.tstart}${t.tend ? "–" + t.tend : " – ongoing"}${t.future ? " (planned)" : ""}`;
+    const ax = SPEC_AXES[t.spec.kind];
+    return `<article class="card t-card${open ? " open" : ""}" style="--c:${band.color}" data-name="${esc(t.name)}">
+      <button class="t-head" aria-expanded="${open}">
+        <div class="thumb"><span class="mono">${mono}</span>
+          ${t.img ? `<img src="${esc(t.img)}" alt="${esc(t.name)}" loading="lazy" onerror="this.remove()">` : ""}
+          <span class="open-hint" aria-hidden="true">+</span></div>
+        <div class="t-title">
+          <span class="tag">${esc(band.label)}</span>
+          ${t.core ? `<span class="tag ghost">★ core</span>` : ""}
+          <h3>${esc(t.name)}</h3>
+        </div>
+      </button>
+      <div class="t-body">
+        ${barHTML("Mission time", esc(yrsSub), [[Math.max(t.tstart, T0), Math.min(t.tend ?? T1, T1)]], T0, T1,
+                  [[T0, String(T0)], [NOW, String(NOW)], [T1, String(T1)]], true, t.future)}
+        ${barHTML("Frequency / wavelength", esc(t.freq), t.spec.segs, ax.min, ax.max, ax.ticks, false, false)}
+        <p><span class="lbl">What you measure</span>${esc(t.product)}</p>
+        ${t.notes ? `<p><span class="lbl">Notes</span>${esc(t.notes)}</p>` : ""}
+        ${ANSWERS ? `<p class="answers"><span class="lbl">Key BH/NS use</span>${esc(t.use)}</p>` : ""}
+        ${refsHTML(t.refs, t.wiki)}
+      </div>
+    </article>`;
+  }
+
+
+  function renderChips(){
+    const defs = deck === "objects" ? OBJECT_CATEGORIES : TELESCOPE_BANDS;
+    chipsBox.innerHTML = Object.entries(defs).map(([k, v]) =>
+      `<button class="chip" data-k="${k}" style="background:${v.color}"
+        aria-pressed="${activeFilters[deck].has(k)}">${esc(v.label)}</button>`).join("");
+  }
+
+  function render(){
+    const q = searchEl.value.trim().toLowerCase();
+    const on = activeFilters[deck];
+    let cards, html;
+    if (deck === "objects"){
+      cards = OBJECT_CARDS.filter(o => on.has(o.cat) &&
+        (!q || (o.id + o.name + o.why + o.signal).toLowerCase().includes(q)));
+      html = cards.map(objectCard).join("");
+    } else {
+      cards = TELESCOPE_CARDS.filter(t => on.has(t.band) &&
+        (!q || (t.name + t.freq + t.product + (t.notes || "")).toLowerCase().includes(q)));
+      html = cards.map(telescopeCard).join("");
+    }
+    grid.innerHTML = html || `<p>No cards match — clear the search or switch filters.</p>`;
+    countEl.textContent = `${cards.length} card${cards.length === 1 ? "" : "s"}` +
+      (ANSWERS ? " · answer key visible" : "");
+    expandBtn.classList.toggle("hidden", deck !== "telescopes");
+  }
+
+  // tabs
+  for (const [id, d] of [["tab-objects","objects"],["tab-telescopes","telescopes"]]){
+    document.getElementById(id).addEventListener("click", e => {
+      deck = d;
+      document.querySelectorAll(".tab").forEach(b => b.setAttribute("aria-selected", b === e.currentTarget));
+      renderChips(); render();
+    });
+  }
+  // filter chips (toggle; if all on and one clicked → solo it, like plot legends)
+  chipsBox.addEventListener("click", e => {
+    const btn = e.target.closest(".chip"); if (!btn) return;
+    const k = btn.dataset.k, set = activeFilters[deck],
+          all = Object.keys(deck === "objects" ? OBJECT_CATEGORIES : TELESCOPE_BANDS);
+    if (set.size === all.length) { set.clear(); set.add(k); }
+    else if (set.has(k)) { set.delete(k); if (!set.size) all.forEach(x => set.add(x)); }
+    else set.add(k);
+    renderChips(); render();
+  });
+  // expand/collapse a telescope card (ignore clicks on links)
+  grid.addEventListener("click", e => {
+    const head = e.target.closest(".t-head"); if (!head) return;
+    const name = head.closest(".t-card").dataset.name;
+    openCards.has(name) ? openCards.delete(name) : openCards.add(name);
+    render();
+  });
+  expandBtn.addEventListener("click", () => {
+    const allOpen = TELESCOPE_CARDS.every(t => openCards.has(t.name));
+    openCards.clear();
+    if (!allOpen) TELESCOPE_CARDS.forEach(t => openCards.add(t.name));
+    expandBtn.textContent = allOpen ? "Expand all" : "Collapse all";
+    render();
+  });
+  searchEl.addEventListener("input", render);
+
+  renderChips(); render();
+})();
+</script>
+</body>
+</html>
