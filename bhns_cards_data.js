@@ -17,9 +17,8 @@
                 e.g. "bhns_card_images/phenomena/a1_massive_ob_stars.jpg"
                 Omit (or leave undefined) for a non-clickable card.
      imgpos   : (optional) pan the image. e.g. "top", "bottom", "50% 20%". Defaults to "center".
-     imgscale : (optional) zoom factor. 1 = fill container (default).
-                < 1 zooms out (shows more, white gap fills remaining space).
-                > 1 zooms in (tighter crop). e.g. imgscale: 0.7  or  imgscale: 1.4
+     imgscale : (optional) zoom factor. Default shows the full image (object-fit:contain).
+                > 1 zooms in (crops into the image). e.g. imgscale: 1.4
 
    TELESCOPE CARD fields:
      band     : must match a key of TELESCOPE_BANDS
