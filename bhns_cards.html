@@ -4,6 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hunting for Black Holes &amp; Neutron Stars — the card deck</title>
+<link rel="stylesheet" href="assets/css/main.css" />
+<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 <!-- ==========================================================================
   CARD DECK page · School on Gravity 2026, Day 2
   All card content lives in bhns_cards_data.js — edit that file to add cards.
@@ -19,12 +21,12 @@
      --night:#22223B;
   }
   *{box-sizing:border-box}
-  body{margin:0;background:var(--paper);color:var(--ink);
+    #bhns-cards-page{margin:0;background:var(--paper);color:var(--ink);
        font:16px/1.55 "Avenir Next","Segoe UI",system-ui,-apple-system,sans-serif;}
-  a{color:var(--magenta)}
+    #bhns-cards-page a{color:var(--magenta)}
 
   /* ---------- header ---------- */
-  header{max-width:1100px;margin:0 auto;padding:42px 20px 10px}
+    #bhns-cards-page .deck-header{max-width:1100px;margin:0 auto;padding:42px 20px 10px}
   .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--muted);margin:0 0 8px}
   h1{font-family:Georgia,"Avenir Next",serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.6rem);
      line-height:1.12;margin:0 0 10px}
@@ -35,8 +37,8 @@
          padding:6px 0 6px 14px;margin:14px 0 0;color:var(--ink)}
 
   /* ---------- tabs & filters ---------- */
-  nav{max-width:1100px;margin:18px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-  .tab,.ghostbtn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);
+        #bhns-cards-page .deck-nav{max-width:1100px;margin:18px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  .tab,.ghostbtn{border:1.px solid var(--paper);background:transparent;color:var(--paper);
        padding:8px 18px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
   .tab[aria-selected="true"]{background:var(--muted);color:var(--paper)}
   .ghostbtn{border-color:var(--line);font-size:.85rem;padding:7px 14px}
@@ -49,7 +51,7 @@
   .chip[aria-pressed="true"]{opacity:1}
 
   /* ---------- card grid ---------- */
-  main{max-width:1100px;margin:6px auto 60px;padding:0 20px}
+  #bhns-cards-page .deck-main{max-width:1100px;margin:6px auto 60px;padding:0 20px}
   .count{color:var(--muted);font-size:.85rem;margin:14px 2px 10px}
   .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;align-items:start}
   .card{position:relative;background:#fff;border:1px solid var(--line);border-radius:14px;
@@ -101,12 +103,12 @@
   .bar-block .ticks span{position:absolute;transform:translateX(-50%);white-space:nowrap}
   .bar-sub{font-size:.78rem;color:var(--muted);margin-top:1px}
 
-  footer{max-width:1100px;margin:0 auto;padding:0 20px 50px;color:var(--muted);font-size:.8rem}
+  #bhns-cards-page .deck-footer{max-width:1100px;margin:0 auto;padding:0 20px 50px;color:var(--muted);font-size:.8rem}
 
   /* ---------- print: expand everything, cut & deal ---------- */
   @media print{
-    nav,.chips,#search,.howto,footer,.open-hint{display:none}
-    body{background:#fff}
+    #bhns-cards-page .deck-nav,#bhns-cards-page .chips,#bhns-cards-page #search,#bhns-cards-page .howto,#bhns-cards-page .deck-footer,#bhns-cards-page .open-hint{display:none}
+    #bhns-cards-page{background:#fff}
     .grid{grid-template-columns:repeat(2,1fr)}
     .card{break-inside:avoid;box-shadow:none}
     .card-body{display:flex !important}
@@ -117,9 +119,35 @@
   }
 </style>
 </head>
-<body>
+<body class="is-preload">
 
-<span>
+<div id="wrapper">
+
+  <header id="header">
+    <a href="index.html" class="logo">Lieke van Son</a>
+  </header>
+
+  <nav id="nav">
+    <ul class="links">
+      <li><a href="index.html">About/Contact</a></li>
+      <li class="has-dropdown"><a href="research.html">Research group &#9662;</a><ul class="dropdown-menu"><li><a href="https://binary-observations.github.io/post_mt_catalog/">Post Mass Transfer Catalog</a></li></ul></li>
+      <li><a href="talks.html">Talks</a></li>
+      <li class="active has-dropdown"><a href="teaching.html">Teaching &#9662;</a><ul class="dropdown-menu"><li><a href="https://liekevanson.github.io/bhns_cards.html">Hunting for Black Holes &amp; Neutron Stars</a></li><li><a href="https://liekevanson.github.io/IAUhackathon/home.html">IAU MESA Hackathon 2024</a></li></ul></li>
+      <li><a href="outreach.html">Outreach</a></li>
+      <li><a href="publications.html">Publications</a></li>
+      <li><a href="CV.html">CV</a></li>
+      <li><a href="group_and_jobs.html">Group/Opportunities</a></li>
+    </ul>
+    <ul class="icons">
+      <li><a href="https://www.linkedin.com/in/lieke-van-son-128796b4/" class="icon brands alt fa-linkedin"><span class="label">LinkedIn</span></a></li>
+      <li><a href="https://github.com/LiekeVanSon/" class="icon brands fa-github"><span class="label">GitHub</span></a></li>
+    </ul>
+  </nav>
+
+  <div id="main">
+    <section id="bhns-cards-page">
+
+<div class="deck-header">
   <p class="eyebrow">School on Gravity 2026 · Day 2 · From Motion to Commotion</p>
   <h1><span class="hl"> Hunting for Black Holes &amp; Neutron Stars</span></h1>
   <!-- <br>Matching Astronomical Phenomena to Observatories -->
@@ -128,9 +156,9 @@
   <p class="howto" id="howto"><strong>In class:</strong> each group gets two object cards (e.g. “A1 &amp; D3”).
      You have ~20 minutes: What is the signal? Which observatories could detect it, and what would they measure?
      Click an observatory card to see its specs. Then teach it to the rest of us. Finished early? Grab an <em>extra</em> card.</p>
-</header>
+</div>
 
-<nav role="tablist" aria-label="Deck">
+<nav class="deck-nav" role="tablist" aria-label="Deck">
   <button class="tab" role="tab" id="tab-objects" aria-selected="true">Astro phenomena</button>
   <button class="tab" role="tab" id="tab-telescopes" aria-selected="false">Observatories</button>
   <button class="ghostbtn hidden" id="expandall">Expand all</button>
@@ -138,17 +166,26 @@
 </nav>
 <div class="chips" id="chips" aria-label="Filter by category"></div>
 
-<main>
+<main class="deck-main">
   <p class="count" id="count"></p>
   <div class="grid" id="grid"></div>
 </main>
 
-<footer>
+<footer class="deck-footer">
   Built for the NBIA <a href="https://the-center-of-gravity.com/features/the-school-on-gravity-from-motion-to-commotion-2026/">School on Gravity 2026</a> 
    -- Lieke van Son. <br>
   Mission-time bars tick marks today, hatched = planned/under construction.
   Spectral bars are log-frequency (EM), log-GW-frequency, or log-neutrino-energy.
 </footer>
+
+    </section>
+  </div>
+
+  <div id="copyright">
+    <ul><li>&copy; Untitled</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li></ul>
+  </div>
+
+</div>
 
 <script src="bhns_cards_data.js"></script>
 <script>
@@ -349,5 +386,14 @@
   renderChips(); render();
 })();
 </script>
+
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+<script src="assets/js/dropdown.js"></script>
 </body>
 </html>
