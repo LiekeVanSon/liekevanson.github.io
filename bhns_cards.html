@@ -14,7 +14,7 @@
   ========================================================================== -->
 <style>
   :root{
-    --ink:#1c1b29; --paper:#fffdf9; --muted:#656886; --line:#e7e2da;
+    --ink:#1c1b29; --paper:#fffdf9; --muted:#f2cfcf; --line:#e7e2da;
     --magenta:#D6336C;  
     --red:#e51b10; --orange:#E98A3C; --yellow:#ebc21c; --green:#8ecf68; 
     --lightblue:#83cdc3; --darkblue:#175da8; --violet:#a670d2; --gamma:#da6ec4;
@@ -27,18 +27,18 @@
 
   /* ---------- header ---------- */
     #bhns-cards-page .deck-header{max-width:1100px;margin:0 auto;padding:42px 20px 10px}
-  .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--muted);margin:0 0 8px}
+  .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--ink);margin:0 0 8px}
   h1{font-family:Georgia,"Avenir Next",serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.6rem);
      line-height:1.12;margin:0 0 10px}
   h1 .hl{background:linear-gradient(90deg,var(--red),var(--yellow),var(--green),var(--lightblue),var(--gamma));
          -webkit-background-clip:text;background-clip:text;color:transparent}
-  .intro{max-width:62ch;color:var(--muted);margin:0 0 6px}
+  .intro{max-width:62ch;color:var(--ink);margin:0 0 6px}
   .howto{max-width:62ch;font-size:.92rem;border-left:3px solid var(--orange);
          padding:6px 0 6px 14px;margin:14px 0 0;color:var(--ink)}
 
   /* ---------- tabs & filters ---------- */
         #bhns-cards-page .deck-nav{max-width:1100px;margin:18px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-  .tab,.ghostbtn{border:1.px solid var(--paper);background:transparent;color:var(--paper);
+  .tab,.ghostbtn{border:1px solid var(--paper);background:transparent;color:var(--paper);
        padding:8px 18px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
   .tab[aria-selected="true"]{background:var(--muted);color:var(--paper)}
   .ghostbtn{border-color:var(--line);font-size:.85rem;padding:7px 14px}
@@ -46,9 +46,10 @@
   #search{margin-left:auto;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;
           font:inherit;min-width:180px;background:#fff}
   .chips{max-width:1100px;margin:12px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:8px}
-  .chip{border:none;border-radius:999px;padding:5px 13px;font:inherit;font-size:.82rem;font-weight:600;
-        cursor:pointer;color:#fff;opacity:.45}
+  .chip{border:1.5px solid #ffffffb3;border-radius:999px;padding:5px 13px;font:inherit;font-size:.82rem;font-weight:600;
+        cursor:pointer;color:var(--paper);opacity:.45}
   .chip[aria-pressed="true"]{opacity:1}
+  #bhns-cards-page .chip {color: #ffffff !important;} /* change textcolor for buttons in just BHNS cards page*/
 
   /* ---------- card grid ---------- */
   #bhns-cards-page .deck-main{max-width:1100px;margin:6px auto 60px;padding:0 20px}
@@ -73,8 +74,11 @@
 
   /* ---------- clickable telescope & object cards ---------- */
   .card-flip{padding:0;overflow:hidden}
-  .card-head{display:block;width:100%;border:none;background:none;font:inherit;color:inherit;
-          text-align:left;cursor:pointer;padding:0}
+    .card-head{appearance:none;-webkit-appearance:none;display:block;width:100%;height:auto;line-height:inherit;
+      border:none;border-radius:0;background:none;box-shadow:none;font:inherit;font-weight:inherit;
+      letter-spacing:normal;text-transform:none;white-space:normal;color:inherit;text-align:left;
+      text-decoration:none;cursor:pointer;padding:0}
+    .card-head:hover{box-shadow:none;color:inherit}
   .thumb{position:relative;aspect-ratio:16/9;background:
          linear-gradient(135deg,color-mix(in srgb,var(--c) 22%,#fff), color-mix(in srgb,var(--c) 55%,#fff));
          display:flex;align-items:center;justify-content:center;overflow:hidden}
