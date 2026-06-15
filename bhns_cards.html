@@ -12,9 +12,11 @@
   ========================================================================== -->
 <style>
   :root{
-    --ink:#1c1b29; --paper:#fffdf9; --muted:#6e6a7c; --line:#e7e2da;
-    --magenta:#D6336C; --orange:#E98A3C; --violet:#9D4EDD; --blue:#3E63DD;
-    --yellow:#E5B910; --plum:#B5179E; --night:#22223B;
+    --ink:#1c1b29; --paper:#fffdf9; --muted:#656886; --line:#e7e2da;
+    --magenta:#D6336C;  
+    --red:#e51b10; --orange:#E98A3C; --yellow:#ebc21c; --green:#8ecf68; 
+    --lightblue:#83cdc3; --darkblue:#175da8; --violet:#a670d2; --gamma:#da6ec4;
+     --night:#22223B;
   }
   *{box-sizing:border-box}
   body{margin:0;background:var(--paper);color:var(--ink);
@@ -24,9 +26,9 @@
   /* ---------- header ---------- */
   header{max-width:1100px;margin:0 auto;padding:42px 20px 10px}
   .eyebrow{letter-spacing:.18em;text-transform:uppercase;font-size:.72rem;color:var(--muted);margin:0 0 8px}
-  h1{font-family:Georgia,"Times New Roman",serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.6rem);
+  h1{font-family:Georgia,"Avenir Next",serif;font-weight:700;font-size:clamp(1.7rem,4.5vw,2.6rem);
      line-height:1.12;margin:0 0 10px}
-  h1 .hl{background:linear-gradient(90deg,var(--magenta),var(--orange),var(--yellow));
+  h1 .hl{background:linear-gradient(90deg,var(--red),var(--yellow),var(--green),var(--lightblue),var(--gamma));
          -webkit-background-clip:text;background-clip:text;color:transparent}
   .intro{max-width:62ch;color:var(--muted);margin:0 0 6px}
   .howto{max-width:62ch;font-size:.92rem;border-left:3px solid var(--orange);
@@ -36,9 +38,9 @@
   nav{max-width:1100px;margin:18px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
   .tab,.ghostbtn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);
        padding:8px 18px;border-radius:999px;font:inherit;font-weight:600;cursor:pointer}
-  .tab[aria-selected="true"]{background:var(--ink);color:var(--paper)}
+  .tab[aria-selected="true"]{background:var(--muted);color:var(--paper)}
   .ghostbtn{border-color:var(--line);font-size:.85rem;padding:7px 14px}
-  .tab:focus-visible,.chip:focus-visible,.ghostbtn:focus-visible,.t-head:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
+  .tab:focus-visible,.chip:focus-visible,.ghostbtn:focus-visible,.card-head:focus-visible{outline:3px solid var(--orange);outline-offset:2px}
   #search{margin-left:auto;border:1.5px solid var(--line);border-radius:999px;padding:8px 14px;
           font:inherit;min-width:180px;background:#fff}
   .chips{max-width:1100px;margin:12px auto 0;padding:0 20px;display:flex;flex-wrap:wrap;gap:8px}
@@ -67,24 +69,25 @@
   .ref a:hover{color:var(--c,var(--ink))}
   .answers{background:#fff7ee;border:1px solid #f2dcc0;border-radius:8px;padding:8px 10px;font-size:.86rem}
 
-  /* ---------- clickable telescope cards ---------- */
-  .t-card{padding:0;overflow:hidden}
-  .t-head{display:block;width:100%;border:none;background:none;font:inherit;color:inherit;
+  /* ---------- clickable telescope & object cards ---------- */
+  .card-flip{padding:0;overflow:hidden}
+  .card-head{display:block;width:100%;border:none;background:none;font:inherit;color:inherit;
           text-align:left;cursor:pointer;padding:0}
   .thumb{position:relative;aspect-ratio:16/9;background:
          linear-gradient(135deg,color-mix(in srgb,var(--c) 22%,#fff), color-mix(in srgb,var(--c) 55%,#fff));
          display:flex;align-items:center;justify-content:center;overflow:hidden}
+  .thumb.plain{background:#fff}
   .thumb img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
   .thumb .mono{font-family:Georgia,serif;font-size:2.4rem;font-weight:700;color:#fff;opacity:.85;
                text-shadow:0 1px 6px rgba(0,0,0,.25)}
   .thumb .open-hint{position:absolute;right:8px;bottom:8px;width:26px;height:26px;border-radius:50%;
         background:rgba(255,255,255,.92);color:var(--ink);display:flex;align-items:center;justify-content:center;
         font-weight:700;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:transform .15s}
-  .t-card.open .open-hint{transform:rotate(45deg)}
-  .t-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px 8px}
-  .t-title h3{flex:1 1 100%}
-  .t-body{display:none;flex-direction:column;gap:10px;padding:2px 14px 14px}
-  .t-card.open .t-body{display:flex}
+  .card-flip.open .open-hint{transform:rotate(45deg)}
+  .card-title{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:10px 14px 8px}
+  .card-title h3{flex:1 1 100%}
+  .card-body{display:none;flex-direction:column;gap:10px;padding:2px 14px 14px}
+  .card-flip.open .card-body{display:flex}
 
   /* ---------- bars: mission timeline & spectral coverage ---------- */
   .bar-block{margin-top:2px}
@@ -105,7 +108,7 @@
     body{background:#fff}
     .grid{grid-template-columns:repeat(2,1fr)}
     .card{break-inside:avoid;box-shadow:none}
-    .t-body{display:flex !important}
+    .card-body{display:flex !important}
   }
   @media (prefers-reduced-motion:no-preference){
     .card{transition:transform .15s ease}
@@ -115,9 +118,10 @@
 </head>
 <body>
 
-<header>
+<span>
   <p class="eyebrow">School on Gravity 2026 · Day 2 · From Motion to Commotion</p>
-  <h1>Hunting for black holes &amp; neutron stars:<br><span class="hl">the card deck</span></h1>
+  <h1><span class="hl"> Hunting for Black Holes &amp; Neutron Stars</span></h1>
+  <!-- <br>Matching Astronomical Phenomena to Observatories -->
   <p class="intro">Two decks: the <strong>tell-tale phenomena</strong> that reveal compact objects, and the
      <strong>observatories</strong> we hunt them with. Your task: figure out which instruments can catch your phenomena — and how.</p>
   <p class="howto" id="howto"><strong>In class:</strong> each group gets two object cards (e.g. “A1 &amp; D3”).
@@ -126,7 +130,7 @@
 </header>
 
 <nav role="tablist" aria-label="Deck">
-  <button class="tab" role="tab" id="tab-objects" aria-selected="true">Astrophysical objects</button>
+  <button class="tab" role="tab" id="tab-objects" aria-selected="true">Astro phenomena</button>
   <button class="tab" role="tab" id="tab-telescopes" aria-selected="false">Observatories</button>
   <button class="ghostbtn hidden" id="expandall">Expand all</button>
   <input id="search" type="search" placeholder="Search cards…" aria-label="Search cards">
@@ -139,10 +143,10 @@
 </main>
 
 <footer>
-  Built for the School on Gravity 2026 · Lieke van Son.
-  Mission-time bars run 1990–2042 (hatched = planned/under construction; the tick marks today).
+  Built for the NBIA <a href="https://the-center-of-gravity.com/features/the-school-on-gravity-from-motion-to-commotion-2026/">School on Gravity 2026</a> 
+   -- Lieke van Son. <br>
+  Mission-time bars tick marks today, hatched = planned/under construction.
   Spectral bars are log-frequency (EM), log-GW-frequency, or log-neutrino-energy.
-  Observatory images live in bhns_card_images/ (see each card's Wikipedia link for sources/credits). References link to NASA ADS.
 </footer>
 
 <script src="bhns_cards_data.js"></script>
@@ -160,6 +164,7 @@
   const activeFilters = { objects: new Set(Object.keys(OBJECT_CATEGORIES)),
                           telescopes: new Set(Object.keys(TELESCOPE_BANDS)) };
   const openCards = new Set();          // expanded telescope cards, keyed by name
+  const openObjCards = new Set();       // expanded object cards, keyed by id (or name)
 
   // spectral axes: min/max on the log scale + labelled ticks
   const SPEC_AXES = {
@@ -200,16 +205,47 @@
     return `<p class="ref">${links}${wiki}</p>`;
   }
 
+  function imgStyle(c){
+    const parts = [];
+    if (c.imgscale) parts.push(`transform:scale(${c.imgscale})`);
+    if (c.imgpos)   parts.push(`object-position:${esc(c.imgpos)}`);
+    return parts.length ? `style="${parts.join(";")}"` : "";
+  }
+
   function objectCard(o){
     const cat = OBJECT_CATEGORIES[o.cat];
-    return `<article class="card${o.extra ? " extra" : ""}" style="--c:${cat.color}">
-      <div class="meta">${o.id ? `<span class="cardid">${esc(o.id)}</span>` : ""}
-        <span class="tag">${esc(cat.label)}</span>
-        ${o.extra ? `<span class="tag ghost">extra</span>` : ""}</div>
-      <h3>${esc(o.name)}</h3>
-      <p><span class="lbl">Why it matters</span>${esc(o.why)}</p>
-      <p><span class="lbl">Tell-tale signal</span>${esc(o.signal)}</p>
-      ${ANSWERS ? `<p class="answers"><span class="lbl">Example facilities</span>${esc(o.answers)}</p>` : ""}
+    if (!o.img) {
+      return `<article class="card${o.extra ? " extra" : ""}" style="--c:${cat.color}">
+        <div class="meta">${o.id ? `<span class="cardid">${esc(o.id)}</span>` : ""}
+          <span class="tag">${esc(cat.label)}</span>
+          ${o.extra ? `<span class="tag ghost">extra</span>` : ""}</div>
+        <h3>${esc(o.name)}</h3>
+        <p><span class="lbl">Why it matters</span>${esc(o.why)}</p>
+        <p><span class="lbl">Tell-tale signal</span>${esc(o.signal)}</p>
+        ${ANSWERS ? `<p class="answers"><span class="lbl">Example facilities</span>${esc(o.answers)}</p>` : ""}
+      </article>`;
+    }
+    const key = o.id || o.name;
+    const open = openObjCards.has(key);
+    return `<article class="card card-flip${open ? " open" : ""}" style="--c:${cat.color}" data-objid="${esc(key)}">
+      <button class="card-head" aria-expanded="${open}">
+        <div class="thumb plain">
+          <img src="${esc(o.img)}" alt="${esc(o.name)}" loading="lazy" onerror="this.remove()"
+               ${imgStyle(o)}>
+          <span class="open-hint" aria-hidden="true">+</span>
+        </div>
+        <div class="card-title">
+          ${o.id ? `<span class="cardid">${esc(o.id)}</span>` : ""}
+          <span class="tag">${esc(cat.label)}</span>
+          ${o.extra ? `<span class="tag ghost">extra</span>` : ""}
+          <h3>${esc(o.name)}</h3>
+        </div>
+      </button>
+      <div class="card-body">
+        <p><span class="lbl">Why it matters</span>${esc(o.why)}</p>
+        <p><span class="lbl">Tell-tale signal</span>${esc(o.signal)}</p>
+        ${ANSWERS ? `<p class="answers"><span class="lbl">Example facilities</span>${esc(o.answers)}</p>` : ""}
+      </div>
     </article>`;
   }
 
@@ -219,18 +255,18 @@
     const mono = esc(t.name.replace(/[^A-Za-z0-9 ]/g,"").split(" ").map(w=>w[0]).slice(0,3).join(""));
     const yrsSub = `${t.tstart}${t.tend ? "–" + t.tend : " – ongoing"}${t.future ? " (planned)" : ""}`;
     const ax = SPEC_AXES[t.spec.kind];
-    return `<article class="card t-card${open ? " open" : ""}" style="--c:${band.color}" data-name="${esc(t.name)}">
-      <button class="t-head" aria-expanded="${open}">
+    return `<article class="card card-flip${open ? " open" : ""}" style="--c:${band.color}" data-name="${esc(t.name)}">
+      <button class="card-head" aria-expanded="${open}">
         <div class="thumb"><span class="mono">${mono}</span>
-          ${t.img ? `<img src="${esc(t.img)}" alt="${esc(t.name)}" loading="lazy" onerror="this.remove()">` : ""}
+          ${t.img ? `<img src="${esc(t.img)}" alt="${esc(t.name)}" loading="lazy" onerror="this.remove()" ${imgStyle(t)}>` : ""}
           <span class="open-hint" aria-hidden="true">+</span></div>
-        <div class="t-title">
+        <div class="card-title">
           <span class="tag">${esc(band.label)}</span>
           ${t.core ? `<span class="tag ghost">★ core</span>` : ""}
           <h3>${esc(t.name)}</h3>
         </div>
       </button>
-      <div class="t-body">
+      <div class="card-body">
         ${barHTML("Mission time", esc(yrsSub), [[Math.max(t.tstart, T0), Math.min(t.tend ?? T1, T1)]], T0, T1,
                   [[T0, String(T0)], [NOW, String(NOW)], [T1, String(T1)]], true, t.future)}
         ${barHTML("Frequency / wavelength", esc(t.freq), t.spec.segs, ax.min, ax.max, ax.ticks, false, false)}
@@ -287,11 +323,17 @@
     else set.add(k);
     renderChips(); render();
   });
-  // expand/collapse a telescope card (ignore clicks on links)
+  // expand/collapse telescope or object cards (ignore clicks on links)
   grid.addEventListener("click", e => {
-    const head = e.target.closest(".t-head"); if (!head) return;
-    const name = head.closest(".t-card").dataset.name;
-    openCards.has(name) ? openCards.delete(name) : openCards.add(name);
+    const head = e.target.closest(".card-head"); if (!head) return;
+    const card = head.closest(".card-flip");
+    if (card.dataset.name) {
+      const name = card.dataset.name;
+      openCards.has(name) ? openCards.delete(name) : openCards.add(name);
+    } else if (card.dataset.objid) {
+      const key = card.dataset.objid;
+      openObjCards.has(key) ? openObjCards.delete(key) : openObjCards.add(key);
+    }
     render();
   });
   expandBtn.addEventListener("click", () => {

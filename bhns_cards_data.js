@@ -13,6 +13,13 @@
      signal   : tell-tale signal & detection method
      answers  : example facilities — ONLY shown with ?answers=1 in the URL
      extra    : true => rendered as a bonus card (dashed outline)
+     img      : (optional) path to an image shown when the card is clicked,
+                e.g. "bhns_card_images/phenomena/a1_massive_ob_stars.jpg"
+                Omit (or leave undefined) for a non-clickable card.
+     imgpos   : (optional) pan the image. e.g. "top", "bottom", "50% 20%". Defaults to "center".
+     imgscale : (optional) zoom factor. 1 = fill container (default).
+                < 1 zooms out (shows more, white gap fills remaining space).
+                > 1 zooms in (tighter crop). e.g. imgscale: 0.7  or  imgscale: 1.4
 
    TELESCOPE CARD fields:
      band     : must match a key of TELESCOPE_BANDS
@@ -21,6 +28,7 @@
      img      : path to the card image, e.g. "bhns_card_images/lisa.jpg"
                 (save your own images into the bhns_card_images/ folder;
                 a colored monogram placeholder is shown if the file is missing)
+     imgpos   : (optional) CSS object-position to control crop, e.g. "top", "50% 20%"
      wiki     : English Wikipedia page title — only used for the
                 "Wikipedia" link on the card (handy image source too)
      tstart   : first year of operations (number, drives the timeline bar)
@@ -39,24 +47,28 @@
    ========================================================================== */
 
 const OBJECT_CATEGORIES = {
-  A: { label: "A · Progenitors & precursors", color: "#E98A3C" },
-  B: { label: "B · Explosive endpoints",      color: "#D6336C" },
-  C: { label: "C · Single compact objects",   color: "#9D4EDD" },
-  D: { label: "D · Compact objects in binaries", color: "#3E63DD" },
-  E: { label: "E · DCO mergers & multi-messenger signals", color: "#22223B" },
+  A: { label: "A · Progenitors & precursors", color: "#a9bb40" },
+  B: { label: "B · Explosive endpoints",      color: "#eeca39" },
+  C: { label: "C · Single compact objects",   color: "#ff8635" },
+  D: { label: "D · Compact objects in binaries", color: "#90c8dc" },
+  E: { label: "E · Doule Compact object mergers", color: "#4C3325" },
 };
 
 const OBJECT_CARDS = [
   // ---------- A. Progenitors & precursors ----------
-  { id: "A1", cat: "A", name: "Massive OB(A) stars & their multiplicity",
+  { id: "A1", cat: "A", name: "Massive OB stars & their multiplicity",
     why: "Every BH/NS was once a massive star; binary fraction and orbital-parameter distributions set the initial conditions for everything that follows.",
     signal: "Multi-epoch spectroscopy → radial-velocity (RV) curves; astrometric orbits; eclipses.",
-    answers: "SDSS-V (BOSS 600k OBA stars), Gaia, VLT, 4MOST/WEAVE, TESS" },
-  { id: "A2", cat: "A", name: "Stripped (helium) stars — the 'missing stripped stars'",
+    answers: "SDSS-V (BOSS 600k OBA stars), Gaia, VLT, 4MOST/WEAVE, TESS",
+    img: "bhns_card_images/phenomena/OB_star_binary.png", imgscale: 0.5, imgpos: "left center" },
+
+  { id: "A2", cat: "A", name: "Stripped (helium) stars ",
     why: "Predicted product of binary mass transfer and progenitors of stripped-envelope SNe; long elusive at intermediate masses (Götberg et al. 2018; Drout et al. 2023).",
     signal: "UV excess in composite spectra; UV photometry + optical spectroscopy.",
-    answers: "UVEX, HST (UV spectroscopy), Swift-UVOT, GALEX (archival), SDSS-V/APOGEE" },
-  { id: "A3", cat: "A", name: "RSG/YSG/BSG supernova progenitors — the 'missing RSG problem'",
+    answers: "UVEX, HST (UV spectroscopy), Swift-UVOT, GALEX (archival), SDSS-V/APOGEE", 
+    img: "bhns_card_images/phenomena/stripped_star.png", imgscale: 0.6 },
+
+  { id: "A3", cat: "A", name: "RSG/YSG/BSG supernova progenitors ",
     why: "Direct progenitor detections in pre-explosion images; apparent lack of Type II-P progenitors with M_ZAMS ≳ 18–20 M☉.",
     signal: "Pre-explosion archival imaging; IR photometric monitoring of nearby galaxies.",
     answers: "HST, JWST, Roman, Rubin (LSST), Spitzer (archival)" },
@@ -64,10 +76,11 @@ const OBJECT_CARDS = [
     why: "The only direct observational window on common-envelope evolution — the key uncertainty in the CE formation channel (Howitt et al. 2020).",
     signal: "Optical/IR transients with characteristic red, double-peaked light curves.",
     answers: "Rubin (LSST), ZTF, Gaia alerts, ATLAS/ASAS-SN, Roman (extragalactic)" },
-  { extra: true, id: "", cat: "A", name: "Pre-SN outbursts & LBV-like eruptions",
-    why: "Episodic mass loss in the final years before collapse shapes circumstellar interaction (Type IIn) and remnant masses.",
-    signal: "Precursor detections in high-cadence survey light curves.",
-    answers: "ZTF, Rubin (LSST), ATLAS/ASAS-SN" },
+
+  // { extra: true, id: "", cat: "A", name: "Pre-SN outbursts & LBV-like eruptions",
+  //   why: "Episodic mass loss in the final years before collapse shapes circumstellar interaction (Type IIn) and remnant masses.",
+  //   signal: "Precursor detections in high-cadence survey light curves.",
+  //   answers: "ZTF, Rubin (LSST), ATLAS/ASAS-SN" },
 
   // ---------- B. Explosive endpoints ----------
   { id: "B1", cat: "B", name: "Hydrogen-rich (Type II) supernovae",
@@ -90,18 +103,19 @@ const OBJECT_CARDS = [
     why: "Direct evidence for silent collapse to a BH (e.g. N6946-BH1); sets f_explode vs f_collapse.",
     signal: "Repeated imaging of nearby galaxies: a star that vanishes (with a faint transient).",
     answers: "HST, JWST, Roman, Rubin (LSST)" },
-  { extra: true, id: "", cat: "B", name: "Shock breakout & early shock-cooling emission",
-    why: "First photons from a SN: progenitor radius and final mass-loss diagnostics, hours-timescale physics.",
-    signal: "Wide-field UV/X-ray monitors with minutes-level alerts.",
-    answers: "ULTRASAT, Einstein Probe, UVEX, Swift" },
-  { extra: true, id: "", cat: "B", name: "Galactic core-collapse neutrino burst",
-    why: "Only direct probe of the collapsing core and proto-NS cooling (SN 1987A); will fire ~hours before light.",
-    signal: "MeV neutrino burst detection; SNEWS early-warning network.",
-    answers: "Super-K/Hyper-K, IceCube, KM3NeT, DUNE/JUNO" },
-  { extra: true, id: "", cat: "B", name: "Natal kicks (pulsar velocities)",
-    why: "Pulsar proper motions calibrate the kick distributions (Hobbs Maxwellian) that decide binary survival — see the Day 1 kick lottery!",
-    signal: "VLBI astrometry & timing proper motions of young pulsars.",
-    answers: "VLBA/ngVLA, SKA-Mid, FAST/MeerKAT timing, Gaia (runaway stars)" },
+    // EXTRA
+  // { extra: true, id: "", cat: "B", name: "Shock breakout & early shock-cooling emission",
+  //   why: "First photons from a SN: progenitor radius and final mass-loss diagnostics, hours-timescale physics.",
+  //   signal: "Wide-field UV/X-ray monitors with minutes-level alerts.",
+  //   answers: "ULTRASAT, Einstein Probe, UVEX, Swift" },
+  // { extra: true, id: "", cat: "B", name: "Galactic core-collapse neutrino burst",
+  //   why: "Only direct probe of the collapsing core and proto-NS cooling (SN 1987A); will fire ~hours before light.",
+  //   signal: "MeV neutrino burst detection; SNEWS early-warning network.",
+  //   answers: "Super-K/Hyper-K, IceCube, KM3NeT, DUNE/JUNO" },
+  // { extra: true, id: "", cat: "B", name: "Natal kicks (pulsar velocities)",
+  //   why: "Pulsar proper motions calibrate the kick distributions (Hobbs Maxwellian) that decide binary survival — see the Day 1 kick lottery!",
+  //   signal: "VLBI astrometry & timing proper motions of young pulsars.",
+  //   answers: "VLBA/ngVLA, SKA-Mid, FAST/MeerKAT timing, Gaia (runaway stars)" },
 
   // ---------- C. Single compact objects ----------
   { id: "C1", cat: "C", name: "Radio pulsars (incl. millisecond & recycled)",
@@ -116,10 +130,11 @@ const OBJECT_CARDS = [
     why: "The 'silent majority': most single BHs emit nothing — microlensing is the only census (OGLE-2011-BLG-0462, Sahu/Lam 2022).",
     signal: "Long-timescale photometric microlensing + astrometric deflection.",
     answers: "OGLE, Roman (Bulge Time Domain Survey: 100s–1000 expected), Gaia, HST, Rubin" },
-  { extra: true, id: "", cat: "C", name: "Thermal emission from NS surfaces — the EoS",
-    why: "Pulse-profile modelling gives simultaneous mass & radius → dense-matter equation of state (complements GW tidal deformability).",
-    signal: "Soft X-ray timing & phase-resolved spectroscopy.",
-    answers: "NICER, XMM-Newton, NewAthena, (XRISM spectroscopy)" },
+    // EXTRA
+  // { extra: true, id: "", cat: "C", name: "Thermal emission from NS surfaces — the EoS",
+  //   why: "Pulse-profile modelling gives simultaneous mass & radius → dense-matter equation of state (complements GW tidal deformability).",
+  //   signal: "Soft X-ray timing & phase-resolved spectroscopy.",
+  //   answers: "NICER, XMM-Newton, NewAthena, (XRISM spectroscopy)" }, // Anna Watts
 
   // ---------- D. Compact objects in binaries ----------
   { id: "D1", cat: "D", name: "Low-mass X-ray binaries & transient outbursts",
@@ -138,47 +153,68 @@ const OBJECT_CARDS = [
     why: "Recycled ms pulsars ablating their companions; endpoint of LMXB evolution and hosts of the most massive NSs.",
     signal: "Radio timing + optical light curves/RVs of the irradiated companion.",
     answers: "FAST, MeerKAT, SKA; Rubin/VLT for companions; Fermi-LAT (γ-ray selection)" },
-  { id: "D5", cat: "D", name: "Binary & double pulsars (Hulse–Taylor, J0737−3039)",
-    why: "Decades-long indirect GW proof; masses to 10⁻⁴ precision; tests of GR; direct NSNS progenitor census in the Galaxy.",
+  { id: "D5", cat: "D", name: "Binary & double pulsars",
+    why: "E.g., (Hulse–Taylor, J0737−3039) Decades-long indirect GW proof; masses to 10⁻⁴ precision; tests of GR; direct NSNS progenitor census in the Galaxy.",
     signal: "Precision pulsar timing of relativistic binaries.",
     answers: "MeerKAT/SKA-Mid, FAST, Parkes, GBT, Effelsberg" },
-  { extra: true, id: "", cat: "D", name: "Ultraluminous X-ray sources (ULXs)",
-    why: "Super-Eddington accretion; ULX pulsars proved some are NSs — candidates for HMXB→DCO evolution at low Z.",
-    signal: "X-ray imaging of nearby galaxies; pulsation searches.",
-    answers: "Chandra (imaging), NuSTAR (pulsations), XMM-Newton" },
+    // EXTRA
+  // { extra: true, id: "", cat: "D", name: "Ultraluminous X-ray sources (ULXs)",
+  //   why: "Super-Eddington accretion; ULX pulsars proved some are NSs — candidates for HMXB→DCO evolution at low Z.",
+  //   signal: "X-ray imaging of nearby galaxies; pulsation searches.",
+  //   answers: "Chandra (imaging), NuSTAR (pulsations), XMM-Newton" },
 
   // ---------- E. DCO mergers & multi-messenger signals ----------
   { id: "E1", cat: "E", name: "Merging stellar-mass binary black holes",
     why: "Stellar binary black hole populations: the mass & spin distributions, mass gaps, and formation-channel diagnostics.",
     signal: "GW strain (chirp); possible AGN-disc EM flares for the dynamical channel.",
     answers: "LIGO–Virgo–KAGRA → ET/CE; ZTF/Rubin (AGN flare candidates)" },
-  { id: "E2", cat: "E", name: "Merging NSNS & BHNS: GW + kilonova + sGRB + afterglow",
-    why: "GW170817: the holistic showcase — GW masses & distance, γ-ray jet, UV/optical/IR kilonova (r-process!), X-ray/radio structured-jet afterglow, H₀.",
+
+  { id: "E2", cat: "E", name: "Merging binary neutron star",
+    why: "GW170817: the holistic showcase — GW + kilonova + sGRB + afterglow ",
     signal: "GW alert → γ-ray prompt → wide-field optical/UV tiling → spectroscopy → radio/X-ray monitoring.",
     answers: "LVK/ET/CE + Fermi/Swift/SVOM + Rubin/BlackGEM/GOTO/ZTF + ULTRASAT/UVEX + JWST/ELT/VLT + VLA/SKA + Chandra" },
-  { id: "E3", cat: "E", name: "EMRIs, IMBH & supermassive BH binaries",
+
+  { id: "E3", cat: "E", name: "Merging black hole-neutron star",
+    why: "Similar to NSNS mergers — GW + kilonova + sGRB + afterglow. How will the mass ratio affect the EM detectability?",
+    signal: "GW alert → γ-ray prompt → wide-field optical/UV tiling → spectroscopy → radio/X-ray monitoring.",
+    answers: "LVK/ET/CE + Fermi/Swift/SVOM + Rubin/BlackGEM/GOTO/ZTF + ULTRASAT/UVEX + JWST/ELT/VLT + VLA/SKA + Chandra" },
+
+
+  { id: "E4", cat: "E", name: "Extreme mass ratio inspiral",
+    why: "Star or stellar-mass compact object falling into a super-massive black hole",
+    signal: "nHz timing residuals; mHz GW strain; (VLBI imaging of SMBHs).",
+    answers: "PTAs (NANOGrav/EPTA/PPTA/MPTA), LISA, EHT/ngEHT" },
+
+    { id: "E5", cat: "E", name: "Intermediate-mass BH binaries",
+    why: "From about 1000Msun - 10^{5}Msun ",
+    signal: "nHz timing residuals; mHz GW strain; (VLBI imaging of SMBHs).",
+    answers: "PTAs (NANOGrav/EPTA/PPTA/MPTA), LISA, EHT/ngEHT" },
+
+      { id: "E6", cat: "E", name: "Supermassive BH binaries",
     why: "Extends the BH mass ladder; PTAs detect the nHz background of SMBH binaries; LISA hears their mergers.",
     signal: "nHz timing residuals; mHz GW strain; (VLBI imaging of SMBHs).",
     answers: "PTAs (NANOGrav/EPTA/PPTA/MPTA), LISA, EHT/ngEHT" },
-  { extra: true, id: "", cat: "E", name: "r-process fossil record",
-    why: "Abundances in metal-poor halo stars & dwarf galaxies record the integrated history of NS mergers — 'GW astronomy with stellar spectra'.",
-    signal: "High-resolution optical spectroscopy (Eu, Sr, actinides).",
-    answers: "VLT/ELT, 4MOST/WEAVE, SDSS-V; JWST (kilonova nebular spectra, e.g. Te in GRB 230307A)" },
-  { extra: true, id: "", cat: "E", name: "Galactic double white dwarfs & early-inspiral binaries (multiband GW)",
-    why: "LISA verification binaries; stellar-mass BBHs caught years before LVK/ET sees the merger → multiband astronomy.",
-    signal: "mHz GW strain; optical eclipsing DWD surveys.",
-    answers: "LISA; ZTF/Rubin (eclipsing DWDs); Gaia" },
+    // EXTRA
+  // { extra: true, id: "", cat: "E", name: "r-process fossil record",
+  //   why: "Abundances in metal-poor halo stars & dwarf galaxies record the integrated history of NS mergers — 'GW astronomy with stellar spectra'.",
+  //   signal: "High-resolution optical spectroscopy (Eu, Sr, actinides).",
+  //   answers: "VLT/ELT, 4MOST/WEAVE, SDSS-V; JWST (kilonova nebular spectra, e.g. Te in GRB 230307A)" },
+  // { extra: true, id: "", cat: "E", name: "Galactic double white dwarfs & early-inspiral binaries (multiband GW)",
+  //   why: "LISA verification binaries; stellar-mass BBHs caught years before LVK/ET sees the merger → multiband astronomy.",
+  //   signal: "mHz GW strain; optical eclipsing DWD surveys.",
+  //   answers: "LISA; ZTF/Rubin (eclipsing DWDs); Gaia" },
 ];
 
 const TELESCOPE_BANDS = {
-  gw:    { label: "GW & other messengers", color: "#22223B" },
-  radio: { label: "Radio",                 color: "#E5B910" },
-  optTD: { label: "Optical/IR · imaging & time domain", color: "#D6336C" },
-  optSp: { label: "Optical/IR · astrometry & spectroscopy", color: "#E98A3C" },
-  uv:    { label: "Ultraviolet",           color: "#9D4EDD" },
-  xray:  { label: "X-ray",                 color: "#3E63DD" },
-  gamma: { label: "Gamma-ray",             color: "#B5179E" },
+  gw:    { label: "GW & other messengers", color: "#E98A3C" },
+  radio: { label: "Radio",                 color: "#ebc21c" },
+  optTD: { label: "Optical/IR · imaging & time domain", color: "#8ecf68" },
+  optSp: { label: "Optical/IR · astrometry & spectroscopy", color: "#83cdc3" },
+  uv:    { label: "Ultraviolet",           color: "#a670d2" },
+  xray:  { label: "X-ray",                 color: "#5b7dec" },
+  gamma: { label: "Gamma-ray",             color: "#da6ec4" },
 };
+
 
 // shorthand for ADS links
 const ADS = id => `https://ui.adsabs.harvard.edu/abs/${id}/abstract`;
@@ -245,7 +281,7 @@ const TELESCOPE_CARDS = [
     use: "Order-of-magnitude pulsar census increase; FRBs; steep-spectrum pulsars",
     refs: [ { t: "Braun + 2019", u: ADS("arXiv:1912.12699") } ] },
   { band: "radio", core: true, name: "SKA-Mid (South Africa)", wiki: "Square Kilometre Array",
-    img: "bhns_card_images/ska_mid_south_africa.jpg",
+    img: "bhns_card_images/ska_mid_south_africa.png",
     tstart: 2027, tend: null, future: true, spec: { kind: "em", segs: [[8.54, 10.19]] },
     freq: "350 MHz – 15.4 GHz", product: "Dish-array imaging; high-precision pulsar timing",
     notes: "Same staged rollout as SKA-Low (AA2 → AA*); incorporates MeerKAT.",
