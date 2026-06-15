@@ -4698,3 +4698,51 @@ input, select, textarea {
 		}
 
 	}
+
+/* Teaching nav dropdown — overflow:hidden on both #wrapper and #nav clips the menu */
+#wrapper { overflow: visible; }
+#nav { overflow: visible; }
+
+#nav ul.links li.has-dropdown {
+	position: relative;
+}
+
+#nav ul.links li.has-dropdown .dropdown-menu {
+	display: none;
+	position: absolute;
+	top: 4rem;
+	left: 0;
+	background: #1e252d;
+	list-style: none;
+	padding: 0.4rem 0;
+	margin: 0;
+	min-width: 16rem;
+	z-index: 10003;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+#nav ul.links li.has-dropdown:hover .dropdown-menu {
+	display: block;
+}
+
+#nav ul.links li.has-dropdown .dropdown-menu li {
+	display: block;
+	padding: 0;
+	background: none;
+}
+
+#nav ul.links li.has-dropdown .dropdown-menu li a {
+	display: block;
+	padding: 0.55rem 1.2rem;
+	font-size: 0.72rem;
+	line-height: 1.45;
+	white-space: nowrap;
+	color: #ffffff;
+	border-bottom: none;
+	background: none;
+}
+
+#nav ul.links li.has-dropdown .dropdown-menu li a:hover {
+	background-color: rgba(255, 255, 255, 0.1);
+	color: #18bfef !important;
+}
