@@ -238,13 +238,17 @@
       ${sub ? `<div class="bar-sub">${sub}</div>` : ""}</div>`;
   }
 
-  function refsHTML(refs, wikiTitle){
+  function refsHTML(refs, link){
     const links = refs.map(r => r.u
       ? `<a href="${esc(r.u)}" target="_blank" rel="noopener">${esc(r.t)}</a>`
       : esc(r.t)).join(" · ");
-    const wiki = wikiTitle
-      ? ` · <a href="https://en.wikipedia.org/wiki/${encodeURIComponent(wikiTitle.replace(/ /g,"_"))}" target="_blank" rel="noopener">Wikipedia ↗</a>` : "";
-    return `<p class="ref">${links}${wiki}</p>`;
+    const href = link && /^https?:\/\//i.test(link)
+      ? link
+      : (link ? `https://en.wikipedia.org/wiki/${encodeURIComponent(link.replace(/ /g,"_"))}` : "");
+    const external = href
+      ? ` · <a href="${esc(href)}" target="_blank" rel="noopener">Link ↗</a>`
+      : "";
+    return `<p class="ref">${links}${external}</p>`;
   }
 
   function imgStyle(c){
@@ -315,7 +319,7 @@
         <p><span class="lbl">What you measure</span>${esc(t.product)}</p>
         ${t.notes ? `<p><span class="lbl">Notes</span>${esc(t.notes)}</p>` : ""}
         ${ANSWERS ? `<p class="answers"><span class="lbl">Key BH/NS use</span>${esc(t.use)}</p>` : ""}
-        ${refsHTML(t.refs, t.wiki)}
+        ${refsHTML(t.refs, t.link)}
       </div>
     </article>`;
   }
