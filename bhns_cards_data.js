@@ -193,7 +193,7 @@ const OBJECT_CARDS = [
     why: "Detached binaries where an ordinary star orbits an unseen, non-accreting black hole or neutron star. The quiet systems that should dominate by number and stress-test binary-evolution and natal-kick models (Gaia BH1–3, VFTS 243; El-Badry et al. 2023+).",
     signal: "A single visible star that wobbles — astrometrically and in velocity — around a massive invisible companion; sometimes ellipsoidal variability or self-lensing.",
     techniques: "Astrometric orbits + single-lined RV curves (optical/IR spectroscopy); TESS/Rubin photometry for ellipsoidal/self-lensing. → Optical/IR (astrometry + spectroscopy).",
-    img : "bhns_card_images/phenomena/dormant_BH.png", imgscale: 0.6, imgpos: "center",
+    img : "bhns_card_images/phenomena/Dormant_BH.png", imgscale: 0.6, imgpos: "center",
     answers: "Gaia (astrometry), SDSS-V/4MOST/VLT (RVs), TESS & Rubin (ellipsoidal/self-lensing)" },
 
     { id: "D4", cat: "D", name: "Pulsars in binaries",
