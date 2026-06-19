@@ -71,6 +71,16 @@
   .ref a{color:var(--night);text-decoration-color:var(--line)}
   .ref a:hover{color:var(--c,var(--ink))}
   .answers{background:#fff7ee;border:1px solid #f2dcc0;border-radius:8px;padding:8px 10px;font-size:.86rem}
+  .answers > p + p{margin-top:7px}
+  /* ---------- "what to look for" hint ---------- */
+  .hint-btn{align-self:flex-start;display:inline-flex;align-items:center;gap:6px;
+            border:1.5px solid var(--c,var(--ink));background:transparent;color:var(--c,var(--ink));
+            padding:4px 13px;border-radius:999px;font:inherit;font-size:.78rem;font-weight:700;
+            cursor:pointer;margin-top:2px}
+  .hint-btn:hover{background:color-mix(in srgb,var(--c) 12%,#fff)}
+  .hint{background:color-mix(in srgb,var(--c) 8%,#fff);
+        border:1px solid color-mix(in srgb,var(--c) 35%,#fff);
+        border-radius:8px;padding:8px 10px;font-size:.9rem}
 
   /* ---------- clickable telescope & object cards ---------- */
   .card-flip{padding:0;overflow:hidden}
@@ -159,7 +169,7 @@
      <strong>observatories</strong> we hunt them with. Your task: figure out which instruments can catch your phenomena — and how.</p>
   <p class="howto" id="howto"><strong>In class:</strong> each group gets two object cards (e.g. “A1 &amp; D3”).
      You have ~20 minutes: What is the signal? Which observatories could detect it, and what would they measure?
-     Click an observatory card to see its specs. Then teach it to the rest of us. Finished early? Grab an <em>extra</em> card.</p>
+     Stuck on the signal? Hit <strong>Show hint</strong> on the card. Click an observatory card to see its specs. Then teach it to the rest of us. Finished early? Grab an <em>extra</em> card.</p>
 </div>
 
 <nav class="deck-nav" role="tablist" aria-label="Deck">
@@ -207,6 +217,7 @@
                           telescopes: new Set(Object.keys(TELESCOPE_BANDS)) };
   const openCards = new Set();          // expanded telescope cards, keyed by name
   const openObjCards = new Set();       // expanded object cards, keyed by id (or name)
+  const hintObjCards = new Set();       // object cards whose "what to look for" hint is revealed
 
   // spectral axes: min/max on the log scale + labelled ticks
   const SPEC_AXES = {
@@ -260,18 +271,32 @@
 
   function objectCard(o){
     const cat = OBJECT_CATEGORIES[o.cat];
+    const key = o.id || o.name;
+    const hintShown = ANSWERS || hintObjCards.has(key);   // teacher mode reveals all hints
+
+    // "What to look for" — a student-clickable hint (auto-shown in answer mode)
+    const hintBlock = `
+        ${!ANSWERS ? `<button class="hint-btn" type="button" aria-expanded="${hintShown}">
+            <span aria-hidden="true">\u{1F4A1}</span> ${hintShown ? "Hide hint" : "Show hint"}</button>` : ""}
+        ${hintShown ? `<p class="hint"><span class="lbl">What to look for</span>${esc(o.signal)}</p>` : ""}`;
+
+    // Answer key (?answers=1): techniques + example facilities
+    const answerBlock = ANSWERS ? `<div class="answers">
+          ${o.techniques ? `<p><span class="lbl">Observations / techniques needed</span>${esc(o.techniques)}</p>` : ""}
+          <p><span class="lbl">Example facilities</span>${esc(o.answers)}</p>
+        </div>` : "";
+
     if (!o.img) {
-      return `<article class="card${o.extra ? " extra" : ""}" style="--c:${cat.color}">
+      return `<article class="card${o.extra ? " extra" : ""}" style="--c:${cat.color}" data-objid="${esc(key)}">
         <div class="meta">${o.id ? `<span class="cardid">${esc(o.id)}</span>` : ""}
           <span class="tag">${esc(cat.label)}</span>
           ${o.extra ? `<span class="tag ghost">extra</span>` : ""}</div>
         <h3>${esc(o.name)}</h3>
-        <p><span class="lbl">Why it matters</span>${esc(o.why)}</p>
-        <p><span class="lbl">Tell-tale signal</span>${esc(o.signal)}</p>
-        ${ANSWERS ? `<p class="answers"><span class="lbl">Example facilities</span>${esc(o.answers)}</p>` : ""}
+        <p><span class="lbl">What &amp; why</span>${esc(o.why)}</p>
+        ${hintBlock}
+        ${answerBlock}
       </article>`;
     }
-    const key = o.id || o.name;
     const open = openObjCards.has(key);
     return `<article class="card card-flip${open ? " open" : ""}" style="--c:${cat.color}" data-objid="${esc(key)}">
       <button class="card-head" aria-expanded="${open}">
@@ -288,9 +313,9 @@
         </div>
       </button>
       <div class="card-body">
-        <p><span class="lbl">Why it matters</span>${esc(o.why)}</p>
-        <p><span class="lbl">Tell-tale signal</span>${esc(o.signal)}</p>
-        ${ANSWERS ? `<p class="answers"><span class="lbl">Example facilities</span>${esc(o.answers)}</p>` : ""}
+        <p><span class="lbl">What &amp; why</span>${esc(o.why)}</p>
+        ${hintBlock}
+        ${answerBlock}
       </div>
     </article>`;
   }
@@ -316,8 +341,7 @@
         ${barHTML("Mission time", esc(yrsSub), [[Math.max(t.tstart, T0), Math.min(t.tend ?? T1, T1)]], T0, T1,
                   [[T0, String(T0)], [NOW, String(NOW)], [T1, String(T1)]], true, t.future)}
         ${barHTML("Frequency / wavelength", esc(t.freq), t.spec.segs, ax.min, ax.max, ax.ticks, false, false)}
-        <p><span class="lbl">What you measure</span>${esc(t.product)}</p>
-        ${t.notes ? `<p><span class="lbl">Notes</span>${esc(t.notes)}</p>` : ""}
+        <p><span class="lbl">About</span>${esc(t.about)}</p>
         ${ANSWERS ? `<p class="answers"><span class="lbl">Key BH/NS use</span>${esc(t.use)}</p>` : ""}
         ${refsHTML(t.refs, t.link)}
       </div>
@@ -338,11 +362,11 @@
     let cards, html;
     if (deck === "objects"){
       cards = OBJECT_CARDS.filter(o => on.has(o.cat) &&
-        (!q || (o.id + o.name + o.why + o.signal).toLowerCase().includes(q)));
+        (!q || (o.id + o.name + o.why + o.signal + (o.techniques || "")).toLowerCase().includes(q)));
       html = cards.map(objectCard).join("");
     } else {
       cards = TELESCOPE_CARDS.filter(t => on.has(t.band) &&
-        (!q || (t.name + t.freq + t.product + (t.notes || "")).toLowerCase().includes(q)));
+        (!q || (t.name + t.freq + (t.about || "")).toLowerCase().includes(q)));
       html = cards.map(telescopeCard).join("");
     }
     grid.innerHTML = html || `<p>No cards match — clear the search or switch filters.</p>`;
@@ -371,6 +395,14 @@
   });
   // expand/collapse telescope or object cards (ignore clicks on links)
   grid.addEventListener("click", e => {
+    // "Show hint" toggle — independent of opening/closing the card
+    const hintBtn = e.target.closest(".hint-btn");
+    if (hintBtn) {
+      const card = hintBtn.closest(".card");
+      const key = card && card.dataset.objid;
+      if (key) { hintObjCards.has(key) ? hintObjCards.delete(key) : hintObjCards.add(key); render(); }
+      return;
+    }
     const head = e.target.closest(".card-head"); if (!head) return;
     const card = head.closest(".card-flip");
     if (card.dataset.name) {
