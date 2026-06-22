@@ -14,11 +14,11 @@
      signal    : "What to look for" — the observable phenomena/signatures
                  (e.g. kilonova, jet, optical/IR transient, RV wobble).
                  SOLUTION field — ONLY shown with ?answers=1 in the URL.
-     techniques: "Observations / techniques needed" — the technique(s) and the
-                 relevant waveband(s)/messenger (e.g. "Radial-velocity curves
-                 (optical/IR spectroscopy) → Optical/IR").
+     answers   : "How to detect it" — consolidated technique + facilities.
+                 Format: technique <waveband/messenger> — what phenomenon it
+                 detects (example observatories); semicolons separate methods.
+                 Only name facilities that exist as TELESCOPE cards below.
                  SOLUTION field — ONLY shown with ?answers=1 in the URL.
-     answers   : "Example facilities" — ONLY shown with ?answers=1 in the URL
      extra    : true => rendered as a bonus card (dashed outline)
      img      : (optional) path to an image shown when the card is clicked,
                 e.g. "bhns_card_images/phenomena/a1_massive_ob_stars.jpg"
@@ -65,33 +65,30 @@ const OBJECT_CATEGORIES = {
 
 const OBJECT_CARDS = [
   // ---------- A. Progenitors & precursors ----------
-  { id: "A1", cat: "A", name: "Massive OB stars & their multiplicity",
-    why: "Hot, massive O/B-type stars, very often in multiple systems. Every BH/NS began as one, so their binary fraction and orbital-parameter distributions set the initial conditions for everything that follows.",
-    signal: "Periodic Doppler shifts of spectral lines from orbital motion; astrometric wobble on the sky; eclipses in the light curve.",
-    techniques: "Radial-velocity curves (multi-epoch optical/UV spectroscopy); astrometric orbits; eclipse photometry. → Optical/UV.",
-    answers: "SDSS-V (BOSS 600k OBA stars), Gaia, VLT, 4MOST/WEAVE, TESS",
+  { id: "A1", cat: "A", name: "Massive OB stars in binaries",
+    why: "Hot, massive O/B-type stars, very often in multiple systems. BH/NS originate from massive binary stars, so understanding their progenitor populations is crucial. The binary fraction and orbital-parameter distributions set the initial conditions for everything that follows for gravitational wave astronomy.",
+    signal: "binaries can be detected from I) periodic Doppler shifts of spectral lines (from which orbital parameters can be measured); II) via astrometric wobble on the sky; III) from eclipses in the light curve.",
+    answers: "Radial-velocity curves <optical/UV> — Doppler orbital parameters of spectroscopic binaries (SDSS-V/BOSS [600k OBA stars], VLT, 4MOST); astrometric orbits <optical> — the on-sky wobble, masses & inclination (Gaia, which also gives RVs via RVS); eclipse photometry <optical> — eclipsing systems, pins inclination (TESS).",
     img: "bhns_card_images/phenomena/OB_star_binary.png", imgscale: 0.5, imgpos: "left center" },
 
   { id: "A2", cat: "A", name: "Stripped (helium) stars ",
-    why: "Hot, helium-rich cores left behind after a binary companion strips off the hydrogen envelope. Direct products of mass transfer and progenitors of stripped-envelope SNe — a key signpost of the binary route to compact objects (Götberg et al. 2018; Drout et al. 2023).",
+    why: "Hot, helium-rich cores left behind after a binary companion strips off the hydrogen envelope. Direct products of mass transfer and progenitors of stripped-envelope SNe — a key signpost of the binary route to compact objects (see e.g., Götberg et al. 2018; Drout et al. 2023).",
     signal: "A hot, blue UV excess hiding in the composite spectrum of an otherwise cooler-looking star.",
-    techniques: "UV photometry + optical spectroscopy to disentangle the hot component. → Ultraviolet + optical.",
-    answers: "UVEX, HST (UV spectroscopy), Swift-UVOT, GALEX (archival), SDSS-V/APOGEE", 
+    answers: "UV imaging/spectroscopy <UV> — reveals the hot stripped star hidden in the composite spectrum (UVEX, HST, Swift-UVOT, GALEX [archival]); optical/IR spectroscopy <optical/IR> — characterises the cooler companion and orbit (SDSS-V/APOGEE).", 
     img: "bhns_card_images/phenomena/stripped_star.png", imgscale: 0.6 },
 
   { id: "A3", cat: "A", name: "RSG/YSG/BSG supernova progenitors ",
-    why: "Evolved red/yellow/blue supergiants caught as the immediate progenitors of core-collapse SNe. Which masses appear — and the apparent lack of Type II-P progenitors above ~18–20 M☉ — maps which stars make NSs versus collapse quietly to BHs.",
-    signal: "A specific supergiant sitting exactly at the SN position in old images, that is gone afterwards.",
-    techniques: "Deep pre-explosion archival imaging + IR photometric monitoring of nearby galaxies; astrometric matching to the SN site. → Optical/IR.",
-    answers: "HST, JWST, Roman, Rubin (LSST), Spitzer (archival)",
+    why: "Evolved red/yellow/blue supergiants caught as the immediate progenitors of core-collapse SNe. Maps which (mass) stars make NSs versus collapse quietly to BHs. Note the Red Supergiant Problem: apparent lack of Type II-P progenitors above ~18–20 M☉ — .",
+    signal: "A specific supergiant sitting exactly at the SN position in old images, that is gone afterwards. ",
+    answers: "Deep archival imaging <optical/IR> — pinpoints the supergiant at the SN site, before vs after (HST, JWST, Roman); wide-field time-domain survey <optical> — discovers the SN to localise (Rubin).",
     img: "bhns_card_images/phenomena/RSG_YSG_BSG.png", imgscale: 0.75, imgpos: "center" },
 
-  { id: "A4", cat: "A", name: "Luminous red novae (common-envelope ejections)",
-    why: "Slow, red transients produced when a binary ejects a common envelope (or merges). The only direct observational window on common-envelope evolution — the key uncertainty in the channel that shrinks binaries toward compact-object mergers (Howitt et al. 2020).",
-    signal: "A red, often double-peaked optical/IR transient that fades slowly and reddens into a dusty remnant.",
-    techniques: "High-cadence optical/IR transient photometry + spectroscopic classification; IR follow-up for dust. → Optical/IR.",
-    answers: "Rubin (LSST), ZTF, Gaia alerts, ATLAS/ASAS-SN, Roman (extragalactic)", 
-    img: "bhns_card_images/phenomena/V838Mon.jpg", imgscale: 0.9, imgpos: "center" },
+  // { id: "A4", cat: "A", name: "Luminous red novae (common-envelope ejections)",
+  //   why: "Slow, red transients produced when a binary ejects a common envelope (or merges). The only direct observational window on common-envelope evolution: one of the key uncertainties in the formation channel shrinks binaries toward compact-object mergers (e.g., Howitt et al. 2020).",
+  //   signal: "A red, often double-peaked optical/IR transient that fades slowly and reddens into a dusty remnant.",
+  //   techniques: "High-cadence optical/IR transient photometry + spectroscopic classification; IR follow-up for dust. → Optical/IR.",
+  //   answers: "Rubin (LSST), ZTF, Gaia alerts, ATLAS/ASAS-SN, Roman (extragalactic)", 
+  //   img: "bhns_card_images/phenomena/V838Mon.jpg", imgscale: 0.9, imgpos: "center" },
 
   // { extra: true, id: "", cat: "A", name: "Pre-SN outbursts & LBV-like eruptions",
   //   why: "Episodic mass loss in the final years before collapse shapes circumstellar interaction (Type IIn) and remnant masses.",
@@ -100,40 +97,36 @@ const OBJECT_CARDS = [
 
   // ---------- B. Explosive endpoints ----------
   { id: "B1", cat: "B", name: "Hydrogen-rich (Type II) supernovae",
-    why: "Explosions of massive stars that kept their hydrogen envelope — the default massive-star death and the main NS-forming channel. Their rates and progenitor masses calibrate which stars explode (→ NS) versus collapse quietly (→ BH).",
+    why: "Explosions of massive stars that kept their hydrogen envelope: the most commonly observed massive-star death (and the main NS-forming channel?). Their rates and progenitor masses calibrate which stars explode (→NS?) versus collapse quietly (→ BH? ).",
     signal: "A hydrogen-rich transient: broad P-Cygni Balmer lines, often a ~100-day brightness plateau (II-P).",
-    techniques: "Optical time-domain photometry + spectroscopic classification. → Optical.",
     img : "bhns_card_images/phenomena/SN_typeII.png", imgscale: 0.8, imgpos: "center",
-    answers: "Rubin (LSST), ZTF, BlackGEM, 4MOST/SDSS-V spectroscopic follow-up" },
+    answers: "Time-domain photometry <optical> — finds the H-rich transient and its ~100-day plateau (Rubin, ZTF, BlackGEM); spectroscopic classification <optical> — broad Balmer P-Cygni lines confirm Type II (4MOST, SDSS-V)." },
 
   { id: "B2", cat: "B", name: "Stripped-envelope SNe (IIb/Ib/Ic)",
-    why: "Core-collapse SNe whose progenitors lost their hydrogen (and sometimes helium) layers, largely through binary stripping. They trace the binary route to NS/BH formation, and their high rate is a pillar of the 'missing stripped star' argument.",
-    signal: "Supernova spectra with weak/absent hydrogen (IIb/Ib) — or no helium either (Ic).",
-    techniques: "Optical photometry + spectroscopy using He/H line diagnostics. → Optical.",
+    why: "Core-collapse SNe whose progenitors lost their hydrogen (and sometimes helium) layers, largely through binary stripping, but possibly also through winds. They trace the binary route to NS/BH formation, and their initially unexpectedly high rate is a pillar of the 'missing stripped star' argument.",
+    signal: "Supernova spectra with weak/absent hydrogen (IIb/Ib), or no helium either (Ic).",
     img : "bhns_card_images/phenomena/SN_typeIb.png", imgscale: 0.8, imgpos: "center",
-    answers: "ZTF, Rubin (LSST), spectroscopic facilities (VLT, 4MOST)" },
+    answers: "Time-domain photometry <optical> — discovers the SN (ZTF, Rubin); optical spectroscopy <optical> — H/He line diagnostics sort IIb vs Ib vs Ic (VLT, 4MOST)." },
 
-{ id: "B3", cat: "B", name: "Long GRBs / collapsars (broad-lined Ic SNe)",
-    why: "A rapidly spinning, stripped massive star whose core collapses to a black hole and launches a relativistic jet — a real-time view of stellar-BH birth and the role of spin.",
-    signal: "A long (>2 s) gamma-ray burst from the jet, an underlying broad-lined (very high-velocity) Type Ic supernova, and a fading multi-wavelength afterglow.",
-    techniques: "Gamma-ray burst trigger + rapid afterglow follow-up (X-ray/optical/radio) and SN spectroscopy; TeV for nearby afterglows. → Gamma-ray → X-ray/optical/radio.",
+{ id: "B3", cat: "B", name: "Collapsars, Long GRBs /  (broad-lined Ic SNe)",
+    why: "A stripped, rapidly rotating massive star whose core collapses to a black hole. Because the core carries high angular momentum, infalling material forms an accretion disk that launches a relativistic jet: providing an EM-visible, real-time view of a stellar black hole being born, and a potential handle on progenitor spin. Chemically homogeneously evolving (CHE) stars are a leading candidate channel for delivering such a stripped, fast-spinning core at collapse.",
+    signal: "A long (>2 s) gamma-ray burst from the relativistic jet, or seen at a different angle/efficiency, a soft fast X-ray transient (a new class that the Einstein Probe is uncovering). The burst is accompanied by a broad-lined Type Ic (= very high-velocity) supernova, a bright early-time optical counterpart, and a fading (sometimes rebrightening) multi-wavelength afterglow (X-ray → optical → radio).",
     img : "bhns_card_images/phenomena/collapsar.png", imgscale: 1.5, imgpos: "center",
-    answers: "Fermi, Swift, CTAO (TeV afterglows), VLT/ELT, VLA" },
+    answers: "Prompt-jet trigger <gamma-ray / soft X-ray> — the relativistic jet itself (Fermi, Swift-BAT; Einstein Probe for the soft X-ray transients); afterglow follow-up <X-ray → optical → radio> — the fading external shock (Swift-XRT/UVOT, VLA); SN spectroscopy <optical> — confirms the broad-lined Type Ic (VLT/ELT); very-high-energy follow-up <TeV> — nearby afterglows (CTAO)." },
 
-  { id: "B4", cat: "B", name: "Superluminous SNe & (P)PISN candidates",
-    why: "Extremely luminous supernovae, some of them candidate (pulsational) pair-instability explosions. They probe the pair-instability regime that carves the upper BH 'mass gap' (~50–130 M☉).",
-    signal: "A very slow, very luminous light curve — sometimes with bumps from pulsations — favouring low-metallicity hosts.",
-    techniques: "Deep wide-field time-domain surveys + spectroscopy; high-redshift searches. → Optical/near-IR (high-z).",
-    img : "bhns_card_images/phenomena/SLSNe.png", imgscale: 0.8, imgpos: "center",
-    answers: "Rubin (LSST), Roman (high-z), Euclid, JWST spectroscopy" },
+  // { id: "B4", cat: "B", name: "Superluminous SNe & (P)PISN candidates",
+  //   why: "Extremely luminous supernovae, some of them candidate (pulsational) pair-instability explosions. They probe the pair-instability regime that carves the upper BH 'mass gap' (~50–130 M☉).",
+  //   signal: "A very slow, very luminous light curve — sometimes with bumps from pulsations — favouring low-metallicity hosts.",
+  //   techniques: "Deep wide-field time-domain surveys + spectroscopy; high-redshift searches. → Optical/near-IR (high-z).",
+  //   img : "bhns_card_images/phenomena/SLSNe.png", imgscale: 0.8, imgpos: "center",
+  //   answers: "Rubin (LSST), Roman (high-z), Euclid, JWST spectroscopy" },
     
 
-  { id: "B5", cat: "B", name: "Failed SNe / 'disappearing' massive stars",
+  { id: "B4", cat: "B", name: "Failed SNe / 'disappearing' massive stars",
     why: "Massive stars that simply vanish instead of exploding, collapsing directly to a black hole (e.g. N6946-BH1). The most direct evidence for silent BH formation, and what sets the explode-vs-collapse fraction.",
     signal: "A star present in earlier images that fades away — sometimes after a brief, faint optical/IR brightening.",
-    techniques: "Repeated deep imaging of nearby galaxies + difference imaging; IR especially. → Optical/IR.",
     img : "bhns_card_images/phenomena/FailedSN.png", imgscale: 0.8, imgpos: "center",
-    answers: "HST, JWST, Roman, Rubin (LSST)" },
+    answers: "Repeated deep imaging + difference imaging <optical/IR> — catches the star vanishing, sometimes after a faint IR brightening (HST, JWST, Roman, Rubin)." },
     // EXTRA
   // { extra: true, id: "", cat: "B", name: "Shock breakout & early shock-cooling emission",
   //   why: "First photons from a SN: progenitor radius and final mass-loss diagnostics, hours-timescale physics.",
@@ -152,16 +145,14 @@ const OBJECT_CARDS = [
   { id: "C1", cat: "C", name: "Isolated Neutron Star",
     why: "Single, magnetized, rotating neutron stars, seen mainly as radio pulsars (including recycled millisecond pulsars). Natural clocks whose spins, magnetic fields and timing encode NS birth, recycling history and post-SN kicks.",
     signal: "Highly regular, periodic radio pulses (ms–s period) from a steep-spectrum point source.",
-    techniques: "Beamformed radio searches + precision pulsar timing. → Radio.",
     img : "bhns_card_images/phenomena/single_NS.png", imgscale: 0.8, imgpos: "center",
-    answers: "SKA-Low/Mid, FAST, MeerKAT, CHIME, LOFAR, Parkes/GBT/Effelsberg" },
+    answers: "Radio pulsation searches + precision timing <radio> — periodic pulses encode spin, B-field and kinematics (SKA-Low/Mid, FAST, MeerKAT, CHIME, LOFAR)." },
 
     { id: "C2", cat: "C", name: "Isolated stellar-mass black holes",
       why: "Lone stellar-mass black holes with no companion to accrete from, so they emit essentially nothing — the 'silent majority' of the BH population. Gravitational microlensing is the only census we have (OGLE-2011-BLG-0462; Sahu/Lam 2022).",
       signal: "A slow, achromatic brightening of a background star as the BH drifts in front of it, plus a tiny shift of that star's apparent position.",
-      techniques: "Long-timescale photometric microlensing + precise astrometric deflection (the astrometry breaks the mass–distance degeneracy). → Optical/near-IR.",
       img : "bhns_card_images/phenomena/single_BH.png", imgscale: 0.8, imgpos: "center",
-      answers: "OGLE, Roman (Bulge Time Domain Survey: 100s–1000 expected), Gaia, HST, Rubin" },
+      answers: "Photometric microlensing <optical/near-IR> — a slow, achromatic brightening as the BH crosses a background star (OGLE, Rubin, Roman [Bulge survey: 100s–1000s expected]); astrometric microlensing <optical> — the tiny position shift breaks the mass–distance degeneracy (Gaia, HST, Roman)." },
 
   // { id: "C2", cat: "C", name: "Magnetars & fast radio bursts (FRBs)",
   //   why: "Extreme-B NSs; SGR 1935+2154 tied (some) FRBs to magnetars — NS tell-tales at cosmological distances.",
@@ -178,30 +169,26 @@ const OBJECT_CARDS = [
   { id: "D1", cat: "D", name: "Low-mass X-ray binaries",
     why: "A black hole or neutron star accreting from a low-mass companion via Roche-lobe overflow. The prime laboratory for BH spin and mass measurements, and the recycling channel that spins up millisecond pulsars.",
     signal: "Bright, often transient X-ray outbursts; relativistic radio jets; a faint companion showing orbital motion in quiescence.",
-    techniques: "X-ray monitoring + timing/spectroscopy of outbursts; radio for jets; quiescent-state optical RV spectroscopy for masses. → X-ray + radio + optical.",
     img : "bhns_card_images/phenomena/LMXRB.png", imgscale: 0.4, imgpos: "center",
-    answers: "Einstein Probe, MAXI, Swift, NICER, VLA/SKA (jets)" },
+    answers: "X-ray monitoring/timing <X-ray> — the bright, often transient accretion outbursts (Einstein Probe, Swift, NICER); radio interferometry <radio> — the relativistic jets (VLA, SKA); quiescent optical spectroscopy <optical> — companion RV gives the compact-object mass (VLT)." },
 
   { id: "D2", cat: "D", name: "High-mass X-ray binaries",
     why: "A compact object (NS or BH) accreting from a massive O/B donor's wind or disc. The immediate progenitors of double compact objects — the system 'caught in the act' between the two supernovae (Fortin et al. 2023).",
     signal: "Persistent or outbursting X-rays (often X-ray pulsations from a NS) alongside a bright, massive optical companion in orbit.",
-    techniques: "X-ray timing/spectroscopy + optical spectroscopy of the donor to pin orbital periods and masses. → X-ray + optical.",
     img : "/bhns_card_images/phenomena/HMXRB.png", imgscale: 0.6, imgpos: "center", 
-    answers: "Einstein Probe, Swift, NuSTAR, NICER, Chandra/XMM + VLT/SDSS-V for donors" },
+    answers: "X-ray timing/spectroscopy <X-ray> — accretion (often NS pulsations) from the donor's wind/disc (Einstein Probe, Swift, NuSTAR, NICER, Chandra, XMM-Newton); optical spectroscopy <optical> — the massive donor's orbit and mass (VLT, SDSS-V)." },
 
   { id: "D3", cat: "D", name: "Dormant (detached) BH/NS + star binaries",
     why: "Detached binaries where an ordinary star orbits an unseen, non-accreting black hole or neutron star. The quiet systems that should dominate by number and stress-test binary-evolution and natal-kick models (Gaia BH1–3, VFTS 243; El-Badry et al. 2023+).",
     signal: "A single visible star that wobbles — astrometrically and in velocity — around a massive invisible companion; sometimes ellipsoidal variability or self-lensing.",
-    techniques: "Astrometric orbits + single-lined RV curves (optical/IR spectroscopy); TESS/Rubin photometry for ellipsoidal/self-lensing. → Optical/IR (astrometry + spectroscopy).",
     img : "bhns_card_images/phenomena/Dormant_BH.png", imgscale: 0.6, imgpos: "center",
-    answers: "Gaia (astrometry), SDSS-V/4MOST/VLT (RVs), TESS & Rubin (ellipsoidal/self-lensing)" },
+    answers: "Astrometric orbits <optical> — the visible star wobbling around an unseen mass (Gaia); single-lined RV curves <optical/IR> — orbit & mass function of the dark companion (SDSS-V, 4MOST, VLT); time-domain photometry <optical> — ellipsoidal variation / self-lensing (TESS, Rubin)." },
 
     { id: "D4", cat: "D", name: "Pulsars in binaries",
     why: "A radio pulsar in orbit with another star, white dwarf or second neutron star. Double-neutron-star systems reveal compact-binary progenitors and enable precision tests of gravity, while recycled millisecond pulsars trace past mass transfer and include some of the most massive known NSs.",
     signal: "Periodic radio pulses whose arrival times are modulated by orbital motion (and by relativistic effects in the tightest systems).",
-    techniques: "Precision pulsar timing + optical observations of the companion. → Radio (+ optical).",
     img : "bhns_card_images/phenomena/pulsars_in_bin.png", imgscale: 0.8, imgpos: "center",
-    answers: "MeerKAT, SKA-Mid, FAST, GBT, Effelsberg, Parkes, Rubin, VLT, Fermi-LAT" },
+    answers: "Precision pulsar timing <radio> — orbital (and relativistic) modulation of the pulse arrival times (MeerKAT, SKA-Mid, FAST); companion follow-up <optical> — identifies and weighs the companion (Rubin, VLT); gamma-ray selection <gamma-ray> — finds millisecond pulsars (Fermi)." },
 
   // { id: "D4", cat: "D", name: "Spider pulsars (redbacks & black widows)",
   //   why: "Recycled ms pulsars ablating their companions; endpoint of LMXB evolution and hosts of the most massive NSs.",
@@ -221,31 +208,27 @@ const OBJECT_CARDS = [
   { id: "E1", cat: "E", name: "Merging stellar-mass binary black holes",
     why: "Two stellar-mass black holes spiralling together and merging. The population's mass and spin distributions, mass gaps and correlations are our sharpest diagnostics of how BHs form and pair up.",
     signal: "A rising-frequency gravitational-wave 'chirp' with (usually) no expected EM light — possibly an AGN-disc flare for the dynamical channel.",
-    techniques: "Ground-based GW interferometry (strain → masses, spins, distance); optical follow-up only for candidate AGN flares. → Gravitational waves.",
     img : "bhns_card_images/phenomena/BBH_merger.png", imgscale: 0.8, imgpos: "center",
-    answers: "LIGO–Virgo–KAGRA → ET/CE; ZTF/Rubin (AGN flare candidates)" },
+    answers: "Ground-based GW interferometry <gravitational waves> — the chirp gives masses, spins and distance (LIGO–Virgo–KAGRA; ET/CE next generation); wide-field optical follow-up <optical> — candidate AGN-disc flares for the dynamical channel only (ZTF, Rubin)." },
 
   { id: "E2", cat: "E", name: "Merging binary neutron star",
     why: "Two neutron stars spiralling together and merging. The multi-messenger showcase (GW170817): gravitational waves plus a kilonova, a short GRB and an afterglow, tying NS masses and the dense-matter EoS to r-process nucleosynthesis.",
     signal: "A GW chirp carrying tidal effects, a prompt short γ-ray burst, then a fast-fading blue→red kilonova and a multi-wavelength afterglow.",
-    techniques: "GW alert → wide-field optical/UV tiling to find the kilonova → spectroscopy → X-ray/radio afterglow monitoring; γ-ray catches the prompt sGRB. → GW + γ-ray + UV/optical/IR + X-ray + radio.",
     img : "bhns_card_images/phenomena/NSNS_merger.png", imgscale: 0.8, imgpos: "center",
-    answers: "LVK/ET/CE + Fermi/Swift + Rubin/BlackGEM/GOTO/ZTF + ULTRASAT/UVEX + JWST/ELT/VLT + VLA/SKA + Chandra" },
+    answers: "GW interferometry <gravitational waves> — the tidal-imprinted chirp: masses & EoS (LVK; ET/CE next gen); prompt γ-ray <gamma-ray> — the short GRB (Fermi, Swift); wide-field optical/UV tiling <UV/optical> — locates the kilonova (Rubin, BlackGEM, GOTO, ZTF, ULTRASAT, UVEX); spectroscopy <optical/IR> — kilonova r-process features (JWST, ELT, VLT); X-ray & radio monitoring <X-ray + radio> — the afterglow (Chandra, VLA, SKA)." },
 
   { id: "E3", cat: "E", name: "Merging black hole-neutron star",
     why: "A black hole merging with a neutron star. Like a NSNS merger, but the mass ratio and BH spin decide whether the NS is tidally shredded (producing EM light) or swallowed whole (GW-only) — a direct probe of the EoS.",
     signal: "A GW chirp; possibly a short GRB plus kilonova if the NS is disrupted, or no EM counterpart at all if it is swallowed whole.",
-    techniques: "Same chain as NSNS — GW alert → wide-field optical/UV tiling → spectroscopy → X-ray/radio; γ-ray for prompt emission. → GW + γ-ray + UV/optical/IR + X-ray + radio.",
     img : "bhns_card_images/phenomena/BHNS_merger.png", imgscale: 0.8, imgpos: "center",
-    answers: "LVK/ET/CE + Fermi/Swift + Rubin/BlackGEM/GOTO/ZTF + ULTRASAT/UVEX + JWST/ELT/VLT + VLA/SKA + Chandra" },
+    answers: "GW interferometry <gravitational waves> — the chirp; mass ratio & BH spin decide whether there is any EM light (LVK; ET/CE next gen); prompt γ-ray <gamma-ray> — short GRB if the NS is disrupted (Fermi, Swift); wide-field optical/UV tiling <UV/optical> — searches for a kilonova (Rubin, BlackGEM, GOTO, ZTF, ULTRASAT, UVEX); spectroscopy <optical/IR> — kilonova features if present (JWST, ELT, VLT); X-ray & radio <X-ray + radio> — the afterglow (Chandra, VLA, SKA)." },
 
 
   { id: "E4", cat: "E", name: "Extreme mass ratio inspiral",
     why: "A stellar-mass compact object (or star) slowly spiralling into a supermassive black hole. Its intricate orbit maps the spacetime around the SMBH with extreme precision and extends the BH mass ladder to the supermassive regime.",
     signal: "A long-lived, complex mHz gravitational-wave signal with many harmonics tracing the relativistic orbit.",
-    techniques: "Space-based mHz GW interferometry (LISA); VLBI imaging gives the SMBH context. → Gravitational waves (mHz).",
     img : "bhns_card_images/phenomena/EMRI.png", imgscale: 0.8, imgpos: "center",
-    answers: "PTAs (NANOGrav/EPTA/PPTA/MPTA), LISA, EHT/ngEHT" },
+    answers: "Space-based GW interferometry <mHz gravitational waves> — the long, many-harmonic inspiral itself (LISA); VLBI imaging <radio> — images the host SMBH for context, not the EMRI (EHT/ngEHT)." },
 
     // { id: "E5", cat: "E", name: "Intermediate-mass BH binaries",
     // why: "From about 1000Msun - 10^{5}Msun ",
@@ -255,9 +238,8 @@ const OBJECT_CARDS = [
       { id: "E5", cat: "E", name: "Supermassive BH binaries",
     why: "Two supermassive black holes orbiting after their host galaxies merged. They sit at the top of the BH mass ladder and link galaxy assembly to BH growth.",
     signal: "A nHz gravitational-wave background imprinted on pulsar arrival times; individual mHz mergers for lighter/closer systems; sometimes a dual AGN imaged directly.",
-    techniques: "Pulsar timing arrays (nHz background) + space GW (mHz); VLBI/optical imaging for dual AGN. → Gravitational waves (nHz–mHz) + radio/optical imaging.",
     img : "bhns_card_images/phenomena/SMBH_merger.png", imgscale: 0.8, imgpos: "center",
-    answers: "PTAs (NANOGrav/EPTA/PPTA/MPTA), LISA, EHT/ngEHT" }, 
+    answers: "Pulsar timing arrays <nHz gravitational waves> — the stochastic background from the cosmic SMBH-binary population (PTAs: NANOGrav/EPTA/PPTA/MPTA); space-based GW <mHz gravitational waves> — individual lighter/closer mergers (LISA); VLBI/optical imaging <radio/optical> — resolves dual AGN directly (EHT/ngEHT)." }, 
     // EXTRA
   // { extra: true, id: "", cat: "E", name: "r-process fossil record",
   //   why: "Abundances in metal-poor halo stars & dwarf galaxies record the integrated history of NS mergers — 'GW astronomy with stellar spectra'.",

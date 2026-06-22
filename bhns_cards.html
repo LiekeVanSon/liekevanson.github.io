@@ -167,8 +167,8 @@
   <!-- <br>Matching Astronomical Phenomena to Observatories -->
   <p class="intro">Two decks: the <strong>tell-tale phenomena</strong> that reveal compact objects, and the
      <strong>observatories</strong> we hunt them with. Your task: figure out which instruments can catch your phenomena — and how.</p>
-  <p class="howto" id="howto"><strong>In class:</strong> each group gets two object cards (e.g. “A1 &amp; D3”).
-     You have ~20 minutes: What is the signal? Which observatories could detect it, and what would they measure?
+  <p class="howto" id="howto"><strong>In class:</strong> each group gets one to two object cards (e.g. “A1 &amp; D3”).
+     You have ~10 minutes: What is the signal? Which observatories could detect it, and what would they measure?
      Stuck on the signal? Hit <strong>Show hint</strong> on the card. Click an observatory card to see its specs. Then teach it to the rest of us. Finished early? Grab an <em>extra</em> card.</p>
 </div>
 
@@ -280,10 +280,9 @@
             <span aria-hidden="true">\u{1F4A1}</span> ${hintShown ? "Hide hint" : "Show hint"}</button>` : ""}
         ${hintShown ? `<p class="hint"><span class="lbl">What to look for</span>${esc(o.signal)}</p>` : ""}`;
 
-    // Answer key (?answers=1): techniques + example facilities
+    // Answer key (?answers=1): consolidated technique + facilities
     const answerBlock = ANSWERS ? `<div class="answers">
-          ${o.techniques ? `<p><span class="lbl">Observations / techniques needed</span>${esc(o.techniques)}</p>` : ""}
-          <p><span class="lbl">Example facilities</span>${esc(o.answers)}</p>
+          <p><span class="lbl">How to detect it</span>${esc(o.answers)}</p>
         </div>` : "";
 
     if (!o.img) {
@@ -362,7 +361,7 @@
     let cards, html;
     if (deck === "objects"){
       cards = OBJECT_CARDS.filter(o => on.has(o.cat) &&
-        (!q || (o.id + o.name + o.why + o.signal + (o.techniques || "")).toLowerCase().includes(q)));
+        (!q || (o.id + o.name + o.why + o.signal + (o.answers || "")).toLowerCase().includes(q)));
       html = cards.map(objectCard).join("");
     } else {
       cards = TELESCOPE_CARDS.filter(t => on.has(t.band) &&
@@ -371,7 +370,7 @@
     }
     grid.innerHTML = html || `<p>No cards match — clear the search or switch filters.</p>`;
     countEl.textContent = `${cards.length} card${cards.length === 1 ? "" : "s"}` +
-      (ANSWERS ? " · answer key visible" : "");
+      (ANSWERS ? " · answer key — format: technique <waveband/messenger> \u2014 what it detects (example observatories)" : "");
     expandBtn.classList.toggle("hidden", deck !== "telescopes");
   }
 
