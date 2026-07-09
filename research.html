@@ -24,6 +24,24 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
 		  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+		  <script>
+		    // Enable $...$ inline math so the SMT mass-ratio widget's slider labels render.
+		    window.MathJax = {
+		      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] }
+		    };
+		  </script>
+		  <style>
+		    /* Stop the Massively template's uppercase / letter-spacing / bold <label>
+		       styles from bleeding into the SMT widget's MathJax labels. */
+		    .smt-widget label,
+		    .smt-widget label span,
+		    .smt-widget mjx-container {
+		      text-transform: none;
+		      letter-spacing: normal;
+		      font-weight: normal;
+		      line-height: normal;
+		    }
+		  </style>
   		<script id="MathJax-script" async
           	src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
  		 </script>
@@ -42,7 +60,7 @@
 					<nav id="nav">
 						<ul class="links">
 							<li><a href="index.html">About/Contact</a></li>
-							<li class="active has-dropdown"><a href="research.html">Research group &#9662;</a><ul class="dropdown-menu"><li><a href="https://binary-observations.github.io/post_mt_catalog/">Post Mass Transfer Catalog</a></li></ul></li>
+							<li class="active has-dropdown"><a href="research.html">Research &#9662;</a><ul class="dropdown-menu"><li><a href="https://binary-observations.github.io/post_mt_catalog/">Post Mass Transfer Catalog</a></li></ul></li>
 							<li><a href="talks.html">Talks</a></li>
 							<li class="has-dropdown"><a href="teaching.html">Teaching &#9662;</a><ul class="dropdown-menu"><li><a href="https://liekevanson.github.io/bhns_cards.html">Hunting for Black Holes &amp; Neutron Stars</a></li><li><a href="https://liekevanson.github.io/IAUhackathon/home.html">IAU MESA Hackathon 2024</a></li></ul></li>
 							<li><a href="outreach.html">Outreach</a></li>
@@ -114,7 +132,37 @@
 						Example Research projects
 						</h2>
 
+					<!-- SMT Mass-Ratio model + interactive widget -->
+							<h3>
+								<a href="https://ui.adsabs.harvard.edu/abs/2026arXiv260523083G/abstract" class="">A Strongly Parametrized Mass Ratio Model for the Stable Mass Transfer Channel</a>
+							</h3>
+							The stable mass transfer channel leaves characteristic imprints on the <i>mass ratio</i> distribution of the BBH population.
+							We built a simple, strongly parametrized model that maps the dominant uncertainties of the stable mass transfer channel onto a toy mass-ratio distribution of merging binary black holes.
+							This causes 2 components in the q distribution; a non-reversed and a 'mass ratio reversed' part!
+							Different parameters affect these 2 sub-populations, and we show how this model can be used to infer the contribution of MRR in the observed BBH population using the GWTC-4 catalog.
+							<br> 
+
+							<div id="smt-widget" style="clear: both; margin-top: 1.5em;"></div>
+							<script src="assets/js/smt-widget.js"></script>
+							<script>SMTWidget.init("smt-widget", { light: true });</script>
+
+							Credit for widget: Ben Farr <a href="https://github.com/FarrOutLab/SMT-Mass-Ratio">(Git source code)</a>, and builds on <a href="https://ui.adsabs.harvard.edu/abs/2022ApJ...940..184V/abstract">van Son et al. (2022)</a>.
+
+					</section>
+
+					<!-- Post Mass-Transfer Catalog
+					<section>
+							<h3>
+								<a href="https://ui.adsabs.harvard.edu/abs/2026arXiv260531290V/abstract" class="">Ongoing and Post-Mass-Transfer Binaries</a>
+							</h3>
+							Mass transfer interaction reshapes both stars and is a crucial step in forming the merging black holes and neutron stars that we detect through gravitational waves, yet the systems that trace it are studied by many separate communities that rarely compare notes.
+							We compile together 5,452 observed binaries into a single, unified picture, spanning 16 classes of mass-transfer products across the full range of stellar masses.
+							Comparing them side by side reveals shared patterns, such as non-zero orbital eccentricities at all periods, with neutron-star and black-hole binaries standing out at the highest eccentricities (a fingerprint of supernova kicks), and exposes where our current models still disagree with the observations.
+							The catalog is public and continuously updated: explore it in the <a href="https://binary-observations.github.io/post_mt_catalog/">Post Mass Transfer Catalog</a>.
+					</section> -->
+
 					<!-- Low mass BHs-->
+					<section>
 							<h3>
 								<a href="https://ui.adsabs.harvard.edu/abs/2022ApJ...940..184V/abstract" class="">No peaks without valleys: the global peak of the black hole mass distribution.</a>
 							</h3>
